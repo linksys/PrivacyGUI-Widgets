@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
-import 'package:linksys_widgets/theme/custom/avatars.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/theme/custom/avatars.dart';
 
 class CustomThemeData extends Equatable {
   const CustomThemeData({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/icons/linksys_icons.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
-import 'package:linksys_widgets/widgets/base/gap.dart';
-import 'package:linksys_widgets/widgets/text/app_text.dart';
+import 'package:privacygui_widgets/icons/linksys_icons.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/widgets/base/gap.dart';
+import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppValidatorWidget extends StatelessWidget {
   final List<Validation> validations;

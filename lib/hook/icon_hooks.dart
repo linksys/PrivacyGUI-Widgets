@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-
-import 'package:linksys_widgets/utils/named.dart';
+import 'package:privacygui_widgets/utils/named.dart';
 
 //
 

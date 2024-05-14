@@ -25,9 +25,9 @@ void main(List<String> args) {
   print('Processing DIR: ${dir.path}');
   String importString = '''import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/utils/named.dart';
+import 'package:privacygui_widgets/utils/named.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:linksys_widgets/utils/svg.dart';
+import 'package:privacygui_widgets/utils/svg.dart';
 ''';
 
   String imageDartFilename = basename(dir.path);
@@ -182,21 +182,21 @@ import 'package:linksys_widgets/utils/svg.dart';
         ? ''
         : ', filter: const ${jsonEncode(lightVarient)}';
     darkPart +=
-        '$name: exactAssetPicture(\'$filePath/$fileName\', package: \'linksys_widgets\'$darkFilter),\n';
+        '$name: exactAssetPicture(\'$filePath/$fileName\', package: \'privacygui_widgets\'$darkFilter),\n';
     lightPart +=
-        '$name: exactAssetPicture(\'$filePath/$fileName\', package: \'linksys_widgets\'$lightFilter),\n';
+        '$name: exactAssetPicture(\'$filePath/$fileName\', package: \'privacygui_widgets\'$lightFilter),\n';
   } else if (varientMethod == 'file') {
     String? darkVarient = varientRule?['dark'] as String?;
     String? lightVarient = varientRule?['light'] as String?;
     darkPart +=
-        '$name: exactAssetPicture(\'$filePath/${darkVarient ?? fileName}\', package: \'linksys_widgets\'),\n';
+        '$name: exactAssetPicture(\'$filePath/${darkVarient ?? fileName}\', package: \'privacygui_widgets\'),\n';
     lightPart +=
-        '$name: exactAssetPicture(\'$filePath/${lightVarient ?? fileName}\', package: \'linksys_widgets\'),\n';
+        '$name: exactAssetPicture(\'$filePath/${lightVarient ?? fileName}\', package: \'privacygui_widgets\'),\n';
   } else {
     darkPart +=
-        '$name: exactAssetPicture(\'$filePath/$fileName\', package: \'linksys_widgets\'),\n';
+        '$name: exactAssetPicture(\'$filePath/$fileName\', package: \'privacygui_widgets\'),\n';
     lightPart +=
-        '$name: exactAssetPicture(\'$filePath/$fileName\', package: \'linksys_widgets\'),\n';
+        '$name: exactAssetPicture(\'$filePath/$fileName\', package: \'privacygui_widgets\'),\n';
   }
   return (darkPart, lightPart);
 }
@@ -218,14 +218,14 @@ import 'package:linksys_widgets/utils/svg.dart';
   }
   if (varientMethod == 'file') {
     darkPart +=
-        '$name: const AssetImage(\'$filePath/${darkVarient ?? fileName}\', package: \'linksys_widgets\'),\n';
+        '$name: const AssetImage(\'$filePath/${darkVarient ?? fileName}\', package: \'privacygui_widgets\'),\n';
     lightPart +=
-        '$name: const AssetImage(\'$filePath/${lightVarient ?? fileName}\', package: \'linksys_widgets\'),\n';
+        '$name: const AssetImage(\'$filePath/${lightVarient ?? fileName}\', package: \'privacygui_widgets\'),\n';
   } else {
     darkPart +=
-        '$name: const AssetImage(\'$filePath/$fileName\', package: \'linksys_widgets\'),\n';
+        '$name: const AssetImage(\'$filePath/$fileName\', package: \'privacygui_widgets\'),\n';
     lightPart +=
-        '$name: const AssetImage(\'$filePath/$fileName\', package: \'linksys_widgets\'),\n';
+        '$name: const AssetImage(\'$filePath/$fileName\', package: \'privacygui_widgets\'),\n';
   }
   return (darkPart, lightPart);
 }

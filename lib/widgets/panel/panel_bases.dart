@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/icons/linksys_icons.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
-import 'package:linksys_widgets/theme/const/spacing.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/icons/linksys_icons.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:tap_builder/tap_builder.dart';
 
 part 'panel_with_simple_title.dart';
@@ -154,7 +154,7 @@ class AppPanelLayout extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.only(left: Spacing.semiSmall),
                   child: Icon(
-                     LinksysIcons.chevronRight,
+                    LinksysIcons.chevronRight,
                   ),
                 ),
             ],

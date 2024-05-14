@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
-import 'package:linksys_widgets/utils/lottie.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/utils/lottie.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:lottie/lottie.dart';
 
 class AppFullScreenSpinner extends StatelessWidget {
@@ -11,7 +11,7 @@ class AppFullScreenSpinner extends StatelessWidget {
   final Color? background;
   final Color? color;
   final bool wrap;
-  
+
   const AppFullScreenSpinner({
     Key? key,
     this.title,
@@ -38,7 +38,7 @@ class AppFullScreenSpinner extends StatelessWidget {
               child: Lottie.asset(
                 'assets/lottie/loading.lottie',
                 decoder: customDecoder,
-                package: 'linksys_widgets',
+                package: 'privacygui_widgets',
                 width: 240,
                 height: 240,
                 fit: BoxFit.contain,

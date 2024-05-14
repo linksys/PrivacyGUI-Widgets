@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/theme/material/color_schemes_ext.dart';
-import 'package:linksys_widgets/theme/material/color_tonal_palettes.dart';
+import 'package:privacygui_widgets/theme/material/color_schemes_ext.dart';
+import 'package:privacygui_widgets/theme/material/color_tonal_palettes.dart';
 
 final lightColorScheme = ColorScheme(
   brightness: Brightness.light,

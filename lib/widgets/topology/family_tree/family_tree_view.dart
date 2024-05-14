@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphview/GraphView.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
-import 'package:linksys_widgets/widgets/container/responsive_layout.dart';
-import 'package:linksys_widgets/widgets/topology/family_tree/custom_buchheim_walker_algorithm.dart';
-import 'package:linksys_widgets/widgets/topology/family_tree/custom_edge_rendener.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
+import 'package:privacygui_widgets/widgets/topology/family_tree/custom_buchheim_walker_algorithm.dart';
+import 'package:privacygui_widgets/widgets/topology/family_tree/custom_edge_rendener.dart';
 
 import '../tree_node.dart';
 

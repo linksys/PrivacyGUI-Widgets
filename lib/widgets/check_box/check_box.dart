@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/widgets/base/gap.dart';
-import 'package:linksys_widgets/widgets/text/app_text.dart';
+import 'package:privacygui_widgets/widgets/base/gap.dart';
+import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppCheckbox extends StatelessWidget {
   const AppCheckbox({

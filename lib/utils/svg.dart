@@ -5,7 +5,7 @@ SvgAssetLoader exactAssetPicture(String assetPath,
     {Map<String, String>? filter, String? package}) {
   final loader = SvgAssetLoader(
     assetPath,
-    packageName: package ?? 'linksys_widgets',
+    packageName: package ?? 'privacygui_widgets',
     colorMapper: MyColorMap(replacemantMap: filter ?? {}),
   );
   return loader;

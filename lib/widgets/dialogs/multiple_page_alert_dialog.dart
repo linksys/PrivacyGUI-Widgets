@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 class MultipleAlertDialogPage {
   final String title;

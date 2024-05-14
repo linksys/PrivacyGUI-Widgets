@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:tap_builder/tap_builder.dart';
 
 class AppMenuItem extends Equatable {

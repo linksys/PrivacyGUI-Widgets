@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:linksys_widgets/widgets/input_field/ipv6_form_field.dart';
+import 'package:privacygui_widgets/widgets/input_field/ipv6_form_field.dart';
 
 import '../../util.dart';
 

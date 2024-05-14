@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/icons/linksys_icons.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
-import 'package:linksys_widgets/widgets/input_field/validator_widget.dart';
+import 'package:privacygui_widgets/icons/linksys_icons.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/input_field/validator_widget.dart';
 
 class AppPasswordField extends StatefulWidget {
   final String? headerText;

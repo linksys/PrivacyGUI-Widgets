@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 class AppSwitchTriggerTile extends StatefulWidget {
   final Widget title;

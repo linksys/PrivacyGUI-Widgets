@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
-import 'package:linksys_widgets/widgets/page/layout/nested_scroll_layout.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/page/layout/nested_scroll_layout.dart';
 
 class AppProfileHeaderLayout extends StatefulWidget {
   final String? collaspeTitle;

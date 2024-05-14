@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/theme/custom_responsive.dart';
+import 'package:privacygui_widgets/theme/custom_responsive.dart';
 
 import 'theme/theme.dart';
 

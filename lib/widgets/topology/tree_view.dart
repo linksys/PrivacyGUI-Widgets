@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/widgets/topology/tree_item.dart';
+import 'package:privacygui_widgets/widgets/topology/tree_item.dart';
 import 'package:two_dimensional_scrollables/two_dimensional_scrollables.dart';
 
 import 'tree_node.dart';
