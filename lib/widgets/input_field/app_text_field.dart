@@ -105,7 +105,7 @@ class AppTextField extends StatefulWidget {
         border: border,
         inputFormatters: [
           // allow only digits
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9a-f]')),
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
           // custom class to format entered data from textField
           MacAddressFormatter(),
           // restrict user to enter max 16 characters
