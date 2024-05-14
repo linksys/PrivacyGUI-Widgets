@@ -31,14 +31,21 @@ class IPv6OctetsFormatter extends TextInputFormatter {
 }
 
 class IPOctetsFormatter extends TextInputFormatter {
+  final bool acceptEmpty;
+
+  IPOctetsFormatter({
+    this.acceptEmpty = true,
+  });
+
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.selection.baseOffset == 0) {
-      return const TextEditingValue(
-          text: '0', // final generated credit card number
+      final initValue = acceptEmpty ? '' : '0';
+      return TextEditingValue(
+          text: initValue, // final generated credit card number
           selection: TextSelection.collapsed(
-              offset: '0'.length) // keep the cursor at end
+              offset: initValue.length) // keep the cursor at end
           );
     }
     String enteredData = newValue.text; // get data enter by used in textField

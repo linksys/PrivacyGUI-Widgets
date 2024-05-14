@@ -17,6 +17,7 @@ class AppIPFormField extends StatefulWidget {
     this.octet2ReadOnly = false,
     this.octet3ReadOnly = false,
     this.octet4ReadOnly = false,
+    this.acceptEmpty = true,
   });
 
   final TextEditingController? controller;
@@ -29,6 +30,7 @@ class AppIPFormField extends StatefulWidget {
   final bool octet2ReadOnly;
   final bool octet3ReadOnly;
   final bool octet4ReadOnly;
+  final bool acceptEmpty;
 
   @override
   State<AppIPFormField> createState() => _AppIPFormFieldState();
@@ -49,10 +51,10 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
   void initState() {
     super.initState();
 
-    _octet1Controller.text = '0';
-    _octet2Controller.text = '0';
-    _octet3Controller.text = '0';
-    _octet4Controller.text = '0';
+    _octet1Controller.text = '';
+    _octet2Controller.text = '';
+    _octet3Controller.text = '';
+    _octet4Controller.text = '';
 
     widget.controller?.addListener(_onTextChanged);
     _octet1Focus.addListener(_onFocusChange);
@@ -208,7 +210,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
             // allow only  digits
-            IPOctetsFormatter(),
+            IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
             // custom class to format entered data from textField
             LengthLimitingTextInputFormatter(3)
             // restrict user to enter max 16 characters
