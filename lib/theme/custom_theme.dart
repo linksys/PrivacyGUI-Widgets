@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
 
 class CustomTheme extends InheritedWidget {
   const CustomTheme({

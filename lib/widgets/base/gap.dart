@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
-import 'package:linksys_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/theme/const/spacing.dart';
 
 enum AppGapSize {
   none,
@@ -38,31 +38,37 @@ class AppGap extends StatelessWidget {
     this.size, {
     Key? key,
   }) : super(key: key);
+
   /// 4
   const AppGap.small({
     Key? key,
   })  : size = AppGapSize.small,
         super(key: key);
+
   /// 8
   const AppGap.semiSmall({
     Key? key,
   })  : size = AppGapSize.semiSmall,
         super(key: key);
+
   /// 16
   const AppGap.regular({
     Key? key,
   })  : size = AppGapSize.regular,
         super(key: key);
+
   /// 24
   const AppGap.semiBig({
     Key? key,
   })  : size = AppGapSize.semiBig,
         super(key: key);
+
   /// 32
   const AppGap.big({
     Key? key,
   })  : size = AppGapSize.big,
         super(key: key);
+
   /// 48
   const AppGap.extraBig({
     Key? key,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:linksys_widgets/widgets/input_field/input_formatters.dart';
-import 'package:linksys_widgets/widgets/input_field/text_input_field.dart';
+import 'package:privacygui_widgets/widgets/input_field/input_formatters.dart';
+import 'package:privacygui_widgets/widgets/input_field/text_input_field.dart';
 
 class AppTextField extends StatefulWidget {
   const AppTextField({

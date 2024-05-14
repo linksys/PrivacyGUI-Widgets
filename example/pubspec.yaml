@@ -39,7 +39,7 @@ dependencies:
   storybook_flutter: ^0.14.0
   flutter_svg: ^2.0.10
   material_symbols_icons: ^4.2719.1
-  linksys_widgets:
+  privacygui_widgets:
     path: ../
 
 dev_dependencies:

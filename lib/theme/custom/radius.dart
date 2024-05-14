@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/rendering.dart';
-import 'package:linksys_widgets/utils/named.dart';
+import 'package:privacygui_widgets/utils/named.dart';
 
 class AppRadiusData extends Equatable {
   const AppRadiusData({

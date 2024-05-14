@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/theme/material/text_scheme_ext.dart';
+import 'package:privacygui_widgets/theme/material/text_scheme_ext.dart';
 
 const linksysTextTheme = TextTheme(
   displayLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w400,
     fontSize: 57,
     decoration: TextDecoration.none,
@@ -13,7 +13,7 @@ const linksysTextTheme = TextTheme(
   ),
   displayMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w400,
     fontSize: 45,
     decoration: TextDecoration.none,
@@ -22,7 +22,7 @@ const linksysTextTheme = TextTheme(
   ),
   displaySmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgetsetsetsetsetsetsetsets',
     fontWeight: FontWeight.w400,
     fontSize: 36,
     decoration: TextDecoration.none,
@@ -31,7 +31,7 @@ const linksysTextTheme = TextTheme(
   ),
   headlineLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 32,
     decoration: TextDecoration.none,
@@ -40,7 +40,7 @@ const linksysTextTheme = TextTheme(
   ),
   headlineMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 28,
     decoration: TextDecoration.none,
@@ -49,7 +49,7 @@ const linksysTextTheme = TextTheme(
   ),
   headlineSmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 24,
     decoration: TextDecoration.none,
@@ -58,7 +58,7 @@ const linksysTextTheme = TextTheme(
   ),
   titleLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgetsets',
     fontWeight: FontWeight.w700,
     fontSize: 22,
     decoration: TextDecoration.none,
@@ -67,7 +67,7 @@ const linksysTextTheme = TextTheme(
   ),
   titleMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 16,
     decoration: TextDecoration.none,
@@ -76,7 +76,7 @@ const linksysTextTheme = TextTheme(
   ),
   titleSmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 14,
     decoration: TextDecoration.none,
@@ -85,7 +85,7 @@ const linksysTextTheme = TextTheme(
   ),
   labelLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 14,
     decoration: TextDecoration.none,
@@ -94,7 +94,7 @@ const linksysTextTheme = TextTheme(
   ),
   labelMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 12,
     decoration: TextDecoration.none,
@@ -103,7 +103,7 @@ const linksysTextTheme = TextTheme(
   ),
   labelSmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 11,
     decoration: TextDecoration.none,
@@ -112,7 +112,7 @@ const linksysTextTheme = TextTheme(
   ),
   bodyLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w400,
     fontSize: 16,
     decoration: TextDecoration.none,
@@ -121,7 +121,7 @@ const linksysTextTheme = TextTheme(
   ),
   bodyMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgetsets',
     fontWeight: FontWeight.w400,
     fontSize: 14,
     decoration: TextDecoration.none,
@@ -130,7 +130,7 @@ const linksysTextTheme = TextTheme(
   ),
   bodySmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w400,
     fontSize: 12,
     decoration: TextDecoration.none,
@@ -139,14 +139,15 @@ const linksysTextTheme = TextTheme(
   ),
 );
 
-const textSchemeExt = TextSchemeExt(bodyExtraSmall: TextStyle(
+const textSchemeExt = TextSchemeExt(
+    bodyExtraSmall: TextStyle(
   fontFamily: 'NeueHaasGrotTextRound',
-    package: 'linksys_widgets',
-    fontWeight: FontWeight.w400,
-    fontSize: 10,
-    decoration: TextDecoration.none,
-    height: 14 / 10,
-    letterSpacing: 0,
+  package: 'privacygui_widgets',
+  fontWeight: FontWeight.w400,
+  fontSize: 10,
+  decoration: TextDecoration.none,
+  height: 14 / 10,
+  letterSpacing: 0,
 ));
 
 extension TextThemeUtil on TextTheme {

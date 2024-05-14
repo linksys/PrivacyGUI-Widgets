@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gap/gap.dart';
-import 'package:linksys_widgets/widgets/check_box/check_box.dart';
+import 'package:privacygui_widgets/widgets/check_box/check_box.dart';
 
 import '../../util.dart';
 

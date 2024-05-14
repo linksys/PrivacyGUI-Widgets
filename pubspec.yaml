@@ -1,4 +1,4 @@
-name: linksys_widgets
+name: privacygui_widgets
 description: A new Flutter package project.
 version: 0.0.1
 
@@ -71,10 +71,10 @@ flutter:
   fonts:
     - family: NeueHaasGrotTextRound
       fonts:
-        - asset: packages/linksys_widgets/fonts/NeueHaasGrotTextRound-55Roman.otf
+        - asset: packages/privacygui_widgets/fonts/NeueHaasGrotTextRound-55Roman.otf
           weight: 400
-        - asset: packages/linksys_widgets/fonts/NeueHaasGrotTextRound-75Bold.otf
+        - asset: packages/privacygui_widgets/fonts/NeueHaasGrotTextRound-75Bold.otf
           weight: 700
     - family: LinksysIcons
       fonts:
-        - asset: packages/linksys_widgets/fonts/LinksysIcons.otf
+        - asset: packages/privacygui_widgets/fonts/LinksysIcons.otf

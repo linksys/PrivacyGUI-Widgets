@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
 
 enum AppAvatarSizes {
   extraSmall,

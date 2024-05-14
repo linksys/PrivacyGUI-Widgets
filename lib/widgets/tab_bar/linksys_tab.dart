@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/widgets/text/app_text.dart';
+import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppTab extends StatelessWidget {
   final String? title;

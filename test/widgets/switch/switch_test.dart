@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 import '../../util.dart';
 
@@ -28,7 +28,6 @@ void main() {
       await tester.tap(switchWidget);
       // Verify state change
       expect(switchValue, true);
-
     });
     testWidgets('Uses default checked icon', (tester) async {
       const customIcon = Icon(Icons.check);

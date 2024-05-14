@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:linksys_widgets/widgets/radios/radio_list.dart';
+import 'package:privacygui_widgets/widgets/radios/radio_list.dart';
 
 import '../../util.dart';
 
@@ -79,6 +79,5 @@ void main() {
       expect(selectedIndex, 1);
       expect(selectedValue, 2);
     });
-
   });
 }

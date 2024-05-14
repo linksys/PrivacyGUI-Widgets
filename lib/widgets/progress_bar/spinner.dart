@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
-import 'package:linksys_widgets/utils/lottie.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/utils/lottie.dart';
 import 'package:lottie/lottie.dart';
 
 class AppSpinner extends StatelessWidget {
@@ -26,7 +26,7 @@ class AppSpinner extends StatelessWidget {
           child: Lottie.asset(
             'assets/lottie/loading.lottie',
             decoder: customDecoder,
-            package: 'linksys_widgets',
+            package: 'privacygui_widgets',
             fit: BoxFit.contain,
           ),
         ),

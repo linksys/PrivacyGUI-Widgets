@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:linksys_widgets/widgets/bullet_list/bullet_style.dart';
-import 'package:linksys_widgets/widgets/text/app_text.dart';
+import 'package:privacygui_widgets/widgets/bullet_list/bullet_style.dart';
+import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppBulletList extends StatelessWidget {
   final List<Widget> children;

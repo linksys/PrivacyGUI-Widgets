@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:linksys_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
 
 enum CustomColorMode {
   light,

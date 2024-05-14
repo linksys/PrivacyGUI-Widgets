@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:linksys_widgets/utils/named.dart';
+import 'package:privacygui_widgets/utils/named.dart';
 
 class AppDurationsData extends Equatable {
   const AppDurationsData({
@@ -9,10 +9,10 @@ class AppDurationsData extends Equatable {
   });
 
   factory AppDurationsData.regular() => const AppDurationsData(
-    areAnimationEnabled: true,
-    regular: Duration(milliseconds: 250),
-    quick: Duration(milliseconds: 100),
-  );
+        areAnimationEnabled: true,
+        regular: Duration(milliseconds: 250),
+        quick: Duration(milliseconds: 100),
+      );
 
   final bool areAnimationEnabled;
   final Duration regular;
@@ -20,8 +20,8 @@ class AppDurationsData extends Equatable {
 
   @override
   List<Object?> get props => [
-    areAnimationEnabled,
-    regular.named('regular'),
-    quick.named('quick'),
-  ];
+        areAnimationEnabled,
+        regular.named('regular'),
+        quick.named('quick'),
+      ];
 }

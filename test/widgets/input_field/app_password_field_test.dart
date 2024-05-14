@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:linksys_widgets/icons/linksys_icons.dart';
-import 'package:linksys_widgets/theme/custom_theme.dart';
-import 'package:linksys_widgets/widgets/_widgets.dart';
-import 'package:linksys_widgets/widgets/input_field/validator_widget.dart';
+import 'package:privacygui_widgets/icons/linksys_icons.dart';
+import 'package:privacygui_widgets/theme/custom_theme.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/input_field/validator_widget.dart';
 
 import '../../util.dart';
 
@@ -128,8 +128,7 @@ void main() {
       expect(find.text('The password must have'), findsOneWidget);
       expect(find.text('length >= 10'), findsOneWidget);
       expect(find.text('includes upper and lower case'), findsOneWidget);
-      expect(find.byIcon(LinksysIcons.infoCircle),
-          findsNWidgets(2));
+      expect(find.byIcon(LinksysIcons.infoCircle), findsNWidgets(2));
     });
 
     testWidgets('app password field verify validation changed callback',
@@ -191,23 +190,19 @@ void main() {
       )));
       BuildContext context = tester.element(find.byType(AppPasswordField));
 
-      expect(find.byIcon(LinksysIcons.infoCircle),
-          findsNWidgets(2));
+      expect(find.byIcon(LinksysIcons.infoCircle), findsNWidgets(2));
 
       final textFieldFinder = find.byType(TextField);
       await tester.enterText(textFieldFinder, 'password123');
       await tester.pumpAndSettle();
-      expect(find.byIcon(LinksysIcons.close),
-          findsNWidgets(1));
-      expect(find.byIcon(LinksysIcons.check),
-          findsNWidgets(1));
+      expect(find.byIcon(LinksysIcons.close), findsNWidgets(1));
+      expect(find.byIcon(LinksysIcons.check), findsNWidgets(1));
       await tester.enterText(textFieldFinder, 'AValidPassword');
       await tester.pumpAndSettle();
 
       expect(
           find.image(CustomTheme.of(context).images.iconEllipse), findsNothing);
-      expect(find.byIcon(LinksysIcons.check),
-          findsNWidgets(2));
+      expect(find.byIcon(LinksysIcons.check), findsNWidgets(2));
     });
   });
 }
