@@ -1,0 +1,4 @@
+
+enum BannerStyle {
+  success, error,
+}

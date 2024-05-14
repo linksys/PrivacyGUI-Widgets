@@ -1,0 +1,3 @@
+enum AppBulletStyle {
+  dot, number,
+}
