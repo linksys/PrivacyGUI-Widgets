@@ -35,7 +35,7 @@ void main() {
         ),
       );
 
-      expect(find.text('0'), findsNWidgets(4));
+      expect(find.text(''), findsNWidgets(4));
     });
 
     testWidgets('Updates UI on user input', (WidgetTester tester) async {
@@ -48,11 +48,11 @@ void main() {
           ),
         ),
       );
-      await tester.enterText(find.text('0').first, '1');
+      await tester.enterText(find.text('').first, '1');
       await tester.pump();
 
       expect(find.text('1'), findsOneWidget);
-      expect(controller.text, '1.0.0.0');
+      expect(controller.text, '1...');
     });
 
     testWidgets('Formats IP address correctly', (WidgetTester tester) async {
@@ -66,13 +66,13 @@ void main() {
         ),
       );
 
-      await tester.enterText(find.text('0').first, '123');
+      await tester.enterText(find.text('').first, '123');
       await tester.pump();
-      await tester.enterText(find.text('0').first, '124');
+      await tester.enterText(find.text('').first, '124');
       await tester.pump();
-      await tester.enterText(find.text('0').first, '125');
+      await tester.enterText(find.text('').first, '125');
       await tester.pump();
-      await tester.enterText(find.text('0').first, '126');
+      await tester.enterText(find.text('').first, '126');
       await tester.pump();
       expect(find.text('123'), findsOneWidget);
       expect(controller.text, '123.124.125.126');
@@ -117,13 +117,13 @@ void main() {
       await tester.enterText(firstInput, 'a');
       await tester.pump();
       // It should be the same value because the value is invalid.
-      expect(tester.widget<TextField>(firstInput).controller?.text, '0');
+      expect(tester.widget<TextField>(firstInput).controller?.text, '');
       await tester.enterText(firstInput, '&');
       await tester.pump();
-      expect(tester.widget<TextField>(firstInput).controller?.text, '0');
+      expect(tester.widget<TextField>(firstInput).controller?.text, '');
       await tester.enterText(firstInput, 'V');
       await tester.pump();
-      expect(tester.widget<TextField>(firstInput).controller?.text, '0');
+      expect(tester.widget<TextField>(firstInput).controller?.text, '');
     });
 
     testWidgets('Input is read only', (WidgetTester tester) async {
