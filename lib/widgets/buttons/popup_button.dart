@@ -21,6 +21,7 @@ class AppPopupButton extends StatefulWidget {
   final BorderRadius? borderRadius;
   final Color? backgroundColor;
   final AppPopupVerticalPosition verticalPosition;
+  final BuildContext? parent;
 
   const AppPopupButton({
     Key? key,
@@ -29,6 +30,7 @@ class AppPopupButton extends StatefulWidget {
     this.borderRadius,
     this.backgroundColor,
     this.verticalPosition = AppPopupVerticalPosition.bottom,
+    this.parent,
   }) : super(key: key);
 
   @override
@@ -85,7 +87,7 @@ class PopupButtonState extends State<AppPopupButton>
     findButton();
     _animationController.forward();
     _overlayEntry = _overlayEntryBuilder();
-    Overlay.of(context).insert(_overlayEntry);
+    Overlay.of(widget.parent ?? context).insert(_overlayEntry);
     isMenuOpen = !isMenuOpen;
   }
 
@@ -94,7 +96,7 @@ class PopupButtonState extends State<AppPopupButton>
     return Container(
       key: _key,
       decoration: BoxDecoration(
-        color: const Color(0x00000000),
+        color: const Color(0x66000000),
         borderRadius: _borderRadius,
       ),
       child: InkWell(
@@ -126,7 +128,7 @@ class PopupButtonState extends State<AppPopupButton>
                 width: double.infinity,
                 height: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Color(0x00000000),
+                  color: Color(0x66000000),
                 ),
               ),
               CompositedTransformFollower(
@@ -142,14 +144,6 @@ class PopupButtonState extends State<AppPopupButton>
                       border: Border.all(
                         color: Theme.of(context).colorScheme.outline,
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
                       borderRadius: _borderRadius,
                     ),
                     child: Padding(

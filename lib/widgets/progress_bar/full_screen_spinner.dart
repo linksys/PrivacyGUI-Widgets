@@ -24,6 +24,7 @@ class AppFullScreenSpinner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: background ?? Theme.of(context).colorScheme.background,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
