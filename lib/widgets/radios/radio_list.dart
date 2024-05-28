@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/card/list_card.dart';
 
 class AppRadioListItem<T> {
   final String title;
@@ -52,9 +53,15 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
   }
 
   Widget _itemTile({required AppRadioListItem item}) {
-    return ListTile(
+    return AppListCard(
+      showBorder: false,
+      padding: EdgeInsets.zero,
+      crossAxisAlignment: CrossAxisAlignment.start,
       title: item.titleWidget ?? AppText.labelLarge(item.title),
-      subtitle: item.subtitleWidget,
+      description: Padding(
+        padding: EdgeInsets.only(top: item.subtitleWidget == null ? 0.0 : 8.0),
+        child: item.subtitleWidget,
+      ),
       leading: AbsorbPointer(
         child: Radio<T>(
           value: item.value,

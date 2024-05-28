@@ -93,22 +93,27 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
     final value = controller.text;
     if (value.isNotEmpty) {
       final token = value.split('.');
-      if (token.length != 4) {
-        return;
-      }
 
-      _octet1Controller.value = TextEditingValue(
-          text: token[0],
-          selection: TextSelection.collapsed(offset: token[0].length));
-      _octet2Controller.value = TextEditingValue(
-          text: token[1],
-          selection: TextSelection.collapsed(offset: token[1].length));
-      _octet3Controller.value = TextEditingValue(
-          text: token[2],
-          selection: TextSelection.collapsed(offset: token[2].length));
-      _octet4Controller.value = TextEditingValue(
-          text: token[3],
-          selection: TextSelection.collapsed(offset: token[3].length));
+      if (token.isNotEmpty) {
+        _octet1Controller.value = TextEditingValue(
+            text: token[0],
+            selection: TextSelection.collapsed(offset: token[0].length));
+      }
+      if (token.length > 1) {
+        _octet2Controller.value = TextEditingValue(
+            text: token[1],
+            selection: TextSelection.collapsed(offset: token[1].length));
+      }
+      if (token.length > 2) {
+        _octet3Controller.value = TextEditingValue(
+            text: token[2],
+            selection: TextSelection.collapsed(offset: token[2].length));
+      }
+      if (token.length > 3) {
+        _octet4Controller.value = TextEditingValue(
+            text: token[3],
+            selection: TextSelection.collapsed(offset: token[3].length));
+      }
     }
   }
 
@@ -162,14 +167,10 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
         ),
         if (errorText != null) const AppGap.small(),
         if (errorText != null)
-          Row(
-            children: [
-              const AppGap.semiSmall(),
-              AppText.bodySmall(
-                errorText,
-                color: Theme.of(context).colorScheme.error,
-              ),
-            ],
+          AppText.bodySmall(
+            errorText,
+            color: Theme.of(context).colorScheme.error,
+            maxLines: 10,
           ),
       ],
     );

@@ -36,9 +36,9 @@ class AppInfoCard extends StatelessWidget {
     return AppListCard(
       color: color,
       borderColor: borderColor,
-      title: AppText.bodySmall(title),
+      title: AppText.labelLarge(title),
       description:
-          description != null ? AppText.labelLarge(description!) : null,
+          description != null ? AppText.bodyMedium(description!) : null,
       trailing: trailing,
       showBorder: showBorder,
       padding: padding,
