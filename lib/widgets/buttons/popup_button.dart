@@ -96,7 +96,7 @@ class PopupButtonState extends State<AppPopupButton>
     return Container(
       key: _key,
       decoration: BoxDecoration(
-        color: const Color(0x66000000),
+        color: const Color(0x00000000),
         borderRadius: _borderRadius,
       ),
       child: InkWell(
