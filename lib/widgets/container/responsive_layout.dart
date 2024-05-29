@@ -55,7 +55,7 @@ class ResponsiveLayout extends StatelessWidget {
   static isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < tabletBreakpoint;
 
-  static isLayoutBreakpoint(BuildContext context) =>
+  static isMobileLayout(BuildContext context) =>
       MediaQuery.of(context).size.width < layoutBreakpoint5;
 
   static isOverBreakpoint1(BuildContext context) =>
@@ -81,7 +81,7 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isLayoutBreakpoint(context)) {
+    if (isMobileLayout(context)) {
       return mobile;
     } else {
       return desktop;
