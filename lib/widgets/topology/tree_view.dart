@@ -41,6 +41,8 @@ class _AppTreeViewState<T> extends State<AppTreeView<T>> {
     _list = widget.onlineRoot.toFlatList();
     if (_list.length == 2) {
       _list[1].height = 292;
+    } else {
+      _list[1].height = null;
     }
     if ((widget.offlineRoot?.children.isNotEmpty ?? false)) {
       _list.add(widget.offlineRoot!);
