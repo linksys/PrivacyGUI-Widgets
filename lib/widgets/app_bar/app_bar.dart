@@ -88,21 +88,17 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
     final title = this.title;
 
     return [
-      Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          if (leading != null)
-            Container(
-              constraints: const BoxConstraints(minWidth: Spacing.big),
-              child: leading,
-            ),
-          if (title != null)
-            Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: Spacing.regular),
-                child: FittedBox(fit: BoxFit.contain, child: title)),
-        ],
-      ),
+      if (leading != null)
+        Container(
+          constraints: const BoxConstraints(minWidth: Spacing.big),
+          child: leading,
+        ),
+      if (title != null)
+        Flexible(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Spacing.regular),
+              child: title),
+        ),
       _buildTrailing(context),
     ];
   }

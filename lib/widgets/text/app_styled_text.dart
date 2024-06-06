@@ -23,18 +23,21 @@ class AppStyledText extends StatelessWidget {
 
   factory AppStyledText.bold(
     String text, {
+    Key? key,
     required TextStyle defaultTextStyle,
     required List<String> tags,
     Color? color,
     Map<String, StyledTextTagActionCallback> callbackTags = const {},
   }) {
-    final textStyle = defaultTextStyle.copyWith(fontWeight: FontWeight.bold, color: color);
+    final textStyle =
+        defaultTextStyle.copyWith(fontWeight: FontWeight.bold, color: color);
     final styleTags = tags.fold<Map<String, TextStyle>>({}, (map, tag) {
       map[tag] = textStyle;
       return map;
     });
     return AppStyledText(
       text,
+      key: key,
       defaultTextStyle: defaultTextStyle,
       styleTags: styleTags,
       callbackTags: callbackTags,
@@ -43,6 +46,7 @@ class AppStyledText extends StatelessWidget {
 
   factory AppStyledText.link(
     String text, {
+    Key? key,
     Color? color,
     required TextStyle defaultTextStyle,
     required List<String> tags,
@@ -56,6 +60,7 @@ class AppStyledText extends StatelessWidget {
     });
     return AppStyledText(
       text,
+      key: key,
       defaultTextStyle: defaultTextStyle,
       styleTags: styleTags,
       callbackTags: callbackTags,
@@ -72,6 +77,6 @@ class AppStyledText extends StatelessWidget {
           style: styleTags[key] ?? textStyle);
       return map;
     });
-    return StyledText(text: text, style: textStyle, tags: tags);
+    return StyledText(key: key, text: text, style: textStyle, tags: tags);
   }
 }
