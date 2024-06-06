@@ -175,7 +175,7 @@ class AppText extends StatelessWidget {
     String text = this.text;
     Color? color = this.color;
     TextStyle? style = theme.textTheme.labelLarge;
-
+    int? maxLines;
     switch (textLevel) {
       case AppTextLevel.displayLarge:
         style = theme.textTheme.displayLarge;
@@ -197,6 +197,7 @@ class AppText extends StatelessWidget {
         break;
       case AppTextLevel.titleLarge:
         style = theme.textTheme.titleLarge;
+        maxLines = 2;
         break;
       case AppTextLevel.titleMedium:
         style = theme.textTheme.titleMedium;
@@ -229,7 +230,7 @@ class AppText extends StatelessWidget {
       style: style?.copyWith(
         color: this.color ?? color,
       ),
-      maxLines: maxLines,
+      maxLines: this.maxLines ?? maxLines,
       overflow: overflow,
     );
   }
