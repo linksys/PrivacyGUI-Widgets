@@ -32,6 +32,7 @@ required this.noInternetConnection,
 required this.fortinetDns,
 required this.imgRouterWhite,
 required this.ledBlueSolid,
+required this.imgPortOff,
 required this.imgAddNodes,
 required this.linksysLogoBlack,
 required this.deviceLaptop,
@@ -42,6 +43,7 @@ required this.signalExcellent,
 required this.pnpFinishDesktop,
 required this.ledWhiteBlink,
 required this.speedtestPowered,
+required this.imgPortOn,
 required this.ledPurpleBlink,
 required this.iconEllipseGreen,
 required this.devices,
@@ -72,6 +74,7 @@ noInternetConnection: exactAssetPicture('assets/images/no_internet_connection.sv
 fortinetDns: const AssetImage('assets/images/fortinet_dns.png', package: 'privacygui_widgets'),
 imgRouterWhite: exactAssetPicture('assets/images/img_router_white.svg', package: 'privacygui_widgets'),
 ledBlueSolid: exactAssetPicture('assets/images/led_blue_solid.svg', package: 'privacygui_widgets'),
+imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets', filter: const {"#ff231F20":"#fff3f3f3","#ff000000":"#ffffffff"}),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets', filter: const {"#ff000000":"#ffffffff"}),
 deviceLaptop: const AssetImage('assets/images/device_laptop.png', package: 'privacygui_widgets'),
@@ -81,6 +84,7 @@ signalExcellent: const AssetImage('assets/images/signal_excellent.png', package:
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
 ledWhiteBlink: exactAssetPicture('assets/images/led_white_blink.svg', package: 'privacygui_widgets'),
 speedtestPowered: const AssetImage('assets/images/speedtest_powered.png', package: 'privacygui_widgets'),
+imgPortOn: exactAssetPicture('assets/images/img_port_on.svg', package: 'privacygui_widgets'),
 ledPurpleBlink: exactAssetPicture('assets/images/led_purple_blink.svg', package: 'privacygui_widgets'),
 iconEllipseGreen: const AssetImage('assets/images/icon_ellipse_green.png', package: 'privacygui_widgets'),
 devices: AppDevicesData.dark(),modemDevice: exactAssetPicture('assets/images/modem_device.svg', package: 'privacygui_widgets'),
@@ -109,6 +113,7 @@ noInternetConnection: exactAssetPicture('assets/images/no_internet_connection.sv
 fortinetDns: const AssetImage('assets/images/fortinet_dns.png', package: 'privacygui_widgets'),
 imgRouterWhite: exactAssetPicture('assets/images/img_router_white.svg', package: 'privacygui_widgets'),
 ledBlueSolid: exactAssetPicture('assets/images/led_blue_solid.svg', package: 'privacygui_widgets'),
+imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets'),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets'),
 deviceLaptop: const AssetImage('assets/images/device_laptop.png', package: 'privacygui_widgets'),
@@ -118,6 +123,7 @@ signalExcellent: const AssetImage('assets/images/signal_excellent.png', package:
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
 ledWhiteBlink: exactAssetPicture('assets/images/led_white_blink.svg', package: 'privacygui_widgets'),
 speedtestPowered: const AssetImage('assets/images/speedtest_powered.png', package: 'privacygui_widgets'),
+imgPortOn: exactAssetPicture('assets/images/img_port_on.svg', package: 'privacygui_widgets'),
 ledPurpleBlink: exactAssetPicture('assets/images/led_purple_blink.svg', package: 'privacygui_widgets'),
 iconEllipseGreen: const AssetImage('assets/images/icon_ellipse_green.png', package: 'privacygui_widgets'),
 devices: AppDevicesData.light(),modemDevice: exactAssetPicture('assets/images/modem_device.svg', package: 'privacygui_widgets'),
@@ -146,6 +152,7 @@ final SvgLoader noInternetConnection;
 final ImageProvider fortinetDns;
 final SvgLoader imgRouterWhite;
 final SvgLoader ledBlueSolid;
+final SvgLoader imgPortOff;
 final SvgLoader imgAddNodes;
 final SvgLoader linksysLogoBlack;
 final ImageProvider deviceLaptop;
@@ -155,6 +162,7 @@ final ImageProvider signalExcellent;
 final SvgLoader pnpFinishDesktop;
 final SvgLoader ledWhiteBlink;
 final ImageProvider speedtestPowered;
+final SvgLoader imgPortOn;
 final SvgLoader ledPurpleBlink;
 final ImageProvider iconEllipseGreen;
 final AppDevicesData devices;final SvgLoader modemDevice;
@@ -184,6 +192,7 @@ noInternetConnection.named('noInternetConnection'),
 fortinetDns.named('fortinetDns'),
 imgRouterWhite.named('imgRouterWhite'),
 ledBlueSolid.named('ledBlueSolid'),
+imgPortOff.named('imgPortOff'),
 imgAddNodes.named('imgAddNodes'),
 linksysLogoBlack.named('linksysLogoBlack'),
 deviceLaptop.named('deviceLaptop'),
@@ -193,6 +202,7 @@ signalExcellent.named('signalExcellent'),
 pnpFinishDesktop.named('pnpFinishDesktop'),
 ledWhiteBlink.named('ledWhiteBlink'),
 speedtestPowered.named('speedtestPowered'),
+imgPortOn.named('imgPortOn'),
 ledPurpleBlink.named('ledPurpleBlink'),
 iconEllipseGreen.named('iconEllipseGreen'),
 devices.named('devices'),modemDevice.named('modemDevice'),

@@ -60,10 +60,10 @@ final lightColorSchemeExt = ColorSchemeExt(
   onGreen: Color(greenTonal.get(100)),
   secondaryGreen: Color(greenTonal.get(90)),
   onSecondaryGreen: Color(greenTonal.get(10)),
-  orange: Color(greenTonal.get(40)),
-  onOrange: Color(greenTonal.get(10)),
-  secondaryOrange: Color(greenTonal.get(90)),
-  onSecondaryOrange: Color(greenTonal.get(10)),
+  orange: Color(orangeTonal.get(40)),
+  onOrange: Color(orangeTonal.get(10)),
+  secondaryOrange: Color(orangeTonal.get(90)),
+  onSecondaryOrange: Color(orangeTonal.get(10)),
 );
 
 final darkColorScheme = ColorScheme(
@@ -124,8 +124,8 @@ final darkColorSchemeExt = ColorSchemeExt(
   onGreen: Color(greenTonal.get(0)),
   secondaryGreen: Color(greenTonal.get(30)),
   onSecondaryGreen: Color(greenTonal.get(90)),
-  orange: Color(greenTonal.get(80)),
-  onOrange: Color(greenTonal.get(20)),
-  secondaryOrange: Color(greenTonal.get(30)),
-  onSecondaryOrange: Color(greenTonal.get(90)),
+  orange: Color(orangeTonal.get(80)),
+  onOrange: Color(orangeTonal.get(20)),
+  secondaryOrange: Color(orangeTonal.get(30)),
+  onSecondaryOrange: Color(orangeTonal.get(90)),
 );

@@ -56,6 +56,7 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
     return AppListCard(
       showBorder: false,
       padding: EdgeInsets.zero,
+      color: Colors.transparent,
       crossAxisAlignment: CrossAxisAlignment.start,
       title: item.titleWidget ?? AppText.labelLarge(item.title),
       description: Padding(
