@@ -1,6 +1,6 @@
 name: privacygui_widgets
 description: A new Flutter package project.
-version: 0.16.0
+version: 0.18.0
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
