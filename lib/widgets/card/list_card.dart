@@ -46,10 +46,7 @@ class AppListCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: title,
-                ),
+                title,
                 if (description != null) ...[
                   const AppGap.small(),
                   description!,
