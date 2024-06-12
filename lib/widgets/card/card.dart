@@ -8,6 +8,7 @@ class AppCard extends StatelessWidget {
   final EdgeInsets? padding;
   final Color? color;
   final Color? borderColor;
+  final EdgeInsets? margin;
 
   const AppCard({
     Key? key,
@@ -16,6 +17,7 @@ class AppCard extends StatelessWidget {
     this.padding,
     this.color,
     this.borderColor,
+    this.margin,
     required this.child,
   }) : super(key: key);
 
@@ -24,6 +26,7 @@ class AppCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: color,
+      margin: margin,
       shape: showBorder
           ? RoundedRectangleBorder(
               side: BorderSide(

@@ -53,9 +53,10 @@ class AppMenuCard extends StatelessWidget {
           if (description != null)
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
-              child: AppText.bodySmall(
+              child: AppText.bodyMedium(
                 description ?? '',
                 overflow: TextOverflow.ellipsis,
+                maxLines: 3,
                 color:
                     Theme.of(context).colorScheme.onBackground.withOpacity(0.5),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/theme/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
@@ -88,17 +89,25 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
     final title = this.title;
 
     return [
-      if (leading != null)
-        Container(
-          constraints: const BoxConstraints(minWidth: Spacing.big),
-          child: leading,
+      Flexible(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (leading != null)
+              Container(
+                constraints: const BoxConstraints(minWidth: Spacing.big),
+                child: leading,
+              ),
+            if (title != null)
+              Flexible(
+                child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: Spacing.regular),
+                    child: title),
+              ),
+          ],
         ),
-      if (title != null)
-        Flexible(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spacing.regular),
-              child: title),
-        ),
+      ),
       _buildTrailing(context),
     ];
   }
