@@ -200,8 +200,7 @@ void main() {
       await tester.enterText(textFieldFinder, 'AValidPassword');
       await tester.pumpAndSettle();
 
-      expect(
-          find.image(CustomTheme.of(context).images.iconEllipse), findsNothing);
+      expect(find.byIcon(LinksysIcons.close), findsNothing);
       expect(find.byIcon(LinksysIcons.check), findsNWidgets(2));
     });
   });

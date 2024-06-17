@@ -42,7 +42,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/devices/
-    - assets/images/devicesxl/
     - assets/lottie/
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages

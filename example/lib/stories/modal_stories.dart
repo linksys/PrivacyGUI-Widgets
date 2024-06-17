@@ -10,7 +10,6 @@ Iterable<Story> modalStories() {
         children: [
           AppModalLayout(
             closeCallback: () {},
-            image: CustomTheme.of(context).images.tempIllustration,
             title: 'Enable bridge mode?',
             description:
                 'You won’t be able to use advanced settings such as Linksys Secure, Content filtering, or Internet schedule. (WIP)',
