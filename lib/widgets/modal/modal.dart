@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
-import 'package:privacygui_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 class ButtonData {
@@ -39,7 +39,7 @@ class AppModalLayout extends StatelessWidget {
     final negativeButton = this.negativeButton;
     //
     return Padding(
-      padding: const EdgeInsets.all(Spacing.regular),
+      padding: const EdgeInsets.all(Spacing.medium),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,7 @@ class AppModalLayout extends StatelessWidget {
             onTap: closeCallback,
           ),
           if (image != null) ...[
-            const AppGap.big(),
+            const AppGap.large2(),
             Center(
               child: Image(
                 image: image,
@@ -59,15 +59,15 @@ class AppModalLayout extends StatelessWidget {
               ),
             ),
           ],
-          if (title != null || description != null) const AppGap.big(),
+          if (title != null || description != null) const AppGap.large2(),
           if (title != null) AppText.displayMedium(title),
-          if (title != null && description != null) const AppGap.regular(),
+          if (title != null && description != null) const AppGap.medium(),
           if (description != null)
             AppText.bodyLarge(
               description,
             ),
           if (positiveButton != null || negativeButton != null)
-            const AppGap.big(),
+            const AppGap.large2(),
           if (positiveButton != null)
             AppFilledButton(
               positiveButton.text,

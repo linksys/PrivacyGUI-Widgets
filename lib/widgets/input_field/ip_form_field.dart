@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:privacygui_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/input_field/input_formatters.dart';
 
@@ -126,7 +126,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
       children: [
         if (widget.header != null) ...[
           widget.header!,
-          const AppGap.semiSmall(),
+          const AppGap.small2(),
         ],
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,7 +165,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
             ),
           ],
         ),
-        if (errorText != null) const AppGap.small(),
+        if (errorText != null) const AppGap.small3(),
         if (errorText != null)
           AppText.bodySmall(
             errorText,
@@ -177,7 +177,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
   }
 
   _buildDotWidget() => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: Spacing.semiSmall),
+        padding: EdgeInsets.symmetric(horizontal: Spacing.small2),
         child: AppText.titleLarge(
           '.',
         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 const double _leftPadding = 24;
 const double _levelOfPadding = 0;
@@ -34,15 +35,15 @@ class AppTreeNodeItem extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         side: BorderSide(color: Theme.of(context).colorScheme.outline),
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
       ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
         child: Container(
           constraints:
               const BoxConstraints(minWidth: 180, maxWidth: 300, maxHeight: 84),
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(Spacing.medium),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -109,11 +110,11 @@ class AppTreeNodeItemLarge extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         side: BorderSide(color: Theme.of(context).colorScheme.outline),
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
       ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
         child: Container(
           width: 250,
           height: 200,
@@ -127,7 +128,7 @@ class AppTreeNodeItemLarge extends StatelessWidget {
                 width: 80,
                 height: 80,
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               Row(
                 children: [
                   Expanded(
@@ -144,7 +145,7 @@ class AppTreeNodeItemLarge extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const AppGap.regular(),
+                  const AppGap.medium(),
                   if (tail != null) tail!,
                 ],
               ),
@@ -193,10 +194,11 @@ class _BorderInfoCellState extends State<BorderInfoCell> {
                 side: BorderSide(
                     color: Theme.of(context).colorSchemeExt.primaryFixedDim ??
                         Theme.of(context).colorScheme.outline),
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius:
+                    CustomTheme.of(context).radius.asBorderRadius().large,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(Spacing.medium),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -206,7 +208,7 @@ class _BorderInfoCellState extends State<BorderInfoCell> {
                         size: 36,
                         color: Theme.of(context).colorScheme.primary,
                       ),
-                      const AppGap.regular(),
+                      const AppGap.medium(),
                     ],
                     AppText.titleMedium(widget.name),
                   ],
@@ -251,7 +253,7 @@ class _InfoCellState extends State<InfoCell> {
               size: 36,
               color: Theme.of(context).colorScheme.primary,
             ),
-            const AppGap.regular(),
+            const AppGap.medium(),
           ],
           AppText.titleMedium(widget.name),
         ],

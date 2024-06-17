@@ -139,7 +139,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
           border: widget.border,
           autofocus: widget.autofocus,
         ),
-        if (widget.withValidator) const AppGap.semiBig(),
+        if (widget.withValidator) const AppGap.large1(),
         if (widget.withValidator)
           AppValidatorWidget(
             validations: widget.validations ?? [],

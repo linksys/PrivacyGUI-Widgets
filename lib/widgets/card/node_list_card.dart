@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/card/list_card.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 class AppNodeListCard extends StatelessWidget {
   final ImageProvider leading;
@@ -52,7 +53,7 @@ class AppNodeListCard extends StatelessWidget {
           ...onSelected != null
               ? [
                   Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
+                    padding: const EdgeInsets.only(right: Spacing.medium),
                     child: AppCheckbox(
                       value: isSelected,
                       onChanged: (value) => onSelected?.call(value ?? false),
@@ -75,7 +76,7 @@ class AppNodeListCard extends StatelessWidget {
         children: [
           if (band != null) ...[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: Spacing.medium),
               child: AppText.labelLarge(band!),
             ),
           ],

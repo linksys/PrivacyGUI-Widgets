@@ -37,10 +37,10 @@ class AppPanelWithValueCheck extends StatelessWidget {
         if (isChecked)
           const Padding(
             padding: EdgeInsets.only(
-              left: Spacing.semiSmall,
+              left: Spacing.small2,
             ),
             child: Icon(
-               LinksysIcons.check,
+              LinksysIcons.check,
             ),
           )
       ],

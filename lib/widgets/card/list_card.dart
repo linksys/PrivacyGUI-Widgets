@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/card/card.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 class AppListCard extends StatelessWidget {
   const AppListCard({
@@ -32,8 +33,9 @@ class AppListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCard(
       showBorder: showBorder,
-      padding:
-          padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      padding: padding ??
+          const EdgeInsets.symmetric(
+              vertical: Spacing.medium, horizontal: Spacing.large1),
       onTap: onTap,
       color: color,
       borderColor: borderColor,
@@ -41,7 +43,7 @@ class AppListCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
         children: [
-          if (leading != null) ...[leading!, const AppGap.regular()],
+          if (leading != null) ...[leading!, const AppGap.medium()],
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +51,7 @@ class AppListCard extends StatelessWidget {
               children: [
                 title,
                 if (description != null) ...[
-                  const AppGap.small(),
+                  const AppGap.small3(),
                   description!,
                 ],
               ],

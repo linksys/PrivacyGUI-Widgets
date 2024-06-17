@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/card/list_card.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 class AppDeviceListCard extends StatelessWidget {
   final IconData leading;
@@ -42,7 +43,7 @@ class AppDeviceListCard extends StatelessWidget {
           ...onSelected != null
               ? [
                   Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
+                    padding: const EdgeInsets.only(right: Spacing.medium),
                     child: AppCheckbox(
                       value: isSelected,
                       onChanged: (value) => onSelected?.call(value ?? false),
@@ -58,7 +59,7 @@ class AppDeviceListCard extends StatelessWidget {
         children: [
           if (band != null) ...[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: Spacing.small2),
               child: AppText.labelLarge(band!),
             ),
           ],

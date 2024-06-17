@@ -9,7 +9,7 @@ Iterable<Story> toastStories() {
           AppToast.positive(
             text: 'Biometric sign on enabled',
           ),
-          AppGap.regular(),
+          AppGap.medium(),
           AppToast.negative(
             text: 'Biometric sign on enabled',
           ),
@@ -29,7 +29,7 @@ Iterable<Story> toastStories() {
               );
             },
           ),
-          const AppGap.regular(),
+          const AppGap.medium(),
           AppFilledButton(
             'Show Negative Custom Snackbar',
             onTap: () {
@@ -39,7 +39,7 @@ Iterable<Story> toastStories() {
               );
             },
           ),
-          const AppGap.regular(),
+          const AppGap.medium(),
           AppFilledButton(
             'Show Default Snackbar',
             onTap: () {
@@ -51,7 +51,7 @@ Iterable<Story> toastStories() {
               ));
             },
           ),
-          const AppGap.regular(),
+          const AppGap.medium(),
           AppFilledButton(
             'Show Default Snackbar with Close',
             onTap: () {
@@ -64,7 +64,7 @@ Iterable<Story> toastStories() {
               ));
             },
           ),
-          const AppGap.regular(),
+          const AppGap.medium(),
           AppFilledButton(
             'Show Default Snackbar with Action',
             onTap: () {

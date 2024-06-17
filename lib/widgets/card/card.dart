@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 class AppCard extends StatelessWidget {
   final VoidCallback? onTap;
@@ -32,14 +34,17 @@ class AppCard extends StatelessWidget {
               side: BorderSide(
                   color: borderColor ??
                       Theme.of(context).colorScheme.outlineVariant),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius:
+                  CustomTheme.of(context).radius.asBorderRadius().medium,
             )
           : null,
       child: InkWell(
-        borderRadius: showBorder ? BorderRadius.circular(8) : null,
+        borderRadius: showBorder
+            ? CustomTheme.of(context).radius.asBorderRadius().medium
+            : null,
         onTap: onTap,
         child: Padding(
-          padding: padding ?? const EdgeInsets.all(16.0),
+          padding: padding ?? const EdgeInsets.all(Spacing.medium),
           child: Container(child: child),
         ),
       ),

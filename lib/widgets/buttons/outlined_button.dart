@@ -45,7 +45,7 @@ class AppOutlinedButton extends StatelessWidget {
             ? null
             : BorderSide(color: color ?? Theme.of(context).colorScheme.outline),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0.0),
+          borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
         ),
         textStyle: Theme.of(context).textTheme.labelMedium,
         foregroundColor: color,

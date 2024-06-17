@@ -40,9 +40,9 @@ class AppPanelWithTimeline extends StatelessWidget {
         ),
         Row(children: [
           if (profileImage != null)
-           Padding(
+            Padding(
                 padding: const EdgeInsets.only(
-                  right: Spacing.semiSmall,
+                  right: Spacing.small2,
                 ),
                 child: Image(
                   image: profileImage!,

@@ -28,7 +28,7 @@ Iterable<Story> inputStories() {
               onChanged: (value) {},
               onCompleted: (value) {},
             ),
-            const AppGap.big(),
+            const AppGap.large2(),
           ],
         ),
       ),
@@ -418,7 +418,7 @@ Widget _textFieldDisplay(String style, Widget inputField) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText.titleLarge(style),
-        const AppGap.semiSmall(),
+        const AppGap.small2(),
         inputField,
       ],
     ),

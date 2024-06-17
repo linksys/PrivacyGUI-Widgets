@@ -65,16 +65,13 @@ class _AppSwitchTriggerTileState extends State<AppSwitchTriggerTile> {
                   ],
                 ),
                 if (widget.description != null) ...[
-                  const AppGap.regular(),
+                  const AppGap.medium(),
                   widget.description!
                 ],
               ],
             ),
           ),
-          if (widget.toggleInCenter) ...[
-            const AppGap.regular(),
-            _buildToggle()
-          ],
+          if (widget.toggleInCenter) ...[const AppGap.medium(), _buildToggle()],
         ],
       ),
     );

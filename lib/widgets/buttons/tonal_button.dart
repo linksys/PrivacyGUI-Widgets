@@ -38,7 +38,7 @@ class AppTonalButton extends StatelessWidget {
     }
     final style = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
       ),
       textStyle: Theme.of(context).textTheme.labelMedium,
       minimumSize: applySize,

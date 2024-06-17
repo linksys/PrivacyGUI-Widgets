@@ -5,19 +5,22 @@ import 'package:privacygui_widgets/utils/named.dart';
 class AppRadiusData extends Equatable {
   const AppRadiusData({
     required this.small,
-    required this.regular,
-    required this.big,
+    required this.medium,
+    required this.large,
+    required this.extraLarge,
   });
 
   const AppRadiusData.regular()
-      : small = const Radius.circular(10),
-        regular = const Radius.circular(12),
-        big = const Radius.circular(16);
+      : small = const Radius.circular(4),
+        medium = const Radius.circular(8),
+        large = const Radius.circular(16),
+        extraLarge = const Radius.circular(100);
 
   final Radius none = Radius.zero;
   final Radius small;
-  final Radius regular;
-  final Radius big;
+  final Radius medium;
+  final Radius large;
+  final Radius extraLarge;
 
   AppBorderRadiusData asBorderRadius() => AppBorderRadiusData(this);
 
@@ -25,8 +28,9 @@ class AppRadiusData extends Equatable {
   List<Object?> get props => [
         none.named('none'),
         small.named('small'),
-        regular.named('regular'),
-        big.named('big'),
+        medium.named('medium'),
+        large.named('large'),
+        extraLarge.named('extraLarge'),
       ];
 }
 
@@ -35,8 +39,9 @@ class AppBorderRadiusData extends Equatable {
 
   BorderRadius get none => BorderRadius.all(_radius.none);
   BorderRadius get small => BorderRadius.all(_radius.small);
-  BorderRadius get regular => BorderRadius.all(_radius.regular);
-  BorderRadius get big => BorderRadius.all(_radius.big);
+  BorderRadius get medium => BorderRadius.all(_radius.medium);
+  BorderRadius get large => BorderRadius.all(_radius.large);
+  BorderRadius get extraLarge => BorderRadius.all(_radius.extraLarge);
 
   final AppRadiusData _radius;
 

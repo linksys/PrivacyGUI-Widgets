@@ -38,7 +38,7 @@ class AppFilledButton extends StatelessWidget {
     }
     final style = FilledButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
+          borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
       ),
       textStyle: Theme.of(context).textTheme.labelMedium,
       minimumSize: applySize,

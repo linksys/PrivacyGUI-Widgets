@@ -2,7 +2,6 @@ part of '../storybook.dart';
 
 Iterable<Story> imageStories() {
   return [
-    
     Story(
       name: 'Assets/Images/General images',
       builder: (context) {
@@ -26,7 +25,7 @@ Iterable<Story> imageStories() {
                     fit: BoxFit.scaleDown,
                   ),
                 ),
-                const AppGap.regular(),
+                const AppGap.medium(),
                 AppText.labelSmall(item.name)
               ],
             ),
@@ -61,7 +60,7 @@ Iterable<Story> imageStories() {
                     fit: BoxFit.scaleDown,
                   ),
                 ),
-                const AppGap.regular(),
+                const AppGap.medium(),
                 AppText.labelSmall(item.name)
               ],
             ),
@@ -97,7 +96,7 @@ Iterable<Story> imageStories() {
                     fit: BoxFit.scaleDown,
                   ),
                 ),
-                const AppGap.regular(),
+                const AppGap.medium(),
                 AppText.labelSmall(item.name)
               ],
             ),
@@ -110,47 +109,6 @@ Iterable<Story> imageStories() {
   ];
 }
 
-Widget _buildList<T>(List<Named<T>> list) {
-  return ListView.builder(
-      shrinkWrap: true,
-      padding: const EdgeInsets.all(4),
-      itemCount: list.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Card(
-          margin: const EdgeInsets.all(Spacing.regular),
-          child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: list[index] is Named<ImageProvider>
-                    ? _buildImageSet(list[index].value as ImageProvider)
-                    : _buildSvgSet(CustomTheme.of(context),
-                        list[index].value as SvgAssetLoader),
-              ),
-              AppText.bodyMedium(list[index].name)
-            ],
-          )),
-        );
-      });
-}
-
-List<Widget> _buildImageSet(ImageProvider image) {
-  return [
-    AppAvatar.extraSmall(image: image),
-    const AppGap.regular(),
-    AppAvatar.small(image: image),
-    const AppGap.regular(),
-    AppAvatar.normal(image: image),
-    const AppGap.regular(),
-    AppAvatar.large(image: image),
-    const AppGap.regular(),
-    AppAvatar.extraLarge(image: image),
-  ];
-}
 
 List<Widget> _buildSvgSet(CustomThemeData theme, SvgAssetLoader image) {
   return [
@@ -158,22 +116,22 @@ List<Widget> _buildSvgSet(CustomThemeData theme, SvgAssetLoader image) {
       image,
       width: theme.avatar.extraSmall,
     ),
-    const AppGap.regular(),
+    const AppGap.medium(),
     SvgPicture(
       image,
       width: theme.avatar.small,
     ),
-    const AppGap.regular(),
+    const AppGap.medium(),
     SvgPicture(
       image,
       width: theme.avatar.normal,
     ),
-    const AppGap.regular(),
+    const AppGap.medium(),
     SvgPicture(
       image,
       width: theme.avatar.large,
     ),
-    const AppGap.regular(),
+    const AppGap.medium(),
     SvgPicture(
       image,
       width: theme.avatar.extraLarge,

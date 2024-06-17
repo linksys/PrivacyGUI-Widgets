@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/card/card.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 class AppMenuCard extends StatelessWidget {
   const AppMenuCard({
@@ -43,7 +44,7 @@ class AppMenuCard extends StatelessWidget {
           ),
           if (title != null)
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: Spacing.small2),
               child: AppText.titleSmall(
                 title ?? '',
                 maxLines: 1,
@@ -52,7 +53,7 @@ class AppMenuCard extends StatelessWidget {
             ),
           if (description != null)
             Padding(
-              padding: const EdgeInsets.only(top: 4.0),
+              padding: const EdgeInsets.only(top: Spacing.small1),
               child: AppText.bodyMedium(
                 description ?? '',
                 overflow: TextOverflow.ellipsis,

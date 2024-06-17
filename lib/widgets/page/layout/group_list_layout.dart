@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:privacygui_widgets/widgets/base/gap.dart';
+import 'package:privacygui_widgets/widgets/gap/gap.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class GroupItem<T> extends Equatable {
@@ -46,7 +46,7 @@ class GroupList<T> extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             labelWidget,
-            const AppGap.regular(),
+            const AppGap.medium(),
             ListView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
@@ -54,7 +54,7 @@ class GroupList<T> extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) =>
                   itemBuilder(itemsInCategory[index]),
             ),
-            const AppGap.big(),
+            const AppGap.large2(),
           ],
         );
       },

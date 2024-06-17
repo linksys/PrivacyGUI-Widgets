@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
-import 'package:privacygui_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 enum AppToastType {
@@ -50,7 +50,7 @@ class AppToast extends StatelessWidget {
           ),
           color: Theme.of(context).colorScheme.inverseSurface),
       child: Padding(
-        padding: const EdgeInsets.all(Spacing.semiBig),
+        padding: const EdgeInsets.all(Spacing.large1),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -59,7 +59,7 @@ class AppToast extends StatelessWidget {
                 icon,
                 color: Theme.of(context).colorScheme.onInverseSurface,
               ),
-            if (icon != null) const AppGap.regular(),
+            if (icon != null) const AppGap.medium(),
             AppText.labelLarge(
               text,
               color: Theme.of(context).colorScheme.onInverseSurface,

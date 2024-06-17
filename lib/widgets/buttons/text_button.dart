@@ -61,7 +61,7 @@ class AppTextButton extends StatelessWidget {
     }
     final style = TextButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
       ),
       foregroundColor: color,
       textStyle:

@@ -16,13 +16,13 @@ Iterable<Story> buttonStories() {
                 icon: LinksysIcons.accountCircle,
                 onTap: () {},
               ),
-              const AppGap.small(),
+              const AppGap.small3(),
               AppIconButton(
                 icon: LinksysIcons.accountCircle,
               ),
             ],
           ),
-          const AppGap.big(),
+          const AppGap.large2(),
           const AppText.bodyLarge('Icon Button Filled'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -32,13 +32,13 @@ Iterable<Story> buttonStories() {
                 icon: LinksysIcons.accountCircle,
                 onTap: () {},
               ),
-              const AppGap.small(),
+              const AppGap.small3(),
               AppIconButton.filled(
                 icon: LinksysIcons.accountCircle,
               ),
             ],
           ),
-          const AppGap.big(),
+          const AppGap.large2(),
           const AppText.bodyLarge('Icon Button Outlined'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,13 +48,13 @@ Iterable<Story> buttonStories() {
                 icon: LinksysIcons.accountCircle,
                 onTap: () {},
               ),
-              const AppGap.small(),
+              const AppGap.small3(),
               AppIconButton.outlined(
                 icon: LinksysIcons.accountCircle,
               ),
             ],
           ),
-          const AppGap.big(),
+          const AppGap.large2(),
           const AppText.bodyLarge('Icon Button Outlined'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -64,13 +64,13 @@ Iterable<Story> buttonStories() {
                 icon: LinksysIcons.accountCircle,
                 onTap: () {},
               ),
-              const AppGap.small(),
+              const AppGap.small3(),
               AppIconButton.tonal(
                 icon: LinksysIcons.accountCircle,
               ),
             ],
           ),
-          const AppGap.big(),
+          const AppGap.large2(),
           const AppText.bodyLarge('Animated Toggle Button'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -81,19 +81,19 @@ Iterable<Story> buttonStories() {
                 icon2: LinksysIcons.close,
                 animation: AppTweenAnimationData.leftRotate90,
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               AppIconToggleButton(
                 icon1: LinksysIcons.menu,
                 icon2: LinksysIcons.close,
                 animation: AppTweenAnimationData.leftRotate180,
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               AppIconToggleButton(
                 icon1: LinksysIcons.menu,
                 icon2: LinksysIcons.close,
                 animation: AppTweenAnimationData.leftRotate270,
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               AppIconToggleButton(
                 icon1: LinksysIcons.menu,
                 icon2: LinksysIcons.close,
@@ -117,22 +117,22 @@ Iterable<Story> buttonStories() {
               'Filled Button',
               onTap: () {},
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             AppFilledButton(
               'Filled Button',
               icon: LinksysIcons.add,
               onTap: () {},
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppFilledButton(
               'Filled Button Disabled',
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppFilledButton(
               'Filled Button Disabled',
               icon: LinksysIcons.add,
             ),
-            const AppGap.big(),
+            const AppGap.large2(),
             const AppText.bodyLarge('Text Button'),
             AppTextButton(
               'Text Button',
@@ -141,7 +141,7 @@ Iterable<Story> buttonStories() {
                     .showSnackBar(const SnackBar(content: Text('Hi!')));
               },
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             AppTextButton(
               'Text Button',
               icon: LinksysIcons.add,
@@ -150,74 +150,74 @@ Iterable<Story> buttonStories() {
                     .showSnackBar(const SnackBar(content: Text('Hi!')));
               },
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppTextButton(
               'Text Button Disabled',
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppTextButton(
               'Text Button Disabled',
               icon: LinksysIcons.add,
             ),
-            const AppGap.big(),
+            const AppGap.large2(),
             const AppText.bodyLarge('Outlined Button'),
             AppOutlinedButton(
               'Outlined Button',
               onTap: () {},
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             AppOutlinedButton(
               'Outlined Button',
               icon: LinksysIcons.add,
               onTap: () {},
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppOutlinedButton(
               'Outlined Button Disabled',
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppOutlinedButton(
               'Outlined Button Disabled',
               icon: LinksysIcons.add,
             ),
-            const AppGap.big(),
+            const AppGap.large2(),
             const AppText.bodyLarge('Elevated Button'),
             AppElevatedButton(
               'Elevated Button',
               onTap: () {},
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             AppElevatedButton(
               'Elevated Button',
               icon: LinksysIcons.add,
               onTap: () {},
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppElevatedButton(
               'Elevated Button Disabled',
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppElevatedButton(
               'Elevated Button Disabled',
               icon: LinksysIcons.add,
             ),
-            const AppGap.big(),
+            const AppGap.large2(),
             const AppText.bodyLarge('Tonal Button'),
             AppTonalButton(
               'Tonal Button',
               onTap: () {},
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             AppTonalButton(
               'Tonal Button ',
               icon: LinksysIcons.add,
               onTap: () {},
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppTonalButton(
               'Tonal Button Disabled',
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             const AppTonalButton(
               'Tonal Button Disabled',
               icon: LinksysIcons.add,
@@ -239,7 +239,8 @@ Iterable<Story> buttonStories() {
                     'Click Me',
                     onTap: () {},
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
             Align(
               alignment: Alignment.topRight,
@@ -248,7 +249,8 @@ Iterable<Story> buttonStories() {
                     'Click Me',
                     onTap: () {},
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -258,7 +260,8 @@ Iterable<Story> buttonStories() {
                     width: 72,
                     height: 72,
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
             Align(
               alignment: Alignment.center,
@@ -267,7 +270,8 @@ Iterable<Story> buttonStories() {
                     icon: Icons.question_mark_outlined,
                     onTap: () {},
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
             Align(
               alignment: Alignment.centerRight,
@@ -276,7 +280,8 @@ Iterable<Story> buttonStories() {
                     'Click Me',
                     onTap: () {},
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -285,7 +290,8 @@ Iterable<Story> buttonStories() {
                     'Click Me',
                     onTap: () {},
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -295,7 +301,8 @@ Iterable<Story> buttonStories() {
                     'Click Me',
                     onTap: () {},
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
             Align(
               alignment: Alignment.bottomRight,
@@ -305,7 +312,8 @@ Iterable<Story> buttonStories() {
                     'Click Me',
                     onTap: () {},
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
             Align(
               alignment: Alignment.bottomLeft,
@@ -315,7 +323,8 @@ Iterable<Story> buttonStories() {
                     'Click Me',
                     onTap: () {},
                   ),
-                  builder: (controller) => const AppText.bodyMedium('Some tips can show here')),
+                  builder: (controller) =>
+                      const AppText.bodyMedium('Some tips can show here')),
             ),
           ],
         ),

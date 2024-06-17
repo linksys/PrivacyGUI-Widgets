@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
 
 class CustomAnimatedBox extends StatefulWidget {
   final bool value;
@@ -51,7 +52,10 @@ class _CustomAnimatedBoxState extends State<CustomAnimatedBox> {
                   curve: Curves.easeInOut,
                   decoration: (widget.selectable ?? false)
                       ? BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: CustomTheme.of(context)
+                              .radius
+                              .asBorderRadius()
+                              .large,
                           border: Border.all(
                             color: Theme.of(context).colorScheme.onPrimary,
                             width: 2,

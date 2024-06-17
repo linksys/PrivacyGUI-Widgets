@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
-import 'package:privacygui_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:tap_builder/tap_builder.dart';
 
@@ -121,22 +121,22 @@ class AppPanelLayout extends StatelessWidget {
         widthFactor: animationFactor,
         child: Padding(
           padding:
-              padding ?? const EdgeInsets.symmetric(vertical: Spacing.regular),
+              padding ?? const EdgeInsets.symmetric(vertical: Spacing.medium),
           child: Row(
             children: [
               if (edit != null)
                 Padding(
-                  padding: const EdgeInsets.only(right: Spacing.regular),
+                  padding: const EdgeInsets.only(right: Spacing.medium),
                   child: edit,
                 ),
               if (iconOne != null)
                 Padding(
-                  padding: const EdgeInsets.only(right: Spacing.regular),
+                  padding: const EdgeInsets.only(right: Spacing.medium),
                   child: iconOne,
                 ),
               if (iconTwo != null)
                 Padding(
-                  padding: const EdgeInsets.only(right: Spacing.regular),
+                  padding: const EdgeInsets.only(right: Spacing.medium),
                   child: iconTwo,
                 ),
               Expanded(
@@ -147,12 +147,12 @@ class AppPanelLayout extends StatelessWidget {
               ),
               if (tail != null)
                 Padding(
-                  padding: const EdgeInsets.only(left: Spacing.regular),
+                  padding: const EdgeInsets.only(left: Spacing.medium),
                   child: tail,
                 ),
               if (!isHidingAccessory)
                 const Padding(
-                  padding: EdgeInsets.only(left: Spacing.semiSmall),
+                  padding: EdgeInsets.only(left: Spacing.small2),
                   child: Icon(
                     LinksysIcons.chevronRight,
                   ),

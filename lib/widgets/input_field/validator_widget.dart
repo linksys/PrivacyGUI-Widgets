@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
-import 'package:privacygui_widgets/widgets/base/gap.dart';
+import 'package:privacygui_widgets/widgets/gap/gap.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppValidatorWidget extends StatelessWidget {
@@ -39,7 +39,7 @@ class AppValidatorWidget extends StatelessWidget {
           AppText.bodyMedium(
             description!,
           ),
-        const AppGap.small(),
+        const AppGap.small3(),
         ...List.generate(
           validations.length,
           (index) {
@@ -50,7 +50,7 @@ class AppValidatorWidget extends StatelessWidget {
                     : validations[index].validator.call(textToValidate)
                         ? _checked(context)
                         : _unChecked(context),
-                const AppGap.semiSmall(),
+                const AppGap.small2(),
                 AppText.bodyMedium(
                   validations[index].description,
                   color: textToValidate.isEmpty

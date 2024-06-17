@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:privacygui_widgets/widgets/base/gap.dart';
+import 'package:privacygui_widgets/widgets/gap/gap.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppCheckbox extends StatelessWidget {
@@ -38,7 +38,7 @@ class AppCheckbox extends StatelessWidget {
   List<Widget> _buildText(String? text, bool enabled) {
     if (text != null) {
       final textWidget = AppText.bodyMedium(text);
-      return [const AppGap.small(), textWidget];
+      return [const AppGap.small3(), textWidget];
     } else {
       return [];
     }

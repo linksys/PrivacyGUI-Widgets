@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
-import 'package:privacygui_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -23,7 +23,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.toolbarHeight = kToolbarHeight,
     this.backgroundColor,
     this.padding =
-        const EdgeInsets.only(left: Spacing.regular, right: Spacing.regular),
+        const EdgeInsets.only(left: Spacing.medium, right: Spacing.medium),
   }) : preferredSize = _PreferredAppBarSize(toolbarHeight, 0);
 
   LinksysAppBar.withBack({
@@ -53,7 +53,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.toolbarHeight = kToolbarHeight,
     this.backgroundColor,
     this.padding =
-        const EdgeInsets.only(left: Spacing.regular, right: Spacing.regular),
+        const EdgeInsets.only(left: Spacing.medium, right: Spacing.medium),
     bool showBack = true,
     VoidCallback? onBackTap,
   })  : trailing = showBack
@@ -95,14 +95,14 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             if (leading != null)
               Container(
-                constraints: const BoxConstraints(minWidth: Spacing.big),
+                constraints: const BoxConstraints(minWidth: Spacing.large2),
                 child: leading,
               ),
             if (title != null)
               Flexible(
                 child: Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: Spacing.regular),
+                        const EdgeInsets.symmetric(horizontal: Spacing.medium),
                     child: title),
               ),
           ],
@@ -115,7 +115,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildTrailing(BuildContext context) {
     final trailing = this.trailing ?? [];
     return Container(
-      constraints: const BoxConstraints(minWidth: Spacing.big),
+      constraints: const BoxConstraints(minWidth: Spacing.large2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [...trailing.map((e) => e).toList()],

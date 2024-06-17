@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
-import 'package:privacygui_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/banner/banner_style.dart';
-import 'package:privacygui_widgets/widgets/base/gap.dart';
+import 'package:privacygui_widgets/widgets/gap/gap.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppBanner extends StatelessWidget {
@@ -34,9 +34,7 @@ class AppBanner extends StatelessWidget {
     return Padding(
       padding: padding ??
           const EdgeInsets.only(
-              left: Spacing.regular,
-              right: Spacing.regular,
-              top: Spacing.extraBig),
+              left: Spacing.medium, right: Spacing.medium, top: Spacing.large3),
       child: Card(
         elevation: 10,
         child: Container(
@@ -47,7 +45,7 @@ class AppBanner extends StatelessWidget {
             Icon(
               icon,
             ),
-            const AppGap.regular(),
+            const AppGap.medium(),
             Expanded(
                 child: AppText.bodyLarge(
               text,

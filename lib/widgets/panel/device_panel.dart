@@ -168,7 +168,7 @@ class AppDevicePanel extends StatelessWidget {
               '$band',
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             Icon(
               rssiIcon,
               size: 24,
@@ -196,11 +196,11 @@ class AppDevicePanel extends StatelessWidget {
         );
         tailWidget = Row(
           children: [
-            const AppGap.small(),
+            const AppGap.small3(),
             AppText.bodyLarge(
               '$download',
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             AppText.bodyLarge(
               '$upload',
             ),
@@ -222,7 +222,7 @@ class AppDevicePanel extends StatelessWidget {
             AppText.bodyLarge(
               '$bandwidth',
             ),
-            const AppGap.small(),
+            const AppGap.small3(),
             AppText.bodyLarge(
               'MB',
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
 
 enum AppPopupVerticalPosition {
   top(-1.0),
@@ -56,7 +57,8 @@ class PopupButtonState extends State<AppPopupButton>
       vsync: this,
       duration: const Duration(milliseconds: 250),
     );
-    _borderRadius = widget.borderRadius ?? BorderRadius.circular(4);
+    _borderRadius = widget.borderRadius ??
+        CustomTheme.of(context).radius.asBorderRadius().small;
     _key = LabeledGlobalKey("${widget.button.hashCode}");
     super.initState();
   }

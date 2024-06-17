@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
-import 'package:privacygui_widgets/theme/const/spacing.dart';
+import 'package:privacygui_widgets/theme/custom_theme.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class BorderListTile extends StatelessWidget {
@@ -19,16 +20,16 @@ class BorderListTile extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0),
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
         side: BorderSide(color: Theme.of(context).colorScheme.onBackground),
       ),
       title: AppText.titleMedium(title),
       subtitle: Padding(
-        padding: const EdgeInsets.only(top: 24.0),
+        padding: const EdgeInsets.only(top: Spacing.large1),
         child: subTitle != null ? AppText.bodyMedium(subTitle!) : null,
       ),
       trailing: const Icon(LinksysIcons.chevronRight),
-      contentPadding: const EdgeInsets.all(Spacing.semiBig),
+      contentPadding: const EdgeInsets.all(Spacing.large1),
     );
   }
 }

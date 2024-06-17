@@ -76,69 +76,49 @@ Iterable<Story> designSystemStories() {
 
           ///
           _colorGrid(
-              color:
-                  Theme.of(context).colorSchemeExt.primaryFixed,
+              color: Theme.of(context).colorSchemeExt.primaryFixed,
               label: 'Primary Fixed'),
           _colorGrid(
-              color:
-                  Theme.of(context).colorSchemeExt.secondaryFixed,
+              color: Theme.of(context).colorSchemeExt.secondaryFixed,
               label: 'Secondary Fixed'),
           _colorGrid(
-              color:
-                  Theme.of(context).colorSchemeExt.tertiaryFixed,
+              color: Theme.of(context).colorSchemeExt.tertiaryFixed,
               label: 'Tertiary Fixed'),
           const Center(),
 
           ///
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  ?.primaryFixedDim,
+              color: Theme.of(context).colorSchemeExt?.primaryFixedDim,
               label: 'Primary Fixed Dim'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  ?.secondaryFixedDim,
+              color: Theme.of(context).colorSchemeExt?.secondaryFixedDim,
               label: 'Secondary Fixed Dim'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  ?.tertiaryFixedDim,
+              color: Theme.of(context).colorSchemeExt?.tertiaryFixedDim,
               label: 'Tertiary Fixed Dim'),
           const Center(),
 
           ///
           _colorGrid(
-              color:
-                  Theme.of(context).colorSchemeExt.onPrimaryFixed,
+              color: Theme.of(context).colorSchemeExt.onPrimaryFixed,
               label: 'On Primary Fixed'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  ?.onSecondaryFixed,
+              color: Theme.of(context).colorSchemeExt?.onSecondaryFixed,
               label: 'On Secondary Fixed'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  ?.onTertiaryFixed,
+              color: Theme.of(context).colorSchemeExt?.onTertiaryFixed,
               label: 'On Tertiary Fixed'),
           const Center(),
 
           ///
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  ?.onPrimaryFixedVariant,
+              color: Theme.of(context).colorSchemeExt?.onPrimaryFixedVariant,
               label: 'On Primary Fixed Variant'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  ?.onSecondaryFixedVariant,
+              color: Theme.of(context).colorSchemeExt?.onSecondaryFixedVariant,
               label: 'On Secondary Fixed Variant'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  ?.onTertiaryFixedVariant,
+              color: Theme.of(context).colorSchemeExt?.onTertiaryFixedVariant,
               label: 'On Tertiary Fixed Variant'),
           const Center(),
 
@@ -149,35 +129,24 @@ Iterable<Story> designSystemStories() {
           _colorGrid(
               color: Theme.of(context).colorScheme.surface, label: 'Surface'),
           _colorGrid(
-              color:
-                  Theme.of(context).colorSchemeExt.surfaceBright,
+              color: Theme.of(context).colorSchemeExt.surfaceBright,
               label: 'Surface Bright'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  .surfaceContainerLowest,
+              color: Theme.of(context).colorSchemeExt.surfaceContainerLowest,
               label: 'Surface Container Lowest'),
 
           ///
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  .surfaceContainerLow,
+              color: Theme.of(context).colorSchemeExt.surfaceContainerLow,
               label: 'Surface Container Low'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  .surfaceContainer,
+              color: Theme.of(context).colorSchemeExt.surfaceContainer,
               label: 'Surface Container'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  .surfaceContainerHigh,
+              color: Theme.of(context).colorSchemeExt.surfaceContainerHigh,
               label: 'Surface Container High'),
           _colorGrid(
-              color: Theme.of(context)
-                  .colorSchemeExt
-                  .surfaceContainerHighest,
+              color: Theme.of(context).colorSchemeExt.surfaceContainerHighest,
               label: 'Surface Container Highest'),
 
           ///
@@ -261,7 +230,7 @@ Iterable<Story> designSystemStories() {
                       .toList(),
                 ],
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               Row(
                 children: [
                   const SizedBox(
@@ -280,7 +249,7 @@ Iterable<Story> designSystemStories() {
                       .toList(),
                 ],
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               Row(
                 children: [
                   const SizedBox(
@@ -299,7 +268,7 @@ Iterable<Story> designSystemStories() {
                       .toList(),
                 ],
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               Row(
                 children: [
                   const SizedBox(
@@ -318,7 +287,7 @@ Iterable<Story> designSystemStories() {
                       .toList(),
                 ],
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               Row(
                 children: [
                   const SizedBox(
@@ -337,7 +306,7 @@ Iterable<Story> designSystemStories() {
                       .toList(),
                 ],
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               Row(
                 children: [
                   const SizedBox(
@@ -357,7 +326,7 @@ Iterable<Story> designSystemStories() {
                       .toList(),
                 ],
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               Row(
                 children: [
                   const SizedBox(
@@ -376,7 +345,7 @@ Iterable<Story> designSystemStories() {
                       .toList(),
                 ],
               ),
-              const AppGap.regular(),
+              const AppGap.medium(),
               Row(
                 children: [
                   const SizedBox(

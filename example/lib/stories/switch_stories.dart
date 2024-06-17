@@ -25,7 +25,7 @@ Iterable<Story> switchStories() {
             const AppSwitch(
               value: false,
             ),
-            const AppGap.regular(),
+            const AppGap.medium(),
             const AppText.labelLarge('With default icons'),
             AppSwitch.withIcon(
               value: true,
@@ -41,7 +41,7 @@ Iterable<Story> switchStories() {
             const AppSwitch.withIcon(
               value: false,
             ),
-            const AppGap.regular(),
+            const AppGap.medium(),
             const AppText.labelLarge('With custom icons'),
             AppSwitch.withIcon(
               value: true,
@@ -65,7 +65,7 @@ Iterable<Story> switchStories() {
               checkedIcon: Icon(Icons.add),
               uncheckIcon: Icon(Icons.remove),
             ),
-            const AppGap.regular(),
+            const AppGap.medium(),
           ],
         ),
       ),
