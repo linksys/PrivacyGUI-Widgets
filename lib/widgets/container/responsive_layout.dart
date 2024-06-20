@@ -32,11 +32,9 @@ class ResponsiveLayout extends StatelessWidget {
         layoutBreakpoint1 - pageHorizontalPadding(context) * 2,
       <= layoutBreakpoint2 =>
         layoutBreakpoint2 - pageHorizontalPadding(context) * 2,
-      <= layoutBreakpoint3 =>
-        layoutBreakpoint3 - pageHorizontalPadding(context) * 2,
-      <= layoutBreakpoint4 =>
-        layoutBreakpoint4 - pageHorizontalPadding(context) * 2,
-      _ => layoutBreakpoint4 - pageHorizontalPadding(context) * 2,
+      <= layoutBreakpoint3 => layoutBreakpoint3 * (9 / 12),
+      <= layoutBreakpoint4 => layoutBreakpoint4 * (9 / 12),
+      _ => layoutBreakpoint4 * (9 / 12),
     };
   }
   //
