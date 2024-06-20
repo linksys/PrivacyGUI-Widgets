@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/page/layout/nested_scroll_layout.dart';
 

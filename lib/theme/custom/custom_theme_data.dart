@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
-import 'package:privacygui_widgets/theme/custom/avatars.dart';
 
 class CustomThemeData extends Equatable {
   const CustomThemeData({
@@ -10,9 +9,7 @@ class CustomThemeData extends Equatable {
     // required this.typography,
     required this.radius,
     // required this.shadow,
-    required this.durations,
     required this.images,
-    required this.avatar,
     // required this.formFactor,
     TargetPlatform? platform,
   }) : _platform = platform;
@@ -23,9 +20,7 @@ class CustomThemeData extends Equatable {
         // formFactor: AppFormFactor.medium,
         radius: const AppRadiusData.regular(),
         // shadow: AppShadowsData.regular(),
-        durations: AppDurationsData.regular(),
         images: AppImagesData.light(),
-        avatar: AppAvatarSizesData.regular(),
       );
 
   factory CustomThemeData.withImage(
@@ -35,16 +30,12 @@ class CustomThemeData extends Equatable {
         // formFactor: AppFormFactor.medium,
         radius: const AppRadiusData.regular(),
         // shadow: AppShadowsData.regular(),
-        durations: AppDurationsData.regular(),
         images: images,
-        avatar: AppAvatarSizesData.regular(),
       );
   final AppRadiusData radius;
 
   // final AppShadowsData shadow;
-  final AppDurationsData durations;
   final AppImagesData images;
-  final AppAvatarSizesData avatar;
 
   // final AppFormFactor formFactor;
   final TargetPlatform? _platform;
@@ -57,9 +48,7 @@ class CustomThemeData extends Equatable {
 
         radius,
         // shadow,
-        durations,
         images,
-        avatar,
         // formFactor,
         platform,
       ];

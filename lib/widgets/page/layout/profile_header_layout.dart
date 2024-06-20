@@ -72,7 +72,7 @@ class _AppProfileHeaderLayoutState extends State<AppProfileHeaderLayout> {
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.zero,
         title: AnimatedOpacity(
-          duration: CustomTheme.of(context).durations.quick,
+          duration: const Duration(milliseconds: 250),
           opacity: _isScrollToBottom ? 1 : 0,
           child: LinksysAppBar.withBack(
               backgroundColor: Theme.of(context).colorScheme.background,

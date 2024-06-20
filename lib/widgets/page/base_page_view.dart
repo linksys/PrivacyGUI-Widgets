@@ -16,38 +16,6 @@ class AppPageView extends StatelessWidget {
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final ({bool left, bool top, bool right, bool bottom}) enableSafeArea;
 
-  // const AppPageView.noNavigationBar({
-  //   Key? key,
-  //   this.child,
-  //   this.padding = _containerPadding,
-  //   this.scrollable = false,
-  //   this.bottomNavigationBar,
-  //   this.floatingActionButton,
-  //   this.floatingActionButtonAnimator,
-  //   this.floatingActionButtonLocation,
-  //   this.background,
-  //   this.controller,
-  //   this.useSafeArea = true,
-  // })  : appBar = null,
-  //       bottomSheet = null,
-  //       super(key: key);
-
-  // const AppPageView.noPadding({
-  //   Key? key,
-  //   this.child,
-  //   this.scrollable = false,
-  //   this.bottomNavigationBar,
-  //   this.floatingActionButton,
-  //   this.floatingActionButtonAnimator,
-  //   this.floatingActionButtonLocation,
-  //   this.background,
-  //   this.controller,
-  //   this.useSafeArea = true,
-  // })  : appBar = null,
-  //       bottomSheet = null,
-  //       padding = _noPadding,
-  //       super(key: key);
-
   AppPageView.bottomSheetModal({
     Key? key,
     required this.bottomSheet,
