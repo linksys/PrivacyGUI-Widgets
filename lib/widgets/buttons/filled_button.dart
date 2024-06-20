@@ -7,6 +7,7 @@ class AppFilledButton extends StatelessWidget {
     this.icon,
     this.onTap,
     this.size,
+    this.color,
   });
 
   factory AppFilledButton.fillWidth(
@@ -14,11 +15,13 @@ class AppFilledButton extends StatelessWidget {
     Key? key,
     IconData? icon,
     VoidCallback? onTap,
+    Color? color,
   }) =>
       AppFilledButton(title,
           key: key,
           icon: icon,
           onTap: onTap,
+          color: color,
           size: const Size(
             double.infinity,
             -1,
@@ -28,6 +31,7 @@ class AppFilledButton extends StatelessWidget {
   final IconData? icon;
   final VoidCallback? onTap;
   final Size? size;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +41,9 @@ class AppFilledButton extends StatelessWidget {
           ResponsiveLayout.isMobileLayout(context) ? 48 : 40);
     }
     final style = FilledButton.styleFrom(
+      backgroundColor: color,
       shape: RoundedRectangleBorder(
-          borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
       ),
       textStyle: Theme.of(context).textTheme.labelMedium,
       minimumSize: applySize,

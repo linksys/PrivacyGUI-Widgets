@@ -195,7 +195,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
         borderSide: widget.border.borderSide.copyWith(
             color: isError
                 ? Theme.of(context).colorScheme.error
-                : Theme.of(context).colorScheme.onBackground));
+                : Theme.of(context).colorScheme.outline));
     return Expanded(
       child: Opacity(
         opacity: readOnly ? 0.5 : 1.0,
@@ -203,10 +203,12 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
           controller: controller,
           focusNode: focus,
           decoration: InputDecoration(
-            border: border,
-            enabledBorder: border,
-            focusedBorder: border,
-          ),
+              border: border,
+              enabledBorder: border,
+              focusedBorder: border.copyWith(
+                  borderSide: border.borderSide
+                      .copyWith(color: Theme.of(context).colorScheme.primary)),
+              hoverColor: Theme.of(context).colorScheme.onBackground,),
           readOnly: readOnly,
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

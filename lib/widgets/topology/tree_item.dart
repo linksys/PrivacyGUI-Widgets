@@ -34,7 +34,7 @@ class AppTreeNodeItem extends StatelessWidget {
       color: background ?? Theme.of(context).colorScheme.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Theme.of(context).colorScheme.outline),
+        side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
         borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
       ),
       child: InkWell(
@@ -109,7 +109,7 @@ class AppTreeNodeItemLarge extends StatelessWidget {
       color: background ?? Theme.of(context).colorScheme.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Theme.of(context).colorScheme.outline),
+        side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
         borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
       ),
       child: InkWell(
@@ -195,7 +195,7 @@ class _BorderInfoCellState extends State<BorderInfoCell> {
                     color: Theme.of(context).colorSchemeExt.primaryFixedDim ??
                         Theme.of(context).colorScheme.outline),
                 borderRadius:
-                    CustomTheme.of(context).radius.asBorderRadius().large,
+                    CustomTheme.of(context).radius.asBorderRadius().extraLarge,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(Spacing.medium),
@@ -210,7 +210,7 @@ class _BorderInfoCellState extends State<BorderInfoCell> {
                       ),
                       const AppGap.medium(),
                     ],
-                    AppText.titleMedium(widget.name),
+                    AppText.bodyLarge(widget.name),
                   ],
                 ),
               ),

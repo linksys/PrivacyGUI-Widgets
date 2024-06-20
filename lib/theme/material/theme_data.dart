@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
-import 'package:privacygui_widgets/theme/material/color_schemes.dart';
-import 'package:privacygui_widgets/theme/material/text_schemes.dart';
 
 final linksysLightThemeData = ThemeData(
   useMaterial3: true,

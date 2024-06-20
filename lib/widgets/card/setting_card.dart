@@ -13,6 +13,7 @@ class AppSettingCard extends StatelessWidget {
   final EdgeInsets? padding;
   final Color? color;
   final Color? borderColor;
+  final EdgeInsets? margin;
 
   const AppSettingCard({
     super.key,
@@ -25,6 +26,7 @@ class AppSettingCard extends StatelessWidget {
     this.onTap,
     this.color,
     this.borderColor,
+    this.margin,
   });
 
   factory AppSettingCard.noBorder({
@@ -36,6 +38,7 @@ class AppSettingCard extends StatelessWidget {
     EdgeInsets? padding,
     Color? color,
     Color? borderColor,
+    EdgeInsets? margin,
   }) {
     return AppSettingCard(
       leading: leading,
@@ -49,6 +52,7 @@ class AppSettingCard extends StatelessWidget {
       onTap: onTap,
       color: color,
       borderColor: borderColor,
+      margin: margin,
     );
   }
 
@@ -70,6 +74,7 @@ class AppSettingCard extends StatelessWidget {
               vertical: Spacing.medium, horizontal: Spacing.large1),
       onTap: onTap,
       color: color,
+      margin: margin,
     );
   }
 }
