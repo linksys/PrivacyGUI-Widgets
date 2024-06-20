@@ -109,36 +109,6 @@ Iterable<Story> imageStories() {
   ];
 }
 
-
-List<Widget> _buildSvgSet(CustomThemeData theme, SvgAssetLoader image) {
-  return [
-    SvgPicture(
-      image,
-      width: theme.avatar.extraSmall,
-    ),
-    const AppGap.medium(),
-    SvgPicture(
-      image,
-      width: theme.avatar.small,
-    ),
-    const AppGap.medium(),
-    SvgPicture(
-      image,
-      width: theme.avatar.normal,
-    ),
-    const AppGap.medium(),
-    SvgPicture(
-      image,
-      width: theme.avatar.large,
-    ),
-    const AppGap.medium(),
-    SvgPicture(
-      image,
-      width: theme.avatar.extraLarge,
-    ),
-  ];
-}
-
 GridView _imageGridView<T>(BuildContext context, List<T> data,
     {required Widget Function(T) itemBuilder,
     int crossAxisCount = 3,

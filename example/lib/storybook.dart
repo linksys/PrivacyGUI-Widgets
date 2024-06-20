@@ -23,9 +23,7 @@ part 'stories/checkbox_stories.dart';
 part 'stories/switch_stories.dart';
 part 'stories/text_stories.dart';
 part 'stories/progress_bar_stories.dart';
-part 'stories/snackbar_stories.dart';
 part 'stories/assets_stories.dart';
-part 'stories/modal_stories.dart';
 part 'stories/input_stories.dart';
 part 'stories/stepper_stories.dart';
 part 'stories/layout_stories.dart';
@@ -70,7 +68,6 @@ class MyApp extends StatelessWidget {
           ...switchStories(),
           ...checkboxStories(),
           ...radioStories(),
-          ...toastStories(),
           ...containerStories(),
           // ...panelStories(),
           ...layoutStories(),
