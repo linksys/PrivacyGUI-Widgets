@@ -38,7 +38,7 @@ class _AnimatedMeterState extends State<AnimatedMeter>
   @override
   Widget build(BuildContext context) {
     _max = widget.markers.isEmpty ? 100 : widget.markers.last;
-    _value = widget.value / _max;
+    _value = _getIndicatorValue(widget.value, _max, widget.markers);
     return TweenAnimationBuilder(
       tween: Tween<double>(begin: 0.0, end: _value),
       duration: const Duration(seconds: 1),
@@ -60,12 +60,33 @@ class _AnimatedMeterState extends State<AnimatedMeter>
             Align(
               alignment: Alignment.bottomCenter,
               child: widget.bottomBuilder(context, value),
-            )
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+double _getIndicatorValue(double value, double max, List<double> markers) {
+  // No need to get value
+  if (markers.isEmpty || value >= max) return value / max;
+  // Get interval limit
+  final intervalLimit = markers.firstWhere((element) => value <= element);
+  final intervalLimitIndex = markers.indexOf(intervalLimit);
+  if (intervalLimitIndex < 1) return 0;
+  // Get interval lower limit
+  final intervalLowerLimitIndex = intervalLimitIndex - 1;
+  final intervalLowerLimit = markers[intervalLowerLimitIndex];
+  // Get indicator value
+  double returnValue = 0.0;
+  final double intervalOffset = 1 / (markers.length - 1);
+  final valueInIntervalOffset =
+      (value - intervalLowerLimit) / (intervalLimit - intervalLowerLimit);
+  returnValue = intervalLowerLimitIndex * intervalOffset +
+      (valueInIntervalOffset * intervalOffset);
+
+  return returnValue;
 }
 
 class MeterPainter extends CustomPainter {
@@ -82,8 +103,8 @@ class MeterPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = math.min(size.width, size.height) / 2;
-    const desiredFillRatio = 0.75;
-    const offsetAngle = math.pi / 4;
+    const desiredFillRatio = 0.8;
+    const offsetAngle = (2 * math.pi) / 20 * 3;
 
     const sweepAngle = 2 * math.pi * desiredFillRatio;
 
@@ -93,16 +114,16 @@ class MeterPainter extends CustomPainter {
     // Background painting
     final backgroundArcPaint = Paint()
       ..color = backgroundColor.withOpacity(0.1)
-      ..strokeWidth = 40.0
+      ..strokeWidth = 80.0
       // ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius - 16),
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius - 40),
         math.pi - offsetAngle, 2 * math.pi, false, backgroundArcPaint);
 
     // Background painting 2
     final backgroundArcPaint2 = Paint()
       ..color = backgroundColor
-      ..strokeWidth = 10.0
+      ..strokeWidth = 16.0
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     canvas.drawArc(
@@ -126,9 +147,9 @@ class MeterPainter extends CustomPainter {
         ],
         stops: [0.0, value],
       ).createShader(Rect.fromCircle(center: center, radius: radius))
-      ..strokeWidth = 40.0
+      ..strokeWidth = 80.0
       ..style = PaintingStyle.stroke;
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius - 16),
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius - 40),
         math.pi - offsetAngle, indicatorSweepAngle, false, indicatorArcPaint);
 
     // Indicator progress painting
@@ -138,7 +159,7 @@ class MeterPainter extends CustomPainter {
         colors: [indicatorColor, indicatorEndColor],
         stops: [0.0, value],
       ).createShader(Rect.fromCircle(center: center, radius: radius))
-      ..strokeWidth = 10.0
+      ..strokeWidth = 16.0
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius),
@@ -147,7 +168,7 @@ class MeterPainter extends CustomPainter {
     // Calculate marker positions and painting
     const markerColor = Colors.white;
     final numMarkers = markers.length;
-    const markerRadius = 3.0; // Adjust marker size as needed
+    const markerRadius = 4.0; // Adjust marker size as needed
     final Paint markerPaint = Paint()
       ..color = markerColor
       ..style = PaintingStyle.fill;
@@ -159,13 +180,13 @@ class MeterPainter extends CustomPainter {
       canvas.drawCircle(Offset(markerX, markerY), markerRadius, markerPaint);
 
       // Calculate text position and draw text
-      final markerTextRadius = radius - 15;
+      final markerTextRadius = radius - 24;
       final textPainter = TextPainter(
         text: TextSpan(
           text: markers[i],
           style: Theme.of(context)
               .textTheme
-              .bodySmall
+              .bodyMedium
               ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
         ),
         textAlign: TextAlign.center,
