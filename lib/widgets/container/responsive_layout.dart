@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ResponsiveLayout extends StatelessWidget {
@@ -16,26 +18,56 @@ class ResponsiveLayout extends StatelessWidget {
 
   static double pageHorizontalPadding(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return switch (width - railWidth) {
+    return switch (width) {
       <= layoutBreakpoint1 => 16.0,
-      <= layoutBreakpoint2 => 16.0,
-      <= layoutBreakpoint3 => 96.0,
-      <= layoutBreakpoint4 => 96.0,
-      _ => 96.0,
+      <= layoutBreakpoint2 => 32.0,
+      <= layoutBreakpoint3 => 39.0,
+      <= layoutBreakpoint4 => 200.0,
+      _ => 178.0,
     };
   }
 
-  static double pageMainWidth(BuildContext context) {
+  static double columnPadding(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
-      <= layoutBreakpoint1 =>
-        layoutBreakpoint1 - pageHorizontalPadding(context) * 2,
-      <= layoutBreakpoint2 =>
-        layoutBreakpoint2 - pageHorizontalPadding(context) * 2,
-      <= layoutBreakpoint3 => layoutBreakpoint3 * (9 / 12),
-      <= layoutBreakpoint4 => layoutBreakpoint4 * (9 / 12),
-      _ => layoutBreakpoint4 * (9 / 12),
+      <= layoutBreakpoint1 => 16.0,
+      <= layoutBreakpoint2 => 16.0,
+      <= layoutBreakpoint3 => 12.0,
+      <= layoutBreakpoint4 => 20.0,
+      _ => 20.0,
     };
+  }
+
+  static double columnSize(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    return switch (width) {
+      <= layoutBreakpoint1 => 70,
+      <= layoutBreakpoint2 => 53,
+      <= layoutBreakpoint3 => 52,
+      <= layoutBreakpoint4 => 55,
+      _ => 72,
+    };
+    // return (width -
+    //         (pageHorizontalPadding(context) * 2) -
+    //         (columnPadding(context) * (maxColumn(context) - 1))) /
+    //     maxColumn(context);
+  }
+
+  static int maxColumn(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    return switch (width) {
+      <= layoutBreakpoint1 => 4,
+      <= layoutBreakpoint2 => 8,
+      <= layoutBreakpoint3 => 12,
+      <= layoutBreakpoint4 => 12,
+      _ => 12,
+    };
+  }
+
+  static int getColumn(BuildContext context, int? desiredColumn) {
+    return desiredColumn == null
+        ? maxColumn(context)
+        : min(desiredColumn, maxColumn(context));
   }
   //
 
