@@ -25,14 +25,10 @@ class _AnimatedMeterState extends State<AnimatedMeter>
     with TickerProviderStateMixin {
   double _value = 0;
   double _max = 100;
+
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -41,12 +37,13 @@ class _AnimatedMeterState extends State<AnimatedMeter>
     _value = _getIndicatorValue(widget.value, _max, widget.markers);
     return TweenAnimationBuilder(
       tween: Tween<double>(begin: 0.0, end: _value),
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 1000),
       builder: (context, value, child) => SizedBox(
         width: widget.size,
         height: widget.size,
         child: Stack(
           alignment: Alignment.center,
+          clipBehavior: Clip.none,
           children: [
             CustomPaint(
               painter: MeterPainter(
@@ -102,7 +99,8 @@ class MeterPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final radius = math.min(size.width, size.height) / 2;
+    final radius = math.min(size.width, size.height) / 2 - 20;
+    final outsideIndicatorRadius = math.min(size.width, size.height) / 2;
     const desiredFillRatio = 0.8;
     const offsetAngle = (2 * math.pi) / 20 * 3;
 
@@ -164,6 +162,52 @@ class MeterPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius),
         math.pi - offsetAngle, indicatorSweepAngle, false, indicatorArcPaint2);
+
+    if (value != 0) {
+      // Indicator progress background painting
+      final indicatorArcPaint3 = Paint()
+        ..color = Colors.white.withOpacity(0.1)
+        ..strokeWidth = 4.0
+        ..strokeCap = StrokeCap.round
+        ..style = PaintingStyle.stroke;
+      // canvas.drawArc(
+      //     Rect.fromCircle(center: center, radius: outsideIndicatorRadius),
+      //     math.pi - offsetAngle,
+      //     2 * math.pi * desiredFillRatio,
+      //     false,
+      //     indicatorArcPaint3);
+
+      // Indicator progress painting
+      const ousideIndicatorlength = 2 * math.pi * 0.333;
+      double startAngle = math.pi -
+          offsetAngle +
+          indicatorSweepAngle -
+          (ousideIndicatorlength / 2);
+      final indicatorArcPaint4 = Paint()
+        // ..color = indicatorEndColor
+        ..shader = SweepGradient(
+          colors: [
+            Colors.white.withOpacity(0.1),
+            indicatorColor,
+            indicatorEndColor,
+            indicatorColor,
+            Colors.white.withOpacity(0.1),
+          ],
+          stops: const [0.0, 0.3, 0.5, 0.7, 1.0],
+          startAngle: startAngle,
+          endAngle: startAngle + ousideIndicatorlength,
+        ).createShader(
+            Rect.fromCircle(center: center, radius: outsideIndicatorRadius))
+        ..strokeWidth = 4.0
+        ..strokeCap = StrokeCap.round
+        ..style = PaintingStyle.stroke;
+      // canvas.drawArc(
+      //     Rect.fromCircle(center: center, radius: outsideIndicatorRadius),
+      //     startAngle,
+      //     ousideIndicatorlength,
+      //     false,
+      //     indicatorArcPaint4);
+    }
 
     // Calculate marker positions and painting
     const markerColor = Colors.white;

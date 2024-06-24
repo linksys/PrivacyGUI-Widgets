@@ -11,6 +11,7 @@ class AppCard extends StatelessWidget {
   final Color? color;
   final Color? borderColor;
   final EdgeInsets? margin;
+  final Clip? clipBehavior;
 
   const AppCard({
     Key? key,
@@ -20,6 +21,7 @@ class AppCard extends StatelessWidget {
     this.color,
     this.borderColor,
     this.margin,
+    this.clipBehavior,
     required this.child,
   }) : super(key: key);
 
@@ -38,6 +40,7 @@ class AppCard extends StatelessWidget {
                   CustomTheme.of(context).radius.asBorderRadius().medium,
             )
           : null,
+      clipBehavior: clipBehavior,
       child: InkWell(
         borderRadius: showBorder
             ? CustomTheme.of(context).radius.asBorderRadius().medium
