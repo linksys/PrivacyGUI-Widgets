@@ -42,8 +42,9 @@ class AppFilledButton extends StatelessWidget {
     }
     final style = FilledButton.styleFrom(
       backgroundColor: color,
-      shape: RoundedRectangleBorder(
-        borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
+      // TODO Invisgate why access CustomTheme is not working
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.zero),
       ),
       textStyle: Theme.of(context).textTheme.labelMedium,
       minimumSize: applySize,

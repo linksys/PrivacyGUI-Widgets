@@ -44,8 +44,9 @@ class AppOutlinedButton extends StatelessWidget {
         side: color == null
             ? null
             : BorderSide(color: color ?? Theme.of(context).colorScheme.outline),
-        shape: RoundedRectangleBorder(
-          borderRadius: CustomTheme.of(context).radius.asBorderRadius().none,
+        shape: const RoundedRectangleBorder(
+          // TODO Invisgate why access CustomTheme is not working
+          borderRadius: BorderRadius.all(Radius.zero),
         ),
         textStyle: Theme.of(context).textTheme.labelMedium,
         foregroundColor: color,
