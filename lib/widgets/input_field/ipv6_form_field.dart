@@ -166,7 +166,7 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
           const AppGap.small2(),
         ],
         Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildOctetInputForm(_octet1Focus, _octet2Focus, _octet1Controller,
                 readOnly: widget.octet1ReadOnly),
