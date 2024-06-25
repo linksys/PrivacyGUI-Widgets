@@ -47,14 +47,21 @@ class GroupList<T> extends StatelessWidget {
           children: [
             labelWidget,
             const AppGap.medium(),
-            ListView.builder(
+            ListView.separated(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               itemCount: itemsInCategory.length,
               itemBuilder: (BuildContext context, int index) =>
                   itemBuilder(itemsInCategory[index]),
+              separatorBuilder: (BuildContext context, int index) {
+                if (index != itemsInCategory.length) {
+                  return const AppGap.medium();
+                } else {
+                  return const Center();
+                }
+              },
             ),
-            const AppGap.large2(),
+            const AppGap.large3(),
           ],
         );
       },

@@ -35,7 +35,7 @@ Iterable<Story> checkboxStories() {
                 tristate: true,
                 text: 'I agree to Terms & Conditions of Linksys',
               ),
-              const AppGap.large1(),
+              const AppGap.large2(),
               const AppText.bodyLarge('Enabled'),
               AppCheckbox(
                 value: false,
@@ -66,7 +66,7 @@ Iterable<Story> checkboxStories() {
                 text: 'I agree to Terms & Conditions of Linksys',
                 onChanged: (value) {},
               ),
-              const AppGap.large1(),
+              const AppGap.large2(),
               const AppText.bodyLarge('Error state'),
               AppCheckbox(
                 value: false,

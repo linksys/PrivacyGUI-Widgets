@@ -44,7 +44,7 @@ class AppFullScreenSpinner extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             ),
-            const AppGap.large1(),
+            const AppGap.large2(),
             if (title != null) AppText.headlineSmall(title ?? ''),
             if (text != null) AppText.bodyMedium(text ?? ''),
           ],

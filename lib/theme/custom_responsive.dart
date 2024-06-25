@@ -1,8 +1,12 @@
+import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
+
+part 'custom_column_data.dart';
 
 enum CustomColorMode {
   light,
@@ -64,11 +68,15 @@ class CustomResponsive extends StatelessWidget {
     //   DeviceOrientation.landscapeLeft,
     // ]);
 
-    return CustomTheme(
-        data: theme,
-        child: Container(
-          // color: backgroundColor ?? theme.colors.background,
-          child: child,
-        ));
+    return LayoutBuilder(builder: (context, constraints) {
+      _CustomColumnData().update(ResponsiveLayout.columnSize(context),
+          ResponsiveLayout.columnPadding(context));
+      return CustomTheme(
+          data: theme,
+          child: Container(
+            // color: backgroundColor ?? theme.colors.background,
+            child: child,
+          ));
+    });
   }
 }

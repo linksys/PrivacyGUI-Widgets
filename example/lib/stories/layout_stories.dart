@@ -28,7 +28,7 @@ Iterable<Story> layoutStories() {
                 color: Colors.blueGrey,
                 child: Column(
                   children: [
-                    AppGap.large3(),
+                    AppGap.large4(),
                     AppSection.withList(items: [
                       AppSectionItemData(title: 'item 1'),
                       AppSectionItemData(title: 'item 2'),

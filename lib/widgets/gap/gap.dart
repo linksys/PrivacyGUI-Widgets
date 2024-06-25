@@ -1,9 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
+import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 enum AppGapSize {
   none,
+  gutter,
   small1,
   small2,
   small3,
@@ -11,6 +13,7 @@ enum AppGapSize {
   large1,
   large2,
   large3,
+  large4,
 }
 
 extension AppGapSizeExtension on AppGapSize {
@@ -32,6 +35,10 @@ extension AppGapSizeExtension on AppGapSize {
         return Spacing.large2;
       case AppGapSize.large3:
         return Spacing.large3;
+      case AppGapSize.large4:
+        return Spacing.large4;
+      case AppGapSize.gutter:
+        return 0;
     }
   }
 }
@@ -42,10 +49,10 @@ class AppGap extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  /// 4, [Spacing.small3]
-  const AppGap.small3({
+  /// 4, [Spacing.small1]
+  const AppGap.small1({
     Key? key,
-  })  : size = AppGapSize.small3,
+  })  : size = AppGapSize.small1,
         super(key: key);
 
   /// 8, [Spacing.small2]
@@ -54,10 +61,10 @@ class AppGap extends StatelessWidget {
   })  : size = AppGapSize.small2,
         super(key: key);
 
-  /// 12, [Spacing.small1]
-  const AppGap.small1({
+  /// 12, [Spacing.small3]
+  const AppGap.small3({
     Key? key,
-  })  : size = AppGapSize.small1,
+  })  : size = AppGapSize.small3,
         super(key: key);
 
   /// 16, [Spacing.medium]
@@ -66,28 +73,40 @@ class AppGap extends StatelessWidget {
   })  : size = AppGapSize.medium,
         super(key: key);
 
-  /// 24, [Spacing.large1]
+  /// 20, [Spacing.large1]
   const AppGap.large1({
     Key? key,
   })  : size = AppGapSize.large1,
         super(key: key);
 
-  /// 32, [Spacing.large2]
+  /// 24, [Spacing.large2]
   const AppGap.large2({
     Key? key,
   })  : size = AppGapSize.large2,
         super(key: key);
 
-  /// 48, [Spacing.large3]
+  /// 32, [Spacing.large3]
   const AppGap.large3({
     Key? key,
   })  : size = AppGapSize.large3,
         super(key: key);
 
+  /// 48, [Spacing.large4]
+  const AppGap.large4({
+    Key? key,
+  })  : size = AppGapSize.large4,
+        super(key: key);
+
+  const AppGap.gutter({
+    Key? key,
+  })  : size = AppGapSize.gutter,
+        super(key: key);
   final AppGapSize size;
 
   @override
   Widget build(BuildContext context) {
-    return Gap(size.getSpacing());
+    return Gap(size == AppGapSize.gutter
+        ? ResponsiveLayout.columnPadding(context)
+        : size.getSpacing());
   }
 }
