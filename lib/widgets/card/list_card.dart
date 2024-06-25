@@ -37,7 +37,7 @@ class AppListCard extends StatelessWidget {
       showBorder: showBorder,
       padding: padding ??
           const EdgeInsets.symmetric(
-              vertical: Spacing.medium, horizontal: Spacing.large1),
+              vertical: Spacing.medium, horizontal: Spacing.large2),
       onTap: onTap,
       color: color,
       borderColor: borderColor,

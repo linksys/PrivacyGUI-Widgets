@@ -30,7 +30,7 @@ class AppCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: color,
-      margin: margin,
+      margin: margin ?? const EdgeInsets.only(),
       shape: showBorder
           ? RoundedRectangleBorder(
               side: BorderSide(

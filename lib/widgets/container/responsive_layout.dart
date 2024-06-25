@@ -1,28 +1,30 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   //
-  static const double railWidth = 120;
+  static const double naviRailWidth = 80;
+  static const double naviRailWidthThin = 72;
   // Mobile
-  static const double layoutBreakpoint1 = 600;
+  static const double small = 600;
   // Tablet
-  static const double layoutBreakpoint2 = 905;
+  static const double medium = 905;
   // Desktop
-  static const double layoutBreakpoint3 = 1240;
-  static const double layoutBreakpoint4 = 1440;
+  static const double large = 1240;
+  static const double extraLarge = 1440;
 
-  static double tabletBreakpoint = layoutBreakpoint2;
-  static double desktopBreakpoint = layoutBreakpoint3;
+  static double tabletBreakpoint = medium;
+  static double desktopBreakpoint = large;
 
   static double pageHorizontalPadding(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
-      <= layoutBreakpoint1 => 16.0,
-      <= layoutBreakpoint2 => 32.0,
-      <= layoutBreakpoint3 => 39.0,
-      <= layoutBreakpoint4 => 200.0,
+      <= small => 16.0,
+      <= medium => 32.0,
+      <= large => 39.0,
+      <= extraLarge => 200.0,
       _ => 178.0,
     };
   }
@@ -30,21 +32,21 @@ class ResponsiveLayout extends StatelessWidget {
   static double columnPadding(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
-      <= layoutBreakpoint1 => 16.0,
-      <= layoutBreakpoint2 => 16.0,
-      <= layoutBreakpoint3 => 12.0,
-      <= layoutBreakpoint4 => 20.0,
-      _ => 20.0,
+      <= small => Spacing.medium,
+      <= medium => Spacing.medium,
+      <= large => Spacing.small3,
+      <= extraLarge => Spacing.large1,
+      _ => Spacing.large1,
     };
   }
 
   static double columnSize(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
-      <= layoutBreakpoint1 => 70,
-      <= layoutBreakpoint2 => 53,
-      <= layoutBreakpoint3 => 52,
-      <= layoutBreakpoint4 => 55,
+      <= small => 70,
+      <= medium => 53,
+      <= large => 52,
+      <= extraLarge => 55,
       _ => 72,
     };
     // return (width -
@@ -56,10 +58,10 @@ class ResponsiveLayout extends StatelessWidget {
   static int maxColumn(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
-      <= layoutBreakpoint1 => 4,
-      <= layoutBreakpoint2 => 8,
-      <= layoutBreakpoint3 => 12,
-      <= layoutBreakpoint4 => 12,
+      <= small => 4,
+      <= medium => 8,
+      <= large => 12,
+      <= extraLarge => 12,
       _ => 12,
     };
   }
@@ -71,23 +73,19 @@ class ResponsiveLayout extends StatelessWidget {
   }
   //
 
-  static isDesktop(BuildContext context) =>
-      MediaQuery.of(context).size.width >= tabletBreakpoint;
-
-  static isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width < tabletBreakpoint;
-
+  static isDesktopLayout(BuildContext context) =>
+      MediaQuery.of(context).size.width >= medium;
   static isMobileLayout(BuildContext context) =>
-      MediaQuery.of(context).size.width < layoutBreakpoint2;
+      MediaQuery.of(context).size.width < medium;
 
-  static isOverBreakpoint1(BuildContext context) =>
-      MediaQuery.of(context).size.width >= layoutBreakpoint1;
-  static isOverBreakpoint2(BuildContext context) =>
-      MediaQuery.of(context).size.width >= layoutBreakpoint2;
-  static isOverBreakpoint3(BuildContext context) =>
-      MediaQuery.of(context).size.width >= layoutBreakpoint3;
-  static isOverBreakpoint4(BuildContext context) =>
-      MediaQuery.of(context).size.width >= layoutBreakpoint4;
+  static isOverSmallLayout(BuildContext context) =>
+      MediaQuery.of(context).size.width >= small;
+  static isOverMedimumLayout(BuildContext context) =>
+      MediaQuery.of(context).size.width >= medium;
+  static isOverLargeLayout(BuildContext context) =>
+      MediaQuery.of(context).size.width >= large;
+  static isOverExtraLargeLayout(BuildContext context) =>
+      MediaQuery.of(context).size.width >= extraLarge;
 
   const ResponsiveLayout({
     super.key,

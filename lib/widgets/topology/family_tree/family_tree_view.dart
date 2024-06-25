@@ -53,9 +53,9 @@ class _AppFamilyTreeViewState<T> extends State<AppFamilyTreeView<T>> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constriant) {
-      final gridColumnCount = ResponsiveLayout.isOverBreakpoint4(context)
+      final gridColumnCount = ResponsiveLayout.isOverExtraLargeLayout(context)
           ? 3
-          : ResponsiveLayout.isOverBreakpoint2(context)
+          : ResponsiveLayout.isOverMedimumLayout(context)
               ? 2
               : 1;
       final offlineGridWidth = 300.0 * gridColumnCount;
@@ -88,7 +88,7 @@ class _AppFamilyTreeViewState<T> extends State<AppFamilyTreeView<T>> {
                 },
               ),
               if (widget.offlineRoot.children.isNotEmpty) ...[
-                const AppGap.large3(),
+                const AppGap.large4(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -101,10 +101,10 @@ class _AppFamilyTreeViewState<T> extends State<AppFamilyTreeView<T>> {
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: ResponsiveLayout.isOverBreakpoint4(
-                                    context)
+                            crossAxisCount: ResponsiveLayout
+                                    .isOverExtraLargeLayout(context)
                                 ? 3
-                                : ResponsiveLayout.isOverBreakpoint2(context)
+                                : ResponsiveLayout.isOverMedimumLayout(context)
                                     ? 2
                                     : 1,
                             mainAxisSpacing: 8,

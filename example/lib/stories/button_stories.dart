@@ -22,7 +22,7 @@ Iterable<Story> buttonStories() {
               ),
             ],
           ),
-          const AppGap.large2(),
+          const AppGap.large3(),
           const AppText.bodyLarge('Icon Button Filled'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +38,7 @@ Iterable<Story> buttonStories() {
               ),
             ],
           ),
-          const AppGap.large2(),
+          const AppGap.large3(),
           const AppText.bodyLarge('Icon Button Outlined'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +54,7 @@ Iterable<Story> buttonStories() {
               ),
             ],
           ),
-          const AppGap.large2(),
+          const AppGap.large3(),
           const AppText.bodyLarge('Icon Button Outlined'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +70,7 @@ Iterable<Story> buttonStories() {
               ),
             ],
           ),
-          const AppGap.large2(),
+          const AppGap.large3(),
           const AppText.bodyLarge('Animated Toggle Button'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -132,7 +132,7 @@ Iterable<Story> buttonStories() {
               'Filled Button Disabled',
               icon: LinksysIcons.add,
             ),
-            const AppGap.large2(),
+            const AppGap.large3(),
             const AppText.bodyLarge('Text Button'),
             AppTextButton(
               'Text Button',
@@ -159,7 +159,7 @@ Iterable<Story> buttonStories() {
               'Text Button Disabled',
               icon: LinksysIcons.add,
             ),
-            const AppGap.large2(),
+            const AppGap.large3(),
             const AppText.bodyLarge('Outlined Button'),
             AppOutlinedButton(
               'Outlined Button',
@@ -180,7 +180,7 @@ Iterable<Story> buttonStories() {
               'Outlined Button Disabled',
               icon: LinksysIcons.add,
             ),
-            const AppGap.large2(),
+            const AppGap.large3(),
             const AppText.bodyLarge('Elevated Button'),
             AppElevatedButton(
               'Elevated Button',
@@ -201,7 +201,7 @@ Iterable<Story> buttonStories() {
               'Elevated Button Disabled',
               icon: LinksysIcons.add,
             ),
-            const AppGap.large2(),
+            const AppGap.large3(),
             const AppText.bodyLarge('Tonal Button'),
             AppTonalButton(
               'Tonal Button',

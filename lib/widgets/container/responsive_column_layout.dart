@@ -7,7 +7,7 @@ class AppResponsiveColumnLayout extends StatelessWidget {
   final bool centered;
   final Widget? topWidget;
   final Widget? bottomWidget;
-
+  final bool isShowNaviRail;
   final Widget Function() builder;
   final bool showColumnOverlay;
 
@@ -15,6 +15,7 @@ class AppResponsiveColumnLayout extends StatelessWidget {
     super.key,
     this.column,
     required this.centered,
+    required this.isShowNaviRail,
     this.topWidget,
     this.bottomWidget,
     required this.builder,
@@ -27,12 +28,20 @@ class AppResponsiveColumnLayout extends StatelessWidget {
     final remaining = ResponsiveLayout.maxColumn(context) - column;
     final centered = remaining > 1 && this.centered == true;
     final screenWidth = MediaQuery.of(context).size.width;
-    final padding = (screenWidth -
+    final leftNaviRailWidth =
+        ResponsiveLayout.isMobileLayout(context) || !isShowNaviRail
+            ? 0
+            : ResponsiveLayout.isOverMedimumLayout(context) &&
+                    !ResponsiveLayout.isOverLargeLayout(context)
+                ? ResponsiveLayout.naviRailWidthThin
+                : 0;
+    final padding = ((screenWidth - leftNaviRailWidth) -
             (ResponsiveLayout.maxColumn(context) *
                 ResponsiveLayout.columnSize(context)) -
             (ResponsiveLayout.columnPadding(context) *
                 (ResponsiveLayout.maxColumn(context) - 1))) /
         2;
+    
     return Container(
       color: Theme.of(context).colorScheme.background,
       child: Column(

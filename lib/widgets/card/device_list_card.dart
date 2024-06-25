@@ -51,7 +51,10 @@ class AppDeviceListCard extends StatelessWidget {
                   ),
                 ]
               : [],
-          Icon(leading),
+          Padding(
+            padding: const EdgeInsets.all(Spacing.small2),
+            child: Icon(leading),
+          ),
         ],
       ),
       trailing: Wrap(
