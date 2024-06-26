@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
 import 'package:wolt_responsive_layout_grid/wolt_responsive_layout_grid.dart';
@@ -41,7 +43,6 @@ class AppResponsiveColumnLayout extends StatelessWidget {
             (ResponsiveLayout.columnPadding(context) *
                 (ResponsiveLayout.maxColumn(context) - 1))) /
         2;
-    
     return Container(
       color: Theme.of(context).colorScheme.background,
       child: Column(
@@ -55,7 +56,7 @@ class AppResponsiveColumnLayout extends StatelessWidget {
                     isOverlayVisible: showColumnOverlay,
                     gutter: ResponsiveLayout.columnPadding(context),
                     // margin: ResponsiveLayout.pageHorizontalPadding(context),
-                    margin: padding,
+                    margin: max(0, padding),
                     paddedColumnCountPerSide: remaining ~/ 2,
                     centerWidgetColumnCount: column,
                     child: builder(),
@@ -75,7 +76,7 @@ class AppResponsiveColumnLayout extends StatelessWidget {
                         ),
                     ],
                     // margin: ResponsiveLayout.pageHorizontalPadding(context),
-                    margin: padding,
+                    margin: max(0, padding),
                   ),
           ),
           if (bottomWidget != null) bottomWidget!,
