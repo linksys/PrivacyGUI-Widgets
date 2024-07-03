@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 class AppNestedScrollLayout extends StatelessWidget {
   final Widget? appBarTitle;
@@ -46,7 +47,10 @@ class AppNestedScrollLayout extends StatelessWidget {
           ),
         ];
       },
-      body: body,
+      body: Padding(
+        padding: const EdgeInsets.only(top: Spacing.medium),
+        child: body,
+      ),
     );
   }
 }
