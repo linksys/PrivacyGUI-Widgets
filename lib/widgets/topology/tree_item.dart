@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
@@ -157,6 +157,75 @@ class AppTreeNodeItemLarge extends StatelessWidget {
   }
 }
 
+class AppTreeNodeDetailedItem extends StatelessWidget {
+  final ImageProvider? image;
+  final Widget? tail;
+  final String name;
+  final Widget? details;
+  final VoidCallback? onTap;
+  final Color? background;
+
+  const AppTreeNodeDetailedItem({
+    super.key,
+    this.tail,
+    required this.name,
+    this.details,
+    this.image,
+    this.onTap,
+    this.background,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.zero,
+      color: background ?? Theme.of(context).colorScheme.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
+      ),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
+        child: Container(
+          constraints: const BoxConstraints(
+              minWidth: 180, maxWidth: 300, maxHeight: 172),
+          padding: const EdgeInsets.all(Spacing.medium),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image(
+                image:
+                    image ?? CustomTheme.of(context).images.devices.routerLn11,
+                width: 40,
+                height: 40,
+              ),
+              const AppGap.small3(),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText.labelLarge(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    if (details != null) details!,
+                  ],
+                ),
+              ),
+              if (tail != null) Center(child: tail!),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class BorderInfoCell extends StatefulWidget {
   final IconData? icon;
   final String name;
@@ -270,6 +339,8 @@ class AppTreeNodeCell extends StatefulWidget {
   final List<bool> isParentLastArray;
   final bool showConnectionLine;
   final Color? lineColor;
+  final bool isRTL;
+  final bool dashed;
 
   const AppTreeNodeCell({
     super.key,
@@ -280,6 +351,8 @@ class AppTreeNodeCell extends StatefulWidget {
     required this.isParentLastArray,
     this.showConnectionLine = true,
     this.lineColor,
+    this.isRTL = false,
+    this.dashed = false,
   });
 
   @override
@@ -297,7 +370,12 @@ class _AppTreeNodeCellState extends State<AppTreeNodeCell> {
           ...List<int>.generate(widget.level - 1, (level) => level + 1).map(
             (e) => Container(
               padding: EdgeInsets.only(
-                  left: (e == 1 ? 0 : _levelOfPadding) + _leftPadding),
+                  left: widget.isRTL
+                      ? 0
+                      : (e == 1 ? 0 : _levelOfPadding) + _leftPadding,
+                  right: widget.isRTL
+                      ? (e == 1 ? 0 : _levelOfPadding) + _leftPadding
+                      : 0),
               child: CustomPaint(
                 painter: _PathPainter(
                   color:
@@ -307,6 +385,8 @@ class _AppTreeNodeCellState extends State<AppTreeNodeCell> {
                       : (widget.isParentLastArray[e + 1]
                           ? _PathType.none
                           : _PathType.vertical),
+                  rtl: widget.isRTL,
+                  dashed: widget.dashed,
                 ),
                 child: Container(
                   width: _leadingPadding,
@@ -323,13 +403,18 @@ class _AppTreeNodeCellState extends State<AppTreeNodeCell> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: _leftPadding),
+                padding: EdgeInsets.only(
+                  left: widget.isRTL ? 0 : _leftPadding,
+                  right: widget.isRTL ? _leftPadding : 0,
+                ),
                 child: widget.level == 1 && widget.showConnectionLine
                     ? CustomPaint(
                         painter: _PathPainter(
-                            color: widget.lineColor ??
-                                Theme.of(context).colorScheme.outline,
-                            type: _PathType.vertical),
+                          color: widget.lineColor ??
+                              Theme.of(context).colorScheme.outline,
+                          type: _PathType.vertical,
+                          rtl: widget.isRTL,
+                        ),
                         child: Container(
                           width: _leadingPadding,
                           height: 12,
@@ -365,12 +450,16 @@ class _PathPainter extends CustomPainter {
   final double strokeWidth;
   final double deltaX;
   final double deltaY;
+  final bool rtl;
+  final bool dashed;
   _PathPainter({
     this.type = _PathType.none,
     this.color = Colors.black,
     this.strokeWidth = 1,
     this.deltaX = defaultDeltaX,
     this.deltaY = defaultDeltaY,
+    this.rtl = false,
+    this.dashed = false,
   });
 
   @override
@@ -382,20 +471,39 @@ class _PathPainter extends CustomPainter {
 
     switch (type) {
       case _PathType.last:
-        canvas.drawLine(Offset(center.width, deltaY),
-            Offset(center.width, center.height), paint);
-        canvas.drawLine(Offset(center.width, center.height),
-            Offset(size.width + deltaX, center.height), paint);
+        dashed
+            ? canvas.drawDashedLine(Offset(center.width, deltaY),
+                Offset(center.width, center.height), paint)
+            : canvas.drawLine(Offset(center.width, deltaY),
+                Offset(center.width, center.height), paint);
+        dashed
+            ? canvas.drawDashedLine(
+                Offset(center.width, center.height),
+                Offset((rtl ? -1 : 1) * (size.width + deltaX), center.height),
+                paint)
+            : canvas.drawLine(
+                Offset(center.width, center.height),
+                Offset((rtl ? -1 : 1) * (size.width + deltaX), center.height),
+                paint);
         break;
       case _PathType.middle:
-        canvas.drawLine(Offset(center.width, deltaY),
-            Offset(center.width, size.height), paint);
-        canvas.drawLine(Offset(center.width, center.height),
-            Offset(size.width, center.height), paint);
+        dashed
+            ? canvas.drawDashedLine(Offset(center.width, deltaY),
+                Offset(center.width, size.height), paint)
+            : canvas.drawLine(Offset(center.width, deltaY),
+                Offset(center.width, size.height), paint);
+        dashed
+            ? canvas.drawDashedLine(Offset(center.width, center.height),
+                Offset((rtl ? -1 : 1) * size.width, center.height), paint)
+            : canvas.drawLine(Offset(center.width, center.height),
+                Offset((rtl ? -1 : 1) * size.width, center.height), paint);
         break;
       case _PathType.vertical:
-        canvas.drawLine(Offset(center.width, deltaY),
-            Offset(center.width, size.height), paint);
+        dashed
+            ? canvas.drawDashedLine(Offset(center.width, deltaY),
+                Offset(center.width, size.height), paint)
+            : canvas.drawLine(Offset(center.width, deltaY),
+                Offset(center.width, size.height), paint);
         break;
       case _PathType.none:
       default:
@@ -406,5 +514,36 @@ class _PathPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return this != oldDelegate;
+  }
+}
+
+extension CanvasDashedLine on Canvas {
+  void drawDashedLine(
+    Offset p1,
+    Offset p2,
+    Paint paint, {
+    int dashWidth = 4,
+    int dashSpace = 2,
+  }) {
+    // Get normalized distance vector from p1 to p2
+    var dx = p2.dx - p1.dx;
+    var dy = p2.dy - p1.dy;
+    final magnitude = sqrt(dx * dx + dy * dy);
+    dx = dx / magnitude;
+    dy = dy / magnitude;
+
+    // Compute number of dash segments
+    final steps = magnitude ~/ (dashWidth + dashSpace);
+
+    var startX = p1.dx;
+    var startY = p1.dy;
+
+    for (int i = 0; i < steps; i++) {
+      final endX = startX + dx * dashWidth;
+      final endY = startY + dy * dashWidth;
+      drawLine(Offset(startX, startY), Offset(endX, endY), paint);
+      startX += dx * (dashWidth + dashSpace);
+      startY += dy * (dashWidth + dashSpace);
+    }
   }
 }

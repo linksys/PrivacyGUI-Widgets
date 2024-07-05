@@ -66,6 +66,10 @@ class ResponsiveLayout extends StatelessWidget {
     };
   }
 
+  static double getContentWidth(BuildContext context) =>
+      maxColumn(context) * columnSize(context) +
+      (maxColumn(context) - 1) * columnPadding(context);
+
   static int getColumn(BuildContext context, int? desiredColumn) {
     return desiredColumn == null
         ? maxColumn(context)

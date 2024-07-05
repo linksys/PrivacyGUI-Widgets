@@ -4,12 +4,14 @@ abstract class AppTreeNode<T> {
   final List<AppTreeNode<T>> children;
   double? width;
   double? height;
+  String? tag;
   AppTreeNode({
     required this.data,
     this.parent,
     required this.children,
     this.width,
     this.height,
+    this.tag,
   }) {
     for (var element in children) {
       element.parent = this;
@@ -17,6 +19,11 @@ abstract class AppTreeNode<T> {
   }
 
   AppTreeNode<T> root() => parent == null ? this : parent!.root();
+  AppTreeNode<T>? next() => parent == null
+      ? null
+      : isLast()
+          ? null
+          : parent?.children[index() + 1];
   bool isLast() => this == parent?.children.lastOrNull;
   bool isFirst() => this == parent?.children.firstOrNull;
   bool isRoot() => parent == null;
