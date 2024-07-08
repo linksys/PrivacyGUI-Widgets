@@ -88,7 +88,7 @@ class _AppFamilyTreeViewState<T> extends State<AppFamilyTreeView<T>> {
                 },
               ),
               if (widget.offlineRoot.children.isNotEmpty) ...[
-                const AppGap.large4(),
+                const AppGap.large5(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

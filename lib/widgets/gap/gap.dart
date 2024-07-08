@@ -14,6 +14,7 @@ enum AppGapSize {
   large2,
   large3,
   large4,
+  large5,
 }
 
 extension AppGapSizeExtension on AppGapSize {
@@ -37,6 +38,8 @@ extension AppGapSizeExtension on AppGapSize {
         return Spacing.large3;
       case AppGapSize.large4:
         return Spacing.large4;
+      case AppGapSize.large5:
+        return Spacing.large5;
       case AppGapSize.gutter:
         return 0;
     }
@@ -91,10 +94,16 @@ class AppGap extends StatelessWidget {
   })  : size = AppGapSize.large3,
         super(key: key);
 
-  /// 48, [Spacing.large4]
+  /// 40, [Spacing.large4]
   const AppGap.large4({
     Key? key,
   })  : size = AppGapSize.large4,
+        super(key: key);
+
+  /// 48, [Spacing.large5]
+  const AppGap.large5({
+    Key? key,
+  })  : size = AppGapSize.large5,
         super(key: key);
 
   const AppGap.gutter({

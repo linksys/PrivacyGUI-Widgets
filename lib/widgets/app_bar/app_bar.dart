@@ -36,10 +36,11 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
     bool showBack = true,
     VoidCallback? onBackTap,
   })  : leading = showBack
-            ? AppIconButton.noPadding(
+            ? AppIconButton(
+                padding: const EdgeInsets.all(Spacing.small1),
                 icon: LinksysIcons.arrowBack,
                 onTap: onBackTap,
-                alignment: Alignment.centerLeft,
+                // alignment: Alignment.centerLeft,
               )
             : null,
         preferredSize = _PreferredAppBarSize(toolbarHeight, 0);
@@ -97,8 +98,9 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (title != null)
               Flexible(
                 child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: Spacing.medium),
+                    padding: EdgeInsets.symmetric(
+                        horizontal:
+                            leading != null ? Spacing.medium : Spacing.zero),
                     child: title),
               ),
           ],

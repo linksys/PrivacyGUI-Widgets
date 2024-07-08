@@ -23,6 +23,9 @@ class Spacing {
   /// 32
   static const double large3 = 32;
 
+  /// 40
+  static const double large4 = 40;
+
   /// 48
-  static const double large4 = 48;
+  static const double large5 = 48;
 }
