@@ -74,7 +74,9 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
       color: Colors.transparent,
       crossAxisAlignment: widget.itemCrossAxisAlignment,
       title: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
+        padding: widget.itemCrossAxisAlignment == CrossAxisAlignment.start
+            ? const EdgeInsets.only(top: 8.0)
+            : const EdgeInsets.only(),
         child: item.titleWidget ?? AppText.labelLarge(item.title ?? ''),
       ),
       description: item.subtitleWidget,
