@@ -1,19 +1,22 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
-import 'package:privacygui_widgets/widgets/card/list_card.dart';
 
 class AppRadioListItem<T> {
   final String? title;
   final T value;
   final Widget? titleWidget;
-  final Widget? subtitleWidget;
+  final Widget? expandedWidget;
+  final Widget? subTitleWidget;
 
   AppRadioListItem({
     this.title,
     required this.value,
     this.titleWidget,
-    this.subtitleWidget,
+    this.expandedWidget,
+    this.subTitleWidget,
   });
 }
 
@@ -23,7 +26,7 @@ class AppRadioList<T> extends StatefulWidget {
   final void Function(int index, T? value)? onChanged;
   final MainAxisSize mainAxisSize;
   final bool withDivider;
-  final CrossAxisAlignment itemCrossAxisAlignment;
+  final double? itemHeight;
 
   const AppRadioList({
     super.key,
@@ -31,8 +34,8 @@ class AppRadioList<T> extends StatefulWidget {
     this.initial,
     this.onChanged,
     this.withDivider = false,
-    this.itemCrossAxisAlignment = CrossAxisAlignment.center,
     this.mainAxisSize = MainAxisSize.max,
+    this.itemHeight,
   });
 
   @override
@@ -68,38 +71,59 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
   }
 
   Widget _itemTile({required AppRadioListItem item}) {
-    return AppListCard(
-      showBorder: false,
-      padding: EdgeInsets.zero,
-      color: Colors.transparent,
-      crossAxisAlignment: widget.itemCrossAxisAlignment,
-      title: Padding(
-        padding: widget.itemCrossAxisAlignment == CrossAxisAlignment.start
-            ? const EdgeInsets.only(top: 8.0)
-            : const EdgeInsets.only(),
-        child: item.titleWidget ?? AppText.labelLarge(item.title ?? ''),
-      ),
-      description: item.subtitleWidget,
-      leading: AbsorbPointer(
-        child: Radio<T>(
-          value: item.value,
-          groupValue: _selected,
-          onChanged: (T? value) {
-            widget.onChanged?.call(
-                widget.items
-                    .indexWhere((element) => element.value == _selected),
-                _selected);
-          },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          constraints: const BoxConstraints(minHeight: 56),
+          height: widget.itemHeight,
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                _selected = item.value;
+                widget.onChanged?.call(
+                    widget.items
+                        .indexWhere((element) => element.value == _selected),
+                    _selected);
+              });
+            },
+            child: Row(
+              children: [
+                AbsorbPointer(
+                  child: Radio<T>(
+                    value: item.value,
+                    groupValue: _selected,
+                    onChanged: (T? value) {
+                      widget.onChanged?.call(
+                          widget.items.indexWhere(
+                              (element) => element.value == _selected),
+                          _selected);
+                    },
+                  ),
+                ),
+                const AppGap.small3(),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      item.titleWidget ?? AppText.labelLarge(item.title ?? ''),
+                      if (item.subTitleWidget != null) ...[
+                        item.subTitleWidget!,
+                      ]
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-      ),
-      onTap: () {
-        setState(() {
-          _selected = item.value;
-          widget.onChanged?.call(
-              widget.items.indexWhere((element) => element.value == _selected),
-              _selected);
-        });
-      },
+        if (item.expandedWidget != null) ...[
+          const AppGap.small2(),
+          item.expandedWidget!,
+          const AppGap.large2()
+        ],
+      ],
     );
   }
 }
