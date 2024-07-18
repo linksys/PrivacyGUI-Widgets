@@ -38,7 +38,7 @@ class AppCheckbox extends StatelessWidget {
   List<Widget> _buildText(String? text, bool enabled) {
     if (text != null) {
       final textWidget = AppText.bodyMedium(text);
-      return [const AppGap.small3(), textWidget];
+      return [const AppGap.small3(), Flexible(child: textWidget)];
     } else {
       return [];
     }

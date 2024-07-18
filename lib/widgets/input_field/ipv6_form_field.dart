@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/input_field/input_formatters.dart';
@@ -165,34 +166,90 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
           widget.header!,
           const AppGap.small2(),
         ],
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildOctetInputForm(_octet1Focus, _octet2Focus, _octet1Controller,
-                readOnly: widget.octet1ReadOnly),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet2Focus, _octet3Focus, _octet2Controller,
-                readOnly: widget.octet2ReadOnly),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet3Focus, _octet4Focus, _octet3Controller,
-                readOnly: widget.octet3ReadOnly),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet4Focus, _octet5Focus, _octet4Controller,
-                readOnly: widget.octet4ReadOnly),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet5Focus, _octet6Focus, _octet5Controller,
-                readOnly: widget.octet5ReadOnly),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet6Focus, _octet7Focus, _octet6Controller,
-                readOnly: widget.octet6ReadOnly),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet7Focus, _octet8Focus, _octet7Controller,
-                readOnly: widget.octet7ReadOnly),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet8Focus, _octet8Focus, _octet8Controller,
-                readOnly: widget.octet8ReadOnly, isLast: true),
-          ],
-        ),
+        ...ResponsiveLayout.isMobileLayout(context)
+            ? [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _buildOctetInputForm(
+                        _octet1Focus, _octet2Focus, _octet1Controller,
+                        readOnly: widget.octet1ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet2Focus, _octet3Focus, _octet2Controller,
+                        readOnly: widget.octet2ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet3Focus, _octet4Focus, _octet3Controller,
+                        readOnly: widget.octet3ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet4Focus, _octet5Focus, _octet4Controller,
+                        readOnly: widget.octet4ReadOnly),
+                    const AppGap.medium(),
+                  ],
+                ),
+                const AppGap.small2(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet5Focus, _octet6Focus, _octet5Controller,
+                        readOnly: widget.octet5ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet6Focus, _octet7Focus, _octet6Controller,
+                        readOnly: widget.octet6ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet7Focus, _octet8Focus, _octet7Controller,
+                        readOnly: widget.octet7ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet8Focus, _octet8Focus, _octet8Controller,
+                        readOnly: widget.octet8ReadOnly, isLast: true),
+                  ],
+                ),
+              ]
+            : [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _buildOctetInputForm(
+                        _octet1Focus, _octet2Focus, _octet1Controller,
+                        readOnly: widget.octet1ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet2Focus, _octet3Focus, _octet2Controller,
+                        readOnly: widget.octet2ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet3Focus, _octet4Focus, _octet3Controller,
+                        readOnly: widget.octet3ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet4Focus, _octet5Focus, _octet4Controller,
+                        readOnly: widget.octet4ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet5Focus, _octet6Focus, _octet5Controller,
+                        readOnly: widget.octet5ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet6Focus, _octet7Focus, _octet6Controller,
+                        readOnly: widget.octet6ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet7Focus, _octet8Focus, _octet7Controller,
+                        readOnly: widget.octet7ReadOnly),
+                    _buildDotWidget(),
+                    _buildOctetInputForm(
+                        _octet8Focus, _octet8Focus, _octet8Controller,
+                        readOnly: widget.octet8ReadOnly, isLast: true),
+                  ],
+                ),
+              ],
       ],
     );
   }
