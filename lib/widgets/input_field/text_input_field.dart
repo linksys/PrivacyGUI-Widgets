@@ -100,6 +100,7 @@ class TextInputFieldState extends State<TextInputField> {
         suffixIcon: widget.suffixIcon,
         hintText: widget.hintText,
         errorText: widget.errorText,
+        errorMaxLines: 5,
         helperText: widget.helperText,
         prefixIconConstraints: widget.prefixIconConstraints,
         suffixIconConstraints: widget.suffixIconConstraints,
