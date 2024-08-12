@@ -1,6 +1,6 @@
 name: privacygui_widgets
 description: A new Flutter package project.
-version: 0.19.0
+version: 1.0.2
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -13,12 +13,12 @@ dependencies:
   flutter_svg: ^2.0.10
   tap_builder: ^0.4.0
   gap: ^3.0.1
-  pin_code_fields: ^7.4.0
-  collection: ^1.16.0
+  pin_code_fields: ^8.0.1
+  collection: ^1.18.0
   stacked_listview: ^1.0.4
   lottie: ^3.1.0
   two_dimensional_scrollables: ^0.1.2
-  material_color_utilities: ^0.8.0
+  material_color_utilities: ^0.11.0
   styled_text: ^8.1.0
   graphview: ^1.2.0
   wolt_responsive_layout_grid: ^0.0.3
