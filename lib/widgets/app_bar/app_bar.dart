@@ -39,6 +39,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? AppIconButton(
                 padding: const EdgeInsets.all(Spacing.small1),
                 icon: LinksysIcons.arrowBack,
+                identifier: 'now-page-back',
                 onTap: onBackTap,
                 // alignment: Alignment.centerLeft,
               )
@@ -58,6 +59,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
   })  : leading = showBack
             ? AppIconButton.noPadding(
                 icon: LinksysIcons.close,
+                identifier: 'now-page-close',
                 alignment: Alignment.centerRight,
                 onTap: onBackTap,
               )
@@ -101,7 +103,8 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal:
                             leading != null ? Spacing.medium : Spacing.zero),
-                    child: title),
+                    child:
+                        Semantics(identifier: 'now-page-title', child: title)),
               ),
           ],
         ),
@@ -114,9 +117,13 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
     final trailing = this.trailing ?? [];
     return Container(
       constraints: const BoxConstraints(minWidth: Spacing.large3),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [...trailing.map((e) => e).toList()],
+      child: Semantics(
+        explicitChildNodes: true,
+        identifier: 'now-page-trailing-container',
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [...trailing.map((e) => e).toList()],
+        ),
       ),
     );
   }
