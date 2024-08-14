@@ -7,11 +7,13 @@ class AppExpansionCard extends StatefulWidget {
   final IconData? expandedIcon;
   final IconData? collapsedIcon;
   final List<Widget>? children;
+  final String? identifier;
 
   const AppExpansionCard({
     super.key,
     required this.title,
     required this.children,
+    this.identifier,
     this.expandedIcon,
     this.collapsedIcon,
   });
@@ -28,18 +30,20 @@ class _AppExpansionCardState extends State<AppExpansionCard> {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: AppCard(
+          excludeSemantics: true,
+          identifier: widget.identifier,
           child: ExpansionTile(
-        iconColor: Theme.of(context).colorScheme.onSurface,
-        title: AppText.labelLarge(widget.title),
-        trailing:
-            Icon(_isExpanded ? widget.collapsedIcon : widget.expandedIcon),
-        children: widget.children ?? [],
-        onExpansionChanged: (value) {
-          setState(() {
-            _isExpanded = value;
-          });
-        },
-      )),
+            iconColor: Theme.of(context).colorScheme.onSurface,
+            title: AppText.labelLarge(widget.title),
+            trailing:
+                Icon(_isExpanded ? widget.collapsedIcon : widget.expandedIcon),
+            children: widget.children ?? [],
+            onExpansionChanged: (value) {
+              setState(() {
+                _isExpanded = value;
+              });
+            },
+          )),
     );
   }
 }

@@ -12,6 +12,9 @@ class AppCard extends StatelessWidget {
   final Color? borderColor;
   final EdgeInsets? margin;
   final Clip? clipBehavior;
+  final bool? excludeSemantics;
+  final bool explicitChildNodes;
+  final String? identifier;
 
   const AppCard({
     Key? key,
@@ -22,6 +25,9 @@ class AppCard extends StatelessWidget {
     this.borderColor,
     this.margin,
     this.clipBehavior,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = true,
+    this.identifier,
     required this.child,
   }) : super(key: key);
 
@@ -41,16 +47,24 @@ class AppCard extends StatelessWidget {
             )
           : null,
       clipBehavior: clipBehavior,
-      child: InkWell(
-        borderRadius: showBorder
-            ? CustomTheme.of(context).radius.asBorderRadius().medium
-            : null,
-        onTap: onTap,
-        child: Padding(
-          padding: padding ?? const EdgeInsets.all(Spacing.medium),
-          child: Container(child: child),
-        ),
-      ),
+      child: onTap == null
+          ? _buildChild(padding, child)
+          : InkWell(
+              borderRadius: showBorder
+                  ? CustomTheme.of(context).radius.asBorderRadius().medium
+                  : null,
+              onTap: onTap,
+              child: _buildChild(padding, child),
+            ),
     );
   }
+
+  Widget _buildChild(EdgeInsets? padding, Widget child) => Padding(
+      padding: padding ?? const EdgeInsets.all(Spacing.medium),
+      child: Semantics(
+          explicitChildNodes: explicitChildNodes,
+          excludeSemantics:
+              excludeSemantics ?? (identifier == null ? false : true),
+          identifier: identifier,
+          child: child));
 }
