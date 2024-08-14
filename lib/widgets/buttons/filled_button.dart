@@ -8,6 +8,9 @@ class AppFilledButton extends StatelessWidget {
     this.onTap,
     this.size,
     this.color,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   });
 
   factory AppFilledButton.fillWidth(
@@ -16,22 +19,33 @@ class AppFilledButton extends StatelessWidget {
     IconData? icon,
     VoidCallback? onTap,
     Color? color,
+    bool excludeSemantics = true,
+    bool explicitChildNodes = true,
+    String? identifier,
   }) =>
-      AppFilledButton(title,
-          key: key,
-          icon: icon,
-          onTap: onTap,
-          color: color,
-          size: const Size(
-            double.infinity,
-            -1,
-          ));
+      AppFilledButton(
+        title,
+        key: key,
+        icon: icon,
+        onTap: onTap,
+        color: color,
+        size: const Size(
+          double.infinity,
+          -1,
+        ),
+        explicitChildNodes: explicitChildNodes,
+        excludeSemantics: excludeSemantics,
+        identifier: identifier,
+      );
 
   final String title;
   final IconData? icon;
   final VoidCallback? onTap;
   final Size? size;
   final Color? color;
+  final bool? excludeSemantics;
+  final bool explicitChildNodes;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +67,25 @@ class AppFilledButton extends StatelessWidget {
         ? FilledButton(
             onPressed: onTap,
             style: style,
-            child: Text(title),
+            child: Semantics(
+              explicitChildNodes: explicitChildNodes,
+              excludeSemantics:
+                  excludeSemantics ?? (identifier == null ? false : true),
+              identifier: identifier,
+              child: Text(title),
+            ),
           )
         : FilledButton.icon(
             onPressed: onTap,
             style: style,
             icon: Icon(icon),
-            label: Text(title),
+            label: Semantics(
+              explicitChildNodes: explicitChildNodes,
+              excludeSemantics:
+                  excludeSemantics ?? (identifier == null ? false : true),
+              identifier: identifier,
+              child: Text(title),
+            ),
           );
   }
 }

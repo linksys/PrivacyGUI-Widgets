@@ -7,6 +7,9 @@ class AppTonalButton extends StatelessWidget {
     this.icon,
     this.onTap,
     this.size,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   });
 
   factory AppTonalButton.fillWidth(
@@ -14,20 +17,31 @@ class AppTonalButton extends StatelessWidget {
     Key? key,
     IconData? icon,
     VoidCallback? onTap,
+    bool excludeSemantics = true,
+    bool explicitChildNodes = true,
+    String? identifier,
   }) =>
-      AppTonalButton(title,
-          key: key,
-          icon: icon,
-          onTap: onTap,
-          size: const Size(
-            double.infinity,
-            -1,
-          ));
+      AppTonalButton(
+        title,
+        key: key,
+        icon: icon,
+        onTap: onTap,
+        size: const Size(
+          double.infinity,
+          -1,
+        ),
+        explicitChildNodes: explicitChildNodes,
+        excludeSemantics: excludeSemantics,
+        identifier: identifier,
+      );
 
   final String title;
   final IconData? icon;
   final VoidCallback? onTap;
   final Size? size;
+  final bool? excludeSemantics;
+  final bool explicitChildNodes;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +61,25 @@ class AppTonalButton extends StatelessWidget {
         ? FilledButton.tonal(
             onPressed: onTap,
             style: style,
-            child: Text(title),
+            child: Semantics(
+              explicitChildNodes: explicitChildNodes,
+              excludeSemantics:
+                  excludeSemantics ?? (identifier == null ? false : true),
+              identifier: identifier,
+              child: Text(title),
+            ),
           )
         : FilledButton.tonalIcon(
             onPressed: onTap,
             icon: Icon(icon),
             style: style,
-            label: Text(title),
+            label: Semantics(
+              explicitChildNodes: explicitChildNodes,
+              excludeSemantics:
+                  excludeSemantics ?? (identifier == null ? false : true),
+              identifier: identifier,
+              child: Text(title),
+            ),
           );
   }
 }

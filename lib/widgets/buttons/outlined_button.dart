@@ -8,6 +8,9 @@ class AppOutlinedButton extends StatelessWidget {
     this.onTap,
     this.size,
     this.color,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   });
 
   factory AppOutlinedButton.fillWidth(
@@ -16,22 +19,33 @@ class AppOutlinedButton extends StatelessWidget {
     IconData? icon,
     Color? color,
     VoidCallback? onTap,
+    bool excludeSemantics = true,
+    bool explicitChildNodes = true,
+    String? identifier,
   }) =>
-      AppOutlinedButton(title,
-          key: key,
-          icon: icon,
-          color: color,
-          onTap: onTap,
-          size: const Size(
-            double.infinity,
-            -1,
-          ));
+      AppOutlinedButton(
+        title,
+        key: key,
+        icon: icon,
+        color: color,
+        onTap: onTap,
+        size: const Size(
+          double.infinity,
+          -1,
+        ),
+        explicitChildNodes: explicitChildNodes,
+        excludeSemantics: excludeSemantics,
+        identifier: identifier,
+      );
 
   final String title;
   final IconData? icon;
   final VoidCallback? onTap;
   final Size? size;
   final Color? color;
+  final bool? excludeSemantics;
+  final bool explicitChildNodes;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +69,28 @@ class AppOutlinedButton extends StatelessWidget {
         ? OutlinedButton(
             onPressed: onTap,
             style: style,
-            child: Text(
-              title,
+            child: Semantics(
+              explicitChildNodes: explicitChildNodes,
+              excludeSemantics:
+                  excludeSemantics ?? (identifier == null ? false : true),
+              identifier: identifier,
+              child: Text(
+                title,
+              ),
             ),
           )
         : OutlinedButton.icon(
             onPressed: onTap,
             icon: Icon(icon),
             style: style,
-            label: Text(
-              title,
+            label: Semantics(
+              explicitChildNodes: explicitChildNodes,
+              excludeSemantics:
+                  excludeSemantics ?? (identifier == null ? false : true),
+              identifier: identifier,
+              child: Text(
+                title,
+              ),
             ),
           );
   }

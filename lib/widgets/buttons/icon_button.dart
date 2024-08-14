@@ -16,6 +16,9 @@ class AppIconButton extends StatelessWidget {
     this.padding,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   })  : assert(
           icon != null,
         ),
@@ -29,6 +32,9 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   })  : assert(
           icon != null,
         ),
@@ -44,6 +50,9 @@ class AppIconButton extends StatelessWidget {
     this.padding,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   })  : assert(
           icon != null,
         ),
@@ -57,6 +66,9 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   })  : assert(
           icon != null,
         ),
@@ -72,6 +84,9 @@ class AppIconButton extends StatelessWidget {
     this.padding,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   })  : assert(
           icon != null,
         ),
@@ -85,6 +100,9 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   })  : assert(
           icon != null,
         ),
@@ -100,6 +118,9 @@ class AppIconButton extends StatelessWidget {
     this.padding,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   })  : assert(
           icon != null,
         ),
@@ -113,6 +134,9 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   })  : assert(
           icon != null,
         ),
@@ -127,6 +151,9 @@ class AppIconButton extends StatelessWidget {
   final VoidCallback? onTap;
   final _AppIconButtonStyle _style;
   final AlignmentGeometry? alignment;
+  final bool? excludeSemantics;
+  final bool explicitChildNodes;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
@@ -134,9 +161,15 @@ class AppIconButton extends StatelessWidget {
       case _AppIconButtonStyle.normal:
         return IconButton(
           onPressed: onTap,
-          icon: Icon(
-            icon,
-            color: color,
+          icon: Semantics(
+            explicitChildNodes: explicitChildNodes,
+            excludeSemantics:
+                excludeSemantics ?? (identifier == null ? false : true),
+            identifier: identifier,
+            child: Icon(
+              icon,
+              color: color,
+            ),
           ),
           padding: padding,
           alignment: alignment,
@@ -149,27 +182,45 @@ class AppIconButton extends StatelessWidget {
       case _AppIconButtonStyle.outlined:
         return IconButton.outlined(
           onPressed: onTap,
-          icon: Icon(
-            icon,
-            color: color,
+          icon: Semantics(
+            explicitChildNodes: explicitChildNodes,
+            excludeSemantics:
+                excludeSemantics ?? (identifier == null ? false : true),
+            identifier: identifier,
+            child: Icon(
+              icon,
+              color: color,
+            ),
           ),
           padding: padding,
         );
       case _AppIconButtonStyle.filled:
         return IconButton.filled(
           onPressed: onTap,
-          icon: Icon(
-            icon,
-            color: color,
+          icon: Semantics(
+            explicitChildNodes: explicitChildNodes,
+            excludeSemantics:
+                excludeSemantics ?? (identifier == null ? false : true),
+            identifier: identifier,
+            child: Icon(
+              icon,
+              color: color,
+            ),
           ),
           padding: padding,
         );
       case _AppIconButtonStyle.tonal:
         return IconButton.filledTonal(
           onPressed: onTap,
-          icon: Icon(
-            icon,
-            color: color,
+          icon: Semantics(
+            explicitChildNodes: explicitChildNodes,
+            excludeSemantics:
+                excludeSemantics ?? (identifier == null ? false : true),
+            identifier: identifier,
+            child: Icon(
+              icon,
+              color: color,
+            ),
           ),
           padding: padding,
         );

@@ -9,6 +9,9 @@ class AppTextButton extends StatelessWidget {
     this.size,
     this.padding,
     this.color,
+    this.excludeSemantics = true,
+    this.explicitChildNodes = true,
+    this.identifier,
   });
 
   final String title;
@@ -17,6 +20,9 @@ class AppTextButton extends StatelessWidget {
   final Size? size;
   final EdgeInsets? padding;
   final Color? color;
+  final bool? excludeSemantics;
+  final bool explicitChildNodes;
+  final String? identifier;
 
   factory AppTextButton.noPadding(
     String title, {
@@ -24,6 +30,9 @@ class AppTextButton extends StatelessWidget {
     IconData? icon,
     VoidCallback? onTap,
     Color? color,
+    bool excludeSemantics = true,
+    bool explicitChildNodes = true,
+    String? identifier,
   }) =>
       AppTextButton(
         title,
@@ -33,6 +42,9 @@ class AppTextButton extends StatelessWidget {
         padding: const EdgeInsets.only(),
         size: Size.zero,
         color: color,
+        explicitChildNodes: explicitChildNodes,
+        excludeSemantics: excludeSemantics,
+        identifier: identifier,
       );
 
   factory AppTextButton.fillWidth(
@@ -41,16 +53,24 @@ class AppTextButton extends StatelessWidget {
     IconData? icon,
     VoidCallback? onTap,
     Color? color,
+    bool excludeSemantics = true,
+    bool explicitChildNodes = true,
+    String? identifier,
   }) =>
-      AppTextButton(title,
-          key: key,
-          icon: icon,
-          onTap: onTap,
-          color: color,
-          size: const Size(
-            double.infinity,
-            -1,
-          ));
+      AppTextButton(
+        title,
+        key: key,
+        icon: icon,
+        onTap: onTap,
+        color: color,
+        size: const Size(
+          double.infinity,
+          -1,
+        ),
+        explicitChildNodes: explicitChildNodes,
+        excludeSemantics: excludeSemantics,
+        identifier: identifier,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -74,16 +94,31 @@ class AppTextButton extends StatelessWidget {
         ? TextButton(
             onPressed: onTap,
             style: style,
-            child: Text(title),
+            child: Semantics(
+                explicitChildNodes: explicitChildNodes,
+                excludeSemantics:
+                    excludeSemantics ?? (identifier == null ? false : true),
+                identifier: identifier,
+                child: Text(title)),
           )
         : TextButton.icon(
             onPressed: onTap,
-            icon: Icon(
-              icon,
-              color: color,
-            ),
+            icon: Semantics(
+                explicitChildNodes: explicitChildNodes,
+                excludeSemantics:
+                    excludeSemantics ?? (identifier == null ? false : true),
+                identifier: identifier,
+                child: Icon(
+                  icon,
+                  color: color,
+                )),
             style: style,
-            label: Text(title),
-          );
+            label: Semantics(
+              explicitChildNodes: explicitChildNodes,
+              excludeSemantics:
+                  excludeSemantics ?? (identifier == null ? false : true),
+              identifier: identifier,
+              child: Text(title),
+            ));
   }
 }
