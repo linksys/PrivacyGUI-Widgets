@@ -8,9 +8,10 @@ class AppOutlinedButton extends StatelessWidget {
     this.onTap,
     this.size,
     this.color,
-    this.excludeSemantics = true,
+    this.excludeSemantics = false,
     this.explicitChildNodes = true,
     this.identifier,
+    this.semanticLabel,
   });
 
   factory AppOutlinedButton.fillWidth(
@@ -19,9 +20,10 @@ class AppOutlinedButton extends StatelessWidget {
     IconData? icon,
     Color? color,
     VoidCallback? onTap,
-    bool excludeSemantics = true,
+    bool excludeSemantics = false,
     bool explicitChildNodes = true,
     String? identifier,
+    String? semanticLabel,
   }) =>
       AppOutlinedButton(
         title,
@@ -36,6 +38,7 @@ class AppOutlinedButton extends StatelessWidget {
         explicitChildNodes: explicitChildNodes,
         excludeSemantics: excludeSemantics,
         identifier: identifier,
+        semanticLabel: semanticLabel,
       );
 
   final String title;
@@ -46,6 +49,7 @@ class AppOutlinedButton extends StatelessWidget {
   final bool? excludeSemantics;
   final bool explicitChildNodes;
   final String? identifier;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +80,7 @@ class AppOutlinedButton extends StatelessWidget {
               identifier: identifier,
               child: Text(
                 title,
+                semanticsLabel: semanticLabel,
               ),
             ),
           )
@@ -90,6 +95,7 @@ class AppOutlinedButton extends StatelessWidget {
               identifier: identifier,
               child: Text(
                 title,
+                semanticsLabel: semanticLabel,
               ),
             ),
           );

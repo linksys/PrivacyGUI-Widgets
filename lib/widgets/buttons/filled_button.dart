@@ -8,9 +8,10 @@ class AppFilledButton extends StatelessWidget {
     this.onTap,
     this.size,
     this.color,
-    this.excludeSemantics = true,
+    this.excludeSemantics = false,
     this.explicitChildNodes = true,
     this.identifier,
+    this.semanticLabel,
   });
 
   factory AppFilledButton.fillWidth(
@@ -19,9 +20,10 @@ class AppFilledButton extends StatelessWidget {
     IconData? icon,
     VoidCallback? onTap,
     Color? color,
-    bool excludeSemantics = true,
+    bool excludeSemantics = false,
     bool explicitChildNodes = true,
     String? identifier,
+    String? semanticLabel,
   }) =>
       AppFilledButton(
         title,
@@ -36,6 +38,7 @@ class AppFilledButton extends StatelessWidget {
         explicitChildNodes: explicitChildNodes,
         excludeSemantics: excludeSemantics,
         identifier: identifier,
+        semanticLabel: semanticLabel,
       );
 
   final String title;
@@ -46,6 +49,7 @@ class AppFilledButton extends StatelessWidget {
   final bool? excludeSemantics;
   final bool explicitChildNodes;
   final String? identifier;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +76,10 @@ class AppFilledButton extends StatelessWidget {
               excludeSemantics:
                   excludeSemantics ?? (identifier == null ? false : true),
               identifier: identifier,
-              child: Text(title),
+              child: Text(
+                title,
+                semanticsLabel: semanticLabel,
+              ),
             ),
           )
         : FilledButton.icon(
@@ -84,7 +91,10 @@ class AppFilledButton extends StatelessWidget {
               excludeSemantics:
                   excludeSemantics ?? (identifier == null ? false : true),
               identifier: identifier,
-              child: Text(title),
+              child: Text(
+                title,
+                semanticsLabel: semanticLabel,
+              ),
             ),
           );
   }

@@ -22,6 +22,8 @@ class AppIPv6FormField extends StatefulWidget {
     this.octet6ReadOnly = false,
     this.octet7ReadOnly = false,
     this.octet8ReadOnly = false,
+    this.identifier,
+    this.semanticLabel,
   });
 
   final TextEditingController? controller;
@@ -38,6 +40,8 @@ class AppIPv6FormField extends StatefulWidget {
   final bool octet6ReadOnly;
   final bool octet7ReadOnly;
   final bool octet8ReadOnly;
+  final String? identifier;
+  final String? semanticLabel;
 
   @override
   State<AppIPv6FormField> createState() => _AppIPv6FormFieldState();
@@ -173,19 +177,19 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
                   children: [
                     _buildOctetInputForm(
                         _octet1Focus, _octet2Focus, _octet1Controller,
-                        readOnly: widget.octet1ReadOnly),
+                        readOnly: widget.octet1ReadOnly, index: 0),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet2Focus, _octet3Focus, _octet2Controller,
-                        readOnly: widget.octet2ReadOnly),
+                        readOnly: widget.octet2ReadOnly, index: 1),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet3Focus, _octet4Focus, _octet3Controller,
-                        readOnly: widget.octet3ReadOnly),
+                        readOnly: widget.octet3ReadOnly, index: 2),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet4Focus, _octet5Focus, _octet4Controller,
-                        readOnly: widget.octet4ReadOnly),
+                        readOnly: widget.octet4ReadOnly, index: 3),
                     const AppGap.medium(),
                   ],
                 ),
@@ -196,19 +200,21 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet5Focus, _octet6Focus, _octet5Controller,
-                        readOnly: widget.octet5ReadOnly),
+                        readOnly: widget.octet5ReadOnly, index: 4),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet6Focus, _octet7Focus, _octet6Controller,
-                        readOnly: widget.octet6ReadOnly),
+                        readOnly: widget.octet6ReadOnly, index: 5),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet7Focus, _octet8Focus, _octet7Controller,
-                        readOnly: widget.octet7ReadOnly),
+                        readOnly: widget.octet7ReadOnly, index: 6),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet8Focus, _octet8Focus, _octet8Controller,
-                        readOnly: widget.octet8ReadOnly, isLast: true),
+                        readOnly: widget.octet8ReadOnly,
+                        isLast: true,
+                        index: 7),
                   ],
                 ),
               ]
@@ -218,35 +224,37 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
                   children: [
                     _buildOctetInputForm(
                         _octet1Focus, _octet2Focus, _octet1Controller,
-                        readOnly: widget.octet1ReadOnly),
+                        readOnly: widget.octet1ReadOnly, index: 0),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet2Focus, _octet3Focus, _octet2Controller,
-                        readOnly: widget.octet2ReadOnly),
+                        readOnly: widget.octet2ReadOnly, index: 1),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet3Focus, _octet4Focus, _octet3Controller,
-                        readOnly: widget.octet3ReadOnly),
+                        readOnly: widget.octet3ReadOnly, index: 2),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet4Focus, _octet5Focus, _octet4Controller,
-                        readOnly: widget.octet4ReadOnly),
+                        readOnly: widget.octet4ReadOnly, index: 3),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet5Focus, _octet6Focus, _octet5Controller,
-                        readOnly: widget.octet5ReadOnly),
+                        readOnly: widget.octet5ReadOnly, index: 4),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet6Focus, _octet7Focus, _octet6Controller,
-                        readOnly: widget.octet6ReadOnly),
+                        readOnly: widget.octet6ReadOnly, index: 5),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet7Focus, _octet8Focus, _octet7Controller,
-                        readOnly: widget.octet7ReadOnly),
+                        readOnly: widget.octet7ReadOnly, index: 6),
                     _buildDotWidget(),
                     _buildOctetInputForm(
                         _octet8Focus, _octet8Focus, _octet8Controller,
-                        readOnly: widget.octet8ReadOnly, isLast: true),
+                        readOnly: widget.octet8ReadOnly,
+                        isLast: true,
+                        index: 7),
                   ],
                 ),
               ],
@@ -267,33 +275,42 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
     TextEditingController controller, {
     bool isLast = false,
     bool readOnly = false,
+    int? index,
   }) {
     return Expanded(
-      child: TextFormField(
-        controller: controller,
-        focusNode: focus,
-        decoration: InputDecoration(border: widget.border),
-        readOnly: readOnly,
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
-          // allow only  digits
-          IPv6OctetsFormatter(),
-          // custom class to format entered data from textField
-          LengthLimitingTextInputFormatter(4)
-          // restrict user to enter max 16 characters
-        ],
-        keyboardType: TextInputType.number,
-        textInputAction: isLast ? TextInputAction.done : TextInputAction.next,
-        onChanged: (value) {
-          if (value.length >= 4) {
+      child: Semantics(
+        identifier: widget.identifier != null
+            ? '${widget.identifier}-octet-$index'
+            : null,
+        label: widget.semanticLabel != null
+            ? '${widget.semanticLabel} Octet $index'
+            : null,
+        child: TextFormField(
+          controller: controller,
+          focusNode: focus,
+          decoration: InputDecoration(border: widget.border),
+          readOnly: readOnly,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
+            // allow only  digits
+            IPv6OctetsFormatter(),
+            // custom class to format entered data from textField
+            LengthLimitingTextInputFormatter(4)
+            // restrict user to enter max 16 characters
+          ],
+          keyboardType: TextInputType.number,
+          textInputAction: isLast ? TextInputAction.done : TextInputAction.next,
+          onChanged: (value) {
+            if (value.length >= 4) {
+              FocusScope.of(context).requestFocus(nextFocus);
+            }
+            widget.controller?.text = _combineOctets();
+            widget.onChanged?.call(_combineOctets());
+          },
+          onFieldSubmitted: (value) {
             FocusScope.of(context).requestFocus(nextFocus);
-          }
-          widget.controller?.text = _combineOctets();
-          widget.onChanged?.call(_combineOctets());
-        },
-        onFieldSubmitted: (value) {
-          FocusScope.of(context).requestFocus(nextFocus);
-        },
+          },
+        ),
       ),
     );
   }

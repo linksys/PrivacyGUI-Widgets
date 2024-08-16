@@ -10,6 +10,7 @@ class AppTonalButton extends StatelessWidget {
     this.excludeSemantics = true,
     this.explicitChildNodes = true,
     this.identifier,
+    this.semanticLabel,
   });
 
   factory AppTonalButton.fillWidth(
@@ -20,6 +21,7 @@ class AppTonalButton extends StatelessWidget {
     bool excludeSemantics = true,
     bool explicitChildNodes = true,
     String? identifier,
+    String? semanticLabel,
   }) =>
       AppTonalButton(
         title,
@@ -33,6 +35,7 @@ class AppTonalButton extends StatelessWidget {
         explicitChildNodes: explicitChildNodes,
         excludeSemantics: excludeSemantics,
         identifier: identifier,
+        semanticLabel: semanticLabel,
       );
 
   final String title;
@@ -42,6 +45,7 @@ class AppTonalButton extends StatelessWidget {
   final bool? excludeSemantics;
   final bool explicitChildNodes;
   final String? identifier;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +70,10 @@ class AppTonalButton extends StatelessWidget {
               excludeSemantics:
                   excludeSemantics ?? (identifier == null ? false : true),
               identifier: identifier,
-              child: Text(title),
+              child: Text(
+                title,
+                semanticsLabel: semanticLabel,
+              ),
             ),
           )
         : FilledButton.tonalIcon(
@@ -78,7 +85,10 @@ class AppTonalButton extends StatelessWidget {
               excludeSemantics:
                   excludeSemantics ?? (identifier == null ? false : true),
               identifier: identifier,
-              child: Text(title),
+              child: Text(
+                title,
+                semanticsLabel: semanticLabel,
+              ),
             ),
           );
   }

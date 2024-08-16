@@ -18,6 +18,8 @@ class AppIPFormField extends StatefulWidget {
     this.octet3ReadOnly = false,
     this.octet4ReadOnly = false,
     this.acceptEmpty = true,
+    this.identifier,
+    this.semanticLabel,
   });
 
   final TextEditingController? controller;
@@ -31,6 +33,8 @@ class AppIPFormField extends StatefulWidget {
   final bool octet3ReadOnly;
   final bool octet4ReadOnly;
   final bool acceptEmpty;
+  final String? identifier;
+  final String? semanticLabel;
 
   @override
   State<AppIPFormField> createState() => _AppIPFormFieldState();
@@ -137,6 +141,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
               _octet1Controller,
               readOnly: widget.octet1ReadOnly,
               isError: isError,
+              index: 0,
             ),
             _buildDotWidget(),
             _buildOctetInputForm(
@@ -145,6 +150,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
               _octet2Controller,
               readOnly: widget.octet2ReadOnly,
               isError: isError,
+              index: 1,
             ),
             _buildDotWidget(),
             _buildOctetInputForm(
@@ -153,6 +159,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
               _octet3Controller,
               readOnly: widget.octet3ReadOnly,
               isError: isError,
+              index: 2,
             ),
             _buildDotWidget(),
             _buildOctetInputForm(
@@ -162,6 +169,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
               readOnly: widget.octet4ReadOnly,
               isError: isError,
               isLast: true,
+              index: 3,
             ),
           ],
         ),
@@ -190,6 +198,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
     bool isLast = false,
     bool readOnly = false,
     bool isError = false,
+    int? index,
   }) {
     final border = widget.border.copyWith(
         borderSide: widget.border.borderSide.copyWith(
@@ -199,40 +208,50 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
     return Expanded(
       child: Opacity(
         opacity: readOnly ? 0.5 : 1.0,
-        child: TextFormField(
-          controller: controller,
-          focusNode: focus,
-          decoration: InputDecoration(
+        child: Semantics(
+          identifier: widget.identifier != null
+              ? '${widget.identifier}-octet-$index'
+              : null,
+          label: widget.semanticLabel != null
+              ? '${widget.semanticLabel} Octet $index'
+              : null,
+          child: TextFormField(
+            controller: controller,
+            focusNode: focus,
+            decoration: InputDecoration(
               border: border,
               enabledBorder: border,
               focusedBorder: border.copyWith(
                   borderSide: border.borderSide
                       .copyWith(color: Theme.of(context).colorScheme.primary)),
-              hoverColor: Theme.of(context).colorScheme.onBackground,),
-          readOnly: readOnly,
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            // allow only  digits
-            IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
-            // custom class to format entered data from textField
-            LengthLimitingTextInputFormatter(3)
-            // restrict user to enter max 16 characters
-          ],
-          onTapOutside: (PointerDownEvent event) {
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-          keyboardType: TextInputType.number,
-          textInputAction: isLast ? TextInputAction.done : TextInputAction.next,
-          onChanged: (value) {
-            if (value.length >= 3) {
+              hoverColor: Theme.of(context).colorScheme.onBackground,
+            ),
+            readOnly: readOnly,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              // allow only  digits
+              IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
+              // custom class to format entered data from textField
+              LengthLimitingTextInputFormatter(3)
+              // restrict user to enter max 16 characters
+            ],
+            onTapOutside: (PointerDownEvent event) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            keyboardType: TextInputType.number,
+            textInputAction:
+                isLast ? TextInputAction.done : TextInputAction.next,
+            onChanged: (value) {
+              if (value.length >= 3) {
+                FocusScope.of(context).requestFocus(nextFocus);
+              }
+              widget.controller?.text = _combineOctets();
+              widget.onChanged?.call(_combineOctets());
+            },
+            onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(nextFocus);
-            }
-            widget.controller?.text = _combineOctets();
-            widget.onChanged?.call(_combineOctets());
-          },
-          onFieldSubmitted: (value) {
-            FocusScope.of(context).requestFocus(nextFocus);
-          },
+            },
+          ),
         ),
       ),
     );

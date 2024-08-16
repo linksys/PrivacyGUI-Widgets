@@ -15,6 +15,7 @@ class AppCard extends StatelessWidget {
   final bool? excludeSemantics;
   final bool explicitChildNodes;
   final String? identifier;
+  final String? semanticLabel;
 
   const AppCard({
     Key? key,
@@ -28,6 +29,7 @@ class AppCard extends StatelessWidget {
     this.excludeSemantics = false,
     this.explicitChildNodes = true,
     this.identifier,
+    this.semanticLabel,
     required this.child,
   }) : super(key: key);
 
@@ -66,5 +68,6 @@ class AppCard extends StatelessWidget {
           excludeSemantics:
               excludeSemantics ?? (identifier == null ? false : true),
           identifier: identifier,
+          label: semanticLabel,
           child: child));
 }

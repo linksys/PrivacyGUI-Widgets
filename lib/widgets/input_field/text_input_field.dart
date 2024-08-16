@@ -28,6 +28,8 @@ class TextInputField extends StatefulWidget {
     this.maxLines = 1,
     this.minLines,
     this.expands,
+    this.identifier,
+    this.semanticLabel,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -54,6 +56,8 @@ class TextInputField extends StatefulWidget {
   final int? maxLines;
   final int? minLines;
   final bool? expands;
+  final String? identifier;
+  final String? semanticLabel;
 
   @override
   TextInputFieldState createState() => TextInputFieldState();
@@ -87,37 +91,41 @@ class TextInputFieldState extends State<TextInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      enabled: widget.enable,
-      readOnly: widget.readOnly,
-      obscureText: widget.secured,
-      controller: widget.controller,
-      autofillHints: widget.autofillHints,
-      decoration: InputDecoration(
-        border: widget.border,
-        labelText: widget.label,
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.suffixIcon,
-        hintText: widget.hintText,
-        errorText: widget.errorText,
-        errorMaxLines: 5,
-        helperText: widget.helperText,
-        prefixIconConstraints: widget.prefixIconConstraints,
-        suffixIconConstraints: widget.suffixIconConstraints,
+    return Semantics(
+      identifier: widget.identifier,
+      label: widget.label,
+      child: TextField(
+        enabled: widget.enable,
+        readOnly: widget.readOnly,
+        obscureText: widget.secured,
+        controller: widget.controller,
+        autofillHints: widget.autofillHints,
+        decoration: InputDecoration(
+          border: widget.border,
+          labelText: widget.label,
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.suffixIcon,
+          hintText: widget.hintText,
+          errorText: widget.errorText,
+          errorMaxLines: 5,
+          helperText: widget.helperText,
+          prefixIconConstraints: widget.prefixIconConstraints,
+          suffixIconConstraints: widget.suffixIconConstraints,
+        ),
+        onChanged: _onChanged,
+        onTapOutside: (PointerDownEvent event) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        keyboardType: widget.inputType,
+        focusNode: _focus,
+        onSubmitted: widget.onSubmitted,
+        textInputAction: widget.textInputAction,
+        inputFormatters: widget.inputFormatters,
+        autofocus: widget.autofocus,
+        maxLines: widget.secured ? 1 : widget.maxLines,
+        minLines: widget.minLines,
+        expands: widget.expands ?? false,
       ),
-      onChanged: _onChanged,
-      onTapOutside: (PointerDownEvent event) {
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      keyboardType: widget.inputType,
-      focusNode: _focus,
-      onSubmitted: widget.onSubmitted,
-      textInputAction: widget.textInputAction,
-      inputFormatters: widget.inputFormatters,
-      autofocus: widget.autofocus,
-      maxLines: widget.secured ? 1 : widget.maxLines,
-      minLines: widget.minLines,
-      expands: widget.expands ?? false,
     );
   }
 }

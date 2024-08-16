@@ -9,9 +9,10 @@ class AppTextButton extends StatelessWidget {
     this.size,
     this.padding,
     this.color,
-    this.excludeSemantics = true,
+    this.excludeSemantics = false,
     this.explicitChildNodes = true,
     this.identifier,
+    this.semanticLabel,
   });
 
   final String title;
@@ -23,6 +24,7 @@ class AppTextButton extends StatelessWidget {
   final bool? excludeSemantics;
   final bool explicitChildNodes;
   final String? identifier;
+  final String? semanticLabel;
 
   factory AppTextButton.noPadding(
     String title, {
@@ -30,9 +32,10 @@ class AppTextButton extends StatelessWidget {
     IconData? icon,
     VoidCallback? onTap,
     Color? color,
-    bool excludeSemantics = true,
+    bool excludeSemantics = false,
     bool explicitChildNodes = true,
     String? identifier,
+    String? semanticLabel,
   }) =>
       AppTextButton(
         title,
@@ -45,6 +48,7 @@ class AppTextButton extends StatelessWidget {
         explicitChildNodes: explicitChildNodes,
         excludeSemantics: excludeSemantics,
         identifier: identifier,
+        semanticLabel: semanticLabel,
       );
 
   factory AppTextButton.fillWidth(
@@ -53,9 +57,10 @@ class AppTextButton extends StatelessWidget {
     IconData? icon,
     VoidCallback? onTap,
     Color? color,
-    bool excludeSemantics = true,
+    bool excludeSemantics = false,
     bool explicitChildNodes = true,
     String? identifier,
+    String? semanticLabel,
   }) =>
       AppTextButton(
         title,
@@ -70,6 +75,7 @@ class AppTextButton extends StatelessWidget {
         explicitChildNodes: explicitChildNodes,
         excludeSemantics: excludeSemantics,
         identifier: identifier,
+        semanticLabel: semanticLabel,
       );
 
   @override
@@ -99,7 +105,10 @@ class AppTextButton extends StatelessWidget {
                 excludeSemantics:
                     excludeSemantics ?? (identifier == null ? false : true),
                 identifier: identifier,
-                child: Text(title)),
+                child: Text(
+                  title,
+                  semanticsLabel: semanticLabel,
+                )),
           )
         : TextButton.icon(
             onPressed: onTap,
@@ -118,7 +127,10 @@ class AppTextButton extends StatelessWidget {
               excludeSemantics:
                   excludeSemantics ?? (identifier == null ? false : true),
               identifier: identifier,
-              child: Text(title),
+              child: Text(
+                title,
+                semanticsLabel: semanticLabel,
+              ),
             ));
   }
 }

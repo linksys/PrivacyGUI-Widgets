@@ -30,6 +30,8 @@ class AppTextField extends StatefulWidget {
     this.maxLines = 1,
     this.minLines,
     this.expands,
+    this.identifier,
+    this.semanticLabel,
   }) : super(key: key);
 
   const AppTextField.outline({
@@ -57,6 +59,8 @@ class AppTextField extends StatefulWidget {
     this.maxLines = 1,
     this.minLines,
     this.expands,
+    this.identifier,
+    this.semanticLabel,
   })  : border = const OutlineInputBorder(),
         super(key: key);
 
@@ -82,6 +86,8 @@ class AppTextField extends StatefulWidget {
     TextInputAction? textInputAction,
     InputBorder border = const UnderlineInputBorder(),
     bool autofocus = false,
+    String? identifier,
+    String? semanticLabel,
   }) =>
       AppTextField(
         controller: controller,
@@ -112,6 +118,8 @@ class AppTextField extends StatefulWidget {
           LengthLimitingTextInputFormatter(17)
         ],
         autofocus: autofocus,
+        identifier: identifier,
+        semanticLabel: semanticLabel,
       );
 
   factory AppTextField.minMaxNumber({
@@ -139,6 +147,8 @@ class AppTextField extends StatefulWidget {
     required int max,
     bool autofocus = false,
     bool acceptEmpty = false,
+    String? identifier,
+    String? semanticLabel,
   }) =>
       AppTextField(
         controller: controller,
@@ -167,6 +177,8 @@ class AppTextField extends StatefulWidget {
           MinMaxNumberFormatter(min: min, max: max, acceptEmpty: acceptEmpty),
         ],
         autofocus: autofocus,
+        identifier: identifier,
+        semanticLabel: semanticLabel,
       );
 
   final TextEditingController? controller;
@@ -193,6 +205,8 @@ class AppTextField extends StatefulWidget {
   final bool? expands;
   final BoxConstraints? prefixIconConstraints;
   final BoxConstraints? suffixIconConstraints;
+  final String? identifier;
+  final String? semanticLabel;
 
   @override
   AppTextFieldState createState() => AppTextFieldState();
@@ -226,6 +240,8 @@ class AppTextFieldState extends State<AppTextField> {
       maxLines: widget.maxLines,
       minLines: widget.minLines,
       expands: widget.expands,
+      identifier: widget.identifier,
+      semanticLabel: widget.semanticLabel,
     );
   }
 }

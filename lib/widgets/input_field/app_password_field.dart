@@ -34,6 +34,9 @@ class AppPasswordField extends StatefulWidget {
   final bool autofocus;
   final bool readOnly;
 
+  final String? identifier;
+  final String? semanticLabel;
+
   const AppPasswordField({
     super.key,
     this.headerText,
@@ -62,6 +65,8 @@ class AppPasswordField extends StatefulWidget {
     this.checkedColor,
     this.unCheckedColor,
     this.readOnly = false,
+    this.identifier,
+    this.semanticLabel,
   });
 
   AppPasswordField.withValidator({
@@ -92,6 +97,8 @@ class AppPasswordField extends StatefulWidget {
     this.checkedColor,
     this.unCheckedColor,
     this.readOnly = false,
+    this.identifier,
+    this.semanticLabel,
   }) : assert(validations != null && validations.isNotEmpty);
 
   @override
@@ -132,12 +139,16 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
                 _isHidePassword = !_isHidePassword;
               });
             },
+            identifier: 'now-password-${_isHidePassword ? 'show' : 'hide'}',
+            semanticLabel: _isHidePassword ? 'show password' : 'hide password',
           ),
           suffixIconConstraints: widget.suffixIconConstraints,
           onSubmitted: widget.onSubmitted,
           textInputAction: widget.textInputAction,
           border: widget.border,
           autofocus: widget.autofocus,
+          identifier: widget.identifier,
+          semanticLabel: widget.semanticLabel,
         ),
         if (widget.withValidator) const AppGap.large2(),
         if (widget.withValidator)

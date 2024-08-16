@@ -16,9 +16,10 @@ class AppIconButton extends StatelessWidget {
     this.padding,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
+    this.semanticLabel,
   })  : assert(
           icon != null,
         ),
@@ -32,9 +33,10 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
+    this.semanticLabel,
   })  : assert(
           icon != null,
         ),
@@ -50,9 +52,10 @@ class AppIconButton extends StatelessWidget {
     this.padding,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
+    this.semanticLabel,
   })  : assert(
           icon != null,
         ),
@@ -66,9 +69,10 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
+    this.semanticLabel,
   })  : assert(
           icon != null,
         ),
@@ -84,9 +88,10 @@ class AppIconButton extends StatelessWidget {
     this.padding,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
+    this.semanticLabel,
   })  : assert(
           icon != null,
         ),
@@ -100,9 +105,10 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
+    this.semanticLabel,
   })  : assert(
           icon != null,
         ),
@@ -118,9 +124,10 @@ class AppIconButton extends StatelessWidget {
     this.padding,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
+    this.semanticLabel,
   })  : assert(
           icon != null,
         ),
@@ -134,9 +141,10 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.mainAxisSize = MainAxisSize.min,
     this.alignment,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
+    this.semanticLabel,
   })  : assert(
           icon != null,
         ),
@@ -154,6 +162,7 @@ class AppIconButton extends StatelessWidget {
   final bool? excludeSemantics;
   final bool explicitChildNodes;
   final String? identifier;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +178,7 @@ class AppIconButton extends StatelessWidget {
             child: Icon(
               icon,
               color: color,
+              semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
             ),
           ),
           padding: padding,
@@ -190,6 +200,7 @@ class AppIconButton extends StatelessWidget {
             child: Icon(
               icon,
               color: color,
+              semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
             ),
           ),
           padding: padding,
@@ -205,6 +216,7 @@ class AppIconButton extends StatelessWidget {
             child: Icon(
               icon,
               color: color,
+              semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
             ),
           ),
           padding: padding,
@@ -220,6 +232,7 @@ class AppIconButton extends StatelessWidget {
             child: Icon(
               icon,
               color: color,
+              semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
             ),
           ),
           padding: padding,

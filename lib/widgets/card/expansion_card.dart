@@ -13,9 +13,9 @@ class AppExpansionCard extends StatefulWidget {
     super.key,
     required this.title,
     required this.children,
-    this.identifier,
     this.expandedIcon,
     this.collapsedIcon,
+    this.identifier,
   });
 
   @override
@@ -30,7 +30,6 @@ class _AppExpansionCardState extends State<AppExpansionCard> {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: AppCard(
-          excludeSemantics: true,
           identifier: widget.identifier,
           child: ExpansionTile(
             iconColor: Theme.of(context).colorScheme.onSurface,
