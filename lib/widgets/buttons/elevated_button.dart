@@ -8,7 +8,7 @@ class AppElevatedButton extends StatelessWidget {
     this.onTap,
     this.size,
     this.excludeSemantics = false,
-    this.explicitChildNodes = true,
+    this.explicitChildNodes = false,
     this.identifier,
     this.semanticLabel,
   });
@@ -19,7 +19,7 @@ class AppElevatedButton extends StatelessWidget {
     IconData? icon,
     VoidCallback? onTap,
     bool excludeSemantics = false,
-    bool explicitChildNodes = true,
+    bool explicitChildNodes = false,
     String? identifier,
     String? semanticLabel,
   }) =>

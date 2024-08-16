@@ -9,7 +9,7 @@ class AppFilledButton extends StatelessWidget {
     this.size,
     this.color,
     this.excludeSemantics = false,
-    this.explicitChildNodes = true,
+    this.explicitChildNodes = false,
     this.identifier,
     this.semanticLabel,
   });
@@ -21,7 +21,7 @@ class AppFilledButton extends StatelessWidget {
     VoidCallback? onTap,
     Color? color,
     bool excludeSemantics = false,
-    bool explicitChildNodes = true,
+    bool explicitChildNodes = false,
     String? identifier,
     String? semanticLabel,
   }) =>

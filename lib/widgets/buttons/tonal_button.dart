@@ -7,8 +7,8 @@ class AppTonalButton extends StatelessWidget {
     this.icon,
     this.onTap,
     this.size,
-    this.excludeSemantics = true,
-    this.explicitChildNodes = true,
+    this.excludeSemantics = false,
+    this.explicitChildNodes = false,
     this.identifier,
     this.semanticLabel,
   });
@@ -18,8 +18,8 @@ class AppTonalButton extends StatelessWidget {
     Key? key,
     IconData? icon,
     VoidCallback? onTap,
-    bool excludeSemantics = true,
-    bool explicitChildNodes = true,
+    bool excludeSemantics = false,
+    bool explicitChildNodes = false,
     String? identifier,
     String? semanticLabel,
   }) =>

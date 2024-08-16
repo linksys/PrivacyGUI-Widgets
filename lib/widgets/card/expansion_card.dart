@@ -34,8 +34,10 @@ class _AppExpansionCardState extends State<AppExpansionCard> {
           child: ExpansionTile(
             iconColor: Theme.of(context).colorScheme.onSurface,
             title: AppText.labelLarge(widget.title),
-            trailing:
-                Icon(_isExpanded ? widget.collapsedIcon : widget.expandedIcon),
+            trailing: Icon(
+              _isExpanded ? widget.collapsedIcon : widget.expandedIcon,
+              semanticLabel: _isExpanded ? 'expanded' : 'collasped',
+            ),
             children: widget.children ?? [],
             onExpansionChanged: (value) {
               setState(() {

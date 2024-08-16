@@ -9,7 +9,7 @@ class AppOutlinedButton extends StatelessWidget {
     this.size,
     this.color,
     this.excludeSemantics = false,
-    this.explicitChildNodes = true,
+    this.explicitChildNodes = false,
     this.identifier,
     this.semanticLabel,
   });
@@ -21,7 +21,7 @@ class AppOutlinedButton extends StatelessWidget {
     Color? color,
     VoidCallback? onTap,
     bool excludeSemantics = false,
-    bool explicitChildNodes = true,
+    bool explicitChildNodes = false,
     String? identifier,
     String? semanticLabel,
   }) =>

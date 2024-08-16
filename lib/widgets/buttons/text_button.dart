@@ -10,7 +10,7 @@ class AppTextButton extends StatelessWidget {
     this.padding,
     this.color,
     this.excludeSemantics = false,
-    this.explicitChildNodes = true,
+    this.explicitChildNodes = false,
     this.identifier,
     this.semanticLabel,
   });
@@ -33,7 +33,7 @@ class AppTextButton extends StatelessWidget {
     VoidCallback? onTap,
     Color? color,
     bool excludeSemantics = false,
-    bool explicitChildNodes = true,
+    bool explicitChildNodes = false,
     String? identifier,
     String? semanticLabel,
   }) =>
@@ -58,7 +58,7 @@ class AppTextButton extends StatelessWidget {
     VoidCallback? onTap,
     Color? color,
     bool excludeSemantics = false,
-    bool explicitChildNodes = true,
+    bool explicitChildNodes = false,
     String? identifier,
     String? semanticLabel,
   }) =>
