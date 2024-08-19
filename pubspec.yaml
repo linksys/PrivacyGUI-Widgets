@@ -13,7 +13,7 @@ dependencies:
   flutter_svg: ^2.0.10
   tap_builder: ^0.4.0
   gap: ^3.0.1
-  pin_code_fields: ^8.0.1
+  pin_code_fields: ^7.4.0
   collection: ^1.18.0
   stacked_listview: ^1.0.4
   lottie: ^3.1.0
