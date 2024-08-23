@@ -77,7 +77,7 @@ class AppOutlinedButton extends StatelessWidget {
               explicitChildNodes: explicitChildNodes,
               excludeSemantics:
                   excludeSemantics ?? (identifier == null ? false : true),
-              identifier: identifier,
+              identifier: identifier != null ? '$identifier-button' : null,
               child: Text(
                 title,
                 semanticsLabel: semanticLabel,
@@ -92,7 +92,7 @@ class AppOutlinedButton extends StatelessWidget {
               explicitChildNodes: explicitChildNodes,
               excludeSemantics:
                   excludeSemantics ?? (identifier == null ? false : true),
-              identifier: identifier,
+              identifier: identifier != null ? '$identifier-button' : null,
               child: Text(
                 title,
                 semanticsLabel: semanticLabel,

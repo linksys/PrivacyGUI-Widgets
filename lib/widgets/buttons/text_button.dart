@@ -21,7 +21,7 @@ class AppTextButton extends StatelessWidget {
   final Size? size;
   final EdgeInsets? padding;
   final Color? color;
-  final bool? excludeSemantics;
+  final bool excludeSemantics;
   final bool explicitChildNodes;
   final String? identifier;
   final String? semanticLabel;
@@ -102,21 +102,19 @@ class AppTextButton extends StatelessWidget {
             style: style,
             child: Semantics(
                 explicitChildNodes: explicitChildNodes,
-                excludeSemantics:
-                    excludeSemantics ?? (identifier == null ? false : true),
-                identifier: identifier,
-                child: Text(
-                  title,
-                  semanticsLabel: semanticLabel,
-                )),
+                excludeSemantics: excludeSemantics,
+                identifier: identifier != null ? '$identifier-button' : null,
+                child: Text(title)),
           )
         : TextButton.icon(
             onPressed: onTap,
             icon: Semantics(
                 explicitChildNodes: explicitChildNodes,
-                excludeSemantics:
-                    excludeSemantics ?? (identifier == null ? false : true),
-                identifier: identifier,
+                excludeSemantics: excludeSemantics,
+                identifier:
+                    identifier != null ? '$identifier-button-icon' : null,
+                label:
+                    semanticLabel != null ? '$semanticLabel button icon' : null,
                 child: Icon(
                   icon,
                   color: color,
@@ -124,13 +122,9 @@ class AppTextButton extends StatelessWidget {
             style: style,
             label: Semantics(
               explicitChildNodes: explicitChildNodes,
-              excludeSemantics:
-                  excludeSemantics ?? (identifier == null ? false : true),
-              identifier: identifier,
-              child: Text(
-                title,
-                semanticsLabel: semanticLabel,
-              ),
+              excludeSemantics: excludeSemantics,
+              identifier: identifier != null ? '$identifier-button' : null,
+              child: Text(title),
             ));
   }
 }

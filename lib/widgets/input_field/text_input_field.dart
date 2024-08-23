@@ -92,8 +92,8 @@ class TextInputFieldState extends State<TextInputField> {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      identifier: widget.identifier,
-      label: widget.label,
+      identifier: widget.identifier != null ? '${widget.identifier}-text-field' : null,
+      label: widget.label != null ? '${widget.label} text field' : null,
       child: TextField(
         enabled: widget.enable,
         readOnly: widget.readOnly,

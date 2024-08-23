@@ -1,7 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 class AppRadioListItem<T> {
@@ -10,6 +8,10 @@ class AppRadioListItem<T> {
   final Widget? titleWidget;
   final Widget? expandedWidget;
   final Widget? subTitleWidget;
+  final bool explicitChildNodes;
+  final bool excludeSemantics;
+  final String? identifier;
+  final String? semanticLabel;
 
   AppRadioListItem({
     this.title,
@@ -17,6 +19,10 @@ class AppRadioListItem<T> {
     this.titleWidget,
     this.expandedWidget,
     this.subTitleWidget,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   });
 }
 
@@ -87,34 +93,48 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
                     _selected);
               });
             },
-            child: Row(
-              children: [
-                AbsorbPointer(
-                  child: Radio<T>(
-                    value: item.value,
-                    groupValue: _selected,
-                    onChanged: (T? value) {
-                      widget.onChanged?.call(
-                          widget.items.indexWhere(
-                              (element) => element.value == _selected),
-                          _selected);
-                    },
+            child: Semantics(
+              explicitChildNodes: item.explicitChildNodes,
+              excludeSemantics: item.excludeSemantics,
+              identifier: item.identifier != null
+                  ? '${item.identifier}-radio-item'
+                  : null,
+              label: item.semanticLabel != null
+                  ? '${item.semanticLabel} radio item'
+                  : null,
+              child: Row(
+                children: [
+                  AbsorbPointer(
+                    child: Radio<T>(
+                      value: item.value,
+                      groupValue: _selected,
+                      onChanged: (T? value) {
+                        widget.onChanged?.call(
+                            widget.items.indexWhere(
+                                (element) => element.value == _selected),
+                            _selected);
+                      },
+                    ),
                   ),
-                ),
-                const AppGap.small3(),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      item.titleWidget ?? AppText.labelLarge(item.title ?? ''),
-                      if (item.subTitleWidget != null) ...[
-                        item.subTitleWidget!,
-                      ]
-                    ],
-                  ),
-                )
-              ],
+                  const AppGap.small3(),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        item.titleWidget ??
+                            AppText.labelLarge(
+                              item.title ?? '',
+                              identifier: item.identifier,
+                            ),
+                        if (item.subTitleWidget != null) ...[
+                          item.subTitleWidget!,
+                        ]
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

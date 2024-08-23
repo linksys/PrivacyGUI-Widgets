@@ -15,6 +15,10 @@ class AppInfoCard extends StatelessWidget {
   final EdgeInsets? padding;
   final Color? color;
   final Color? borderColor;
+  final bool? excludeSemantics;
+  final bool? explicitChildNodes;
+  final String? identifier;
+  final String? semanticLabel;
 
   const AppInfoCard({
     Key? key,
@@ -29,6 +33,10 @@ class AppInfoCard extends StatelessWidget {
     this.padding,
     this.color,
     this.borderColor,
+    this.excludeSemantics,
+    this.explicitChildNodes,
+    this.identifier,
+    this.semanticLabel,
   }) : super(key: key);
 
   @override
@@ -36,13 +44,24 @@ class AppInfoCard extends StatelessWidget {
     return AppListCard(
       color: color,
       borderColor: borderColor,
-      title: AppText.labelLarge(title),
-      description:
-          description != null ? AppText.bodyMedium(description!) : null,
+      title: AppText.labelLarge(
+        title,
+        identifier: identifier,
+      ),
+      description: description != null
+          ? AppText.bodyMedium(
+              description!,
+              identifier: identifier,
+            )
+          : null,
       trailing: trailing,
       showBorder: showBorder,
       padding: padding,
       onTap: onTap,
+      explicitChildNodes: explicitChildNodes,
+      excludeSemantics: excludeSemantics,
+      identifier: identifier,
+      semanticLabel: semanticLabel,
     );
   }
 }

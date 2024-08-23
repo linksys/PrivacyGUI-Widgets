@@ -17,6 +17,10 @@ class AppListCard extends StatelessWidget {
     this.borderColor,
     this.crossAxisAlignment,
     this.margin,
+    this.excludeSemantics,
+    this.explicitChildNodes,
+    this.identifier,
+    this.semanticLabel,
   });
 
   final Widget? leading;
@@ -30,6 +34,10 @@ class AppListCard extends StatelessWidget {
   final Color? borderColor;
   final CrossAxisAlignment? crossAxisAlignment;
   final EdgeInsets? margin;
+  final bool? excludeSemantics;
+  final bool? explicitChildNodes;
+  final String? identifier;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +50,10 @@ class AppListCard extends StatelessWidget {
       color: color,
       borderColor: borderColor,
       margin: margin,
+      excludeSemantics: excludeSemantics ?? false,
+      explicitChildNodes: explicitChildNodes ?? true,
+      identifier: identifier,
+      semanticLabel: semanticLabel,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,

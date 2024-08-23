@@ -12,7 +12,7 @@ class AppCard extends StatelessWidget {
   final Color? borderColor;
   final EdgeInsets? margin;
   final Clip? clipBehavior;
-  final bool? excludeSemantics;
+  final bool excludeSemantics;
   final bool explicitChildNodes;
   final String? identifier;
   final String? semanticLabel;
@@ -66,7 +66,7 @@ class AppCard extends StatelessWidget {
       child: Semantics(
           explicitChildNodes: explicitChildNodes,
           excludeSemantics:
-              excludeSemantics ?? (identifier == null ? false : true),
+              excludeSemantics,
           identifier: identifier,
           label: semanticLabel,
           child: child));

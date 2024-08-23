@@ -14,6 +14,10 @@ class AppSettingCard extends StatelessWidget {
   final Color? color;
   final Color? borderColor;
   final EdgeInsets? margin;
+  final bool? explicitChildNodes;
+  final bool? excludeSemantics;
+  final String? identifier;
+  final String? semanticLabel;
 
   const AppSettingCard({
     super.key,
@@ -27,6 +31,10 @@ class AppSettingCard extends StatelessWidget {
     this.color,
     this.borderColor,
     this.margin,
+    this.explicitChildNodes,
+    this.excludeSemantics,
+    this.identifier,
+    this.semanticLabel,
   });
 
   factory AppSettingCard.noBorder({
@@ -39,6 +47,10 @@ class AppSettingCard extends StatelessWidget {
     Color? color,
     Color? borderColor,
     EdgeInsets? margin,
+    bool? explicitChildNodes,
+    bool? excludeSemantics,
+    String? identifier,
+    String? semanticLabel,
   }) {
     return AppSettingCard(
       leading: leading,
@@ -53,16 +65,31 @@ class AppSettingCard extends StatelessWidget {
       color: color,
       borderColor: borderColor,
       margin: margin,
+      explicitChildNodes: explicitChildNodes,
+      excludeSemantics: excludeSemantics,
+      identifier: identifier,
+      semanticLabel: semanticLabel,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final titleWidget = description != null
-        ? AppText.bodyMedium(title)
-        : AppText.labelLarge(title);
+        ? AppText.bodyMedium(
+            title,
+            identifier: '$identifier-title',
+          )
+        : AppText.labelLarge(
+            title,
+            identifier: '$identifier-title',
+          );
     final desc = description;
-    final descWidget = desc != null ? AppText.labelLarge(desc) : null;
+    final descWidget = desc != null
+        ? AppText.labelLarge(
+            desc,
+            identifier: '$identifier-description',
+          )
+        : null;
     return AppListCard(
       leading: leading,
       trailing: trailing,
@@ -75,6 +102,10 @@ class AppSettingCard extends StatelessWidget {
       onTap: onTap,
       color: color,
       margin: margin,
+      explicitChildNodes: explicitChildNodes,
+      excludeSemantics: excludeSemantics,
+      identifier: identifier,
+      semanticLabel: semanticLabel,
     );
   }
 }

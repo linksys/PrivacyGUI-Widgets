@@ -15,6 +15,10 @@ class AppDeviceListCard extends StatelessWidget {
   final bool isSelected;
   final Color? color;
   final Color? borderColor;
+  final bool? explicitChildNodes;
+  final bool? excludeSemantics;
+  final String? identifier;
+  final String? semanticLabel;
 
   const AppDeviceListCard({
     Key? key,
@@ -28,6 +32,10 @@ class AppDeviceListCard extends StatelessWidget {
     this.borderColor,
     this.onTap,
     this.onSelected,
+    this.explicitChildNodes,
+    this.excludeSemantics,
+    this.identifier,
+    this.semanticLabel,
   }) : super(key: key);
 
   @override
@@ -35,8 +43,16 @@ class AppDeviceListCard extends StatelessWidget {
     return AppListCard(
       color: color,
       borderColor: borderColor,
-      title: AppText.labelLarge(title),
-      description: description != null ? AppText.bodySmall(description!) : null,
+      title: AppText.labelLarge(
+        title,
+        identifier: identifier,
+      ),
+      description: description != null
+          ? AppText.bodySmall(
+              description!,
+              identifier: identifier,
+            )
+          : null,
       leading: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
@@ -45,6 +61,8 @@ class AppDeviceListCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: Spacing.medium),
                     child: AppCheckbox(
+                      identifier: identifier,
+                      semanticLabel: semanticLabel,
                       value: isSelected,
                       onChanged: (value) => onSelected?.call(value ?? false),
                     ),
@@ -53,7 +71,11 @@ class AppDeviceListCard extends StatelessWidget {
               : [],
           Padding(
             padding: const EdgeInsets.all(Spacing.small2),
-            child: Icon(leading),
+            child: Semantics(
+              identifier: identifier != null ? '$identifier-leading' : null,
+              label: semanticLabel != null ? '$semanticLabel leading' : null,
+              child: Icon(leading),
+            ),
           ),
         ],
       ),
@@ -63,13 +85,25 @@ class AppDeviceListCard extends StatelessWidget {
           if (band != null) ...[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: Spacing.small2),
-              child: AppText.labelLarge(band!),
+              child: AppText.labelLarge(
+                band!,
+                identifier: identifier,
+              ),
             ),
           ],
-          if (trailing != null) Icon(trailing),
+          if (trailing != null)
+            Semantics(
+              identifier: identifier != null ? '$identifier-trailing' : null,
+              label: semanticLabel != null ? '$semanticLabel trailing' : null,
+              child: Icon(trailing),
+            ),
         ],
       ),
       onTap: onTap,
+      explicitChildNodes: explicitChildNodes,
+      excludeSemantics: excludeSemantics,
+      identifier: identifier,
+      semanticLabel: semanticLabel,
     );
   }
 }

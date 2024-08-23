@@ -25,6 +25,10 @@ class AppText extends StatelessWidget {
   final TextOverflow? overflow;
   final AppTextLevel textLevel;
   final TextAlign? textAlign;
+  final bool explicitChildNodes;
+  final bool excludeSemantics;
+  final String? identifier;
+  final String? semanticLabel;
 
   const AppText(
     this.text, {
@@ -34,6 +38,10 @@ class AppText extends StatelessWidget {
     this.textLevel = AppTextLevel.displayMedium,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   }) : super(key: key);
 
   const AppText.displayLarge(
@@ -43,6 +51,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.displayLarge,
         super(key: key);
 
@@ -53,6 +65,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.displayMedium,
         super(key: key);
 
@@ -63,6 +79,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.displaySmall,
         super(key: key);
 
@@ -73,6 +93,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.headlineLarge,
         super(key: key);
 
@@ -83,6 +107,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.headlineMedium,
         super(key: key);
 
@@ -93,6 +121,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.headlineSmall,
         super(key: key);
 
@@ -103,6 +135,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.titleLarge,
         super(key: key);
 
@@ -113,6 +149,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.titleMedium,
         super(key: key);
 
@@ -123,6 +163,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.titleSmall,
         super(key: key);
 
@@ -133,6 +177,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.labelLarge,
         super(key: key);
 
@@ -143,6 +191,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.labelMedium,
         super(key: key);
 
@@ -153,6 +205,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.labelSmall,
         super(key: key);
 
@@ -163,6 +219,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.bodyLarge,
         super(key: key);
 
@@ -173,6 +233,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.bodyMedium,
         super(key: key);
 
@@ -183,6 +247,10 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   })  : textLevel = AppTextLevel.bodySmall,
         super(key: key);
 
@@ -242,14 +310,20 @@ class AppText extends StatelessWidget {
         break;
     }
 
-    return Text(
-      text,
-      style: style?.copyWith(
-        color: this.color ?? color,
+    return Semantics(
+      explicitChildNodes: explicitChildNodes,
+      excludeSemantics: excludeSemantics,
+      identifier: identifier != null ? '$identifier-text' : null,
+      label: semanticLabel,
+      child: Text(
+        text,
+        style: style?.copyWith(
+          color: this.color ?? color,
+        ),
+        maxLines: this.maxLines ?? maxLines,
+        overflow: overflow,
+        textAlign: textAlign,
       ),
-      maxLines: this.maxLines ?? maxLines,
-      overflow: overflow,
-      textAlign: textAlign,
     );
   }
 }

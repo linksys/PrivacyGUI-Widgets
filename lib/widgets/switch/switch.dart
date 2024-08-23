@@ -9,6 +9,8 @@ class AppSwitch extends StatelessWidget {
     this.showIcon = false,
     this.checkedIcon,
     this.uncheckIcon,
+    this.identifier,
+    this.semanticLabel,
   });
 
   const AppSwitch.withIcon({
@@ -17,6 +19,8 @@ class AppSwitch extends StatelessWidget {
     this.onChanged,
     this.checkedIcon,
     this.uncheckIcon,
+    this.identifier,
+    this.semanticLabel,
   }) : showIcon = true;
 
   final bool showIcon;
@@ -24,6 +28,8 @@ class AppSwitch extends StatelessWidget {
   final void Function(bool)? onChanged;
   final Icon? checkedIcon;
   final Icon? uncheckIcon;
+  final String? identifier;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +46,24 @@ class AppSwitch extends StatelessWidget {
           }()
         : null;
     if (kIsWeb) {
-      return Switch(
-        value: value,
-        onChanged: onChanged,
-        thumbIcon: thumbIcon,
+      return Semantics(
+        identifier: identifier != null ? '$identifier-switch' : null,
+        label: semanticLabel != null ? '$semanticLabel switch' : null,
+        child: Switch(
+          value: value,
+          onChanged: onChanged,
+          thumbIcon: thumbIcon,
+        ),
       );
     } else {
-      return Switch(
-        value: value,
-        onChanged: onChanged,
-        thumbIcon: thumbIcon,
+      return Semantics(
+        identifier: identifier != null ? '$identifier-switch' : null,
+        label: semanticLabel != null ? '$semanticLabel switch' : null,
+        child: Switch(
+          value: value,
+          onChanged: onChanged,
+          thumbIcon: thumbIcon,
+        ),
       );
     }
   }

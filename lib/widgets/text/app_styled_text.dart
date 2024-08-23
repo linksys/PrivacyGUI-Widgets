@@ -12,6 +12,8 @@ class AppStyledText extends StatelessWidget {
   final TextStyle? defaultTextStyle;
   final Map<String, TextStyle> styleTags;
   final Map<String, StyledTextTagActionCallback> callbackTags;
+  final String? identifier;
+  final String? semanticLabel;
 
   const AppStyledText(
     this.text, {
@@ -19,6 +21,8 @@ class AppStyledText extends StatelessWidget {
     this.defaultTextStyle,
     required this.styleTags,
     required this.callbackTags,
+    this.identifier,
+    this.semanticLabel,
   });
 
   factory AppStyledText.bold(
@@ -28,6 +32,8 @@ class AppStyledText extends StatelessWidget {
     required List<String> tags,
     Color? color,
     Map<String, StyledTextTagActionCallback> callbackTags = const {},
+    String? identifier,
+    String? semanticLabel,
   }) {
     final textStyle =
         defaultTextStyle.copyWith(fontWeight: FontWeight.bold, color: color);
@@ -77,6 +83,9 @@ class AppStyledText extends StatelessWidget {
           style: styleTags[key] ?? textStyle);
       return map;
     });
-    return StyledText(key: key, text: text, style: textStyle, tags: tags);
+    return Semantics(
+        identifier: identifier != null ? '$identifier-text' : null,
+        label: semanticLabel,
+        child: StyledText(key: key, text: text, style: textStyle, tags: tags));
   }
 }

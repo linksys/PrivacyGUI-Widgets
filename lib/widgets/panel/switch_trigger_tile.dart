@@ -12,6 +12,10 @@ class AppSwitchTriggerTile extends StatefulWidget {
   final Future Function(bool)? event;
   final void Function(bool)? onChanged;
   final bool toggleInCenter;
+  final bool explicitChildNodes;
+  final bool excludeSemantics;
+  final String? identifier;
+  final String? semanticLabel;
 
   const AppSwitchTriggerTile({
     super.key,
@@ -25,6 +29,10 @@ class AppSwitchTriggerTile extends StatefulWidget {
     this.event,
     this.onChanged,
     this.toggleInCenter = false,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   });
 
   @override
@@ -91,8 +99,20 @@ class _AppSwitchTriggerTileState extends State<AppSwitchTriggerTile> {
 
   Widget _buildToggle() {
     return _isLoading
-        ? const CircularProgressIndicator()
+        ? Semantics(
+            explicitChildNodes: widget.explicitChildNodes,
+            excludeSemantics: widget.excludeSemantics,
+            identifier: widget.identifier != null
+                ? '${widget.identifier}-spinner'
+                : null,
+            label: widget.semanticLabel != null
+                ? '${widget.semanticLabel} spinner'
+                : null,
+            child: const CircularProgressIndicator(),
+          )
         : AppSwitch(
+            identifier: widget.identifier,
+            semanticLabel: widget.semanticLabel,
             value: widget.value,
             showIcon: widget.showSwitchIcon,
             onChanged: (value) {

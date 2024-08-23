@@ -10,6 +10,10 @@ class AppCheckbox extends StatelessWidget {
     this.isError = false,
     this.tristate = false,
     this.onChanged,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   });
 
   final bool? value;
@@ -17,6 +21,10 @@ class AppCheckbox extends StatelessWidget {
   final bool isError;
   final String? text;
   final void Function(bool?)? onChanged;
+  final bool explicitChildNodes;
+  final bool excludeSemantics;
+  final String? identifier;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +32,17 @@ class AppCheckbox extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Checkbox(
-          value: value,
-          isError: isError,
-          tristate: tristate,
-          onChanged: onChanged,
+        Semantics(
+          explicitChildNodes: explicitChildNodes,
+          excludeSemantics: excludeSemantics,
+          identifier: identifier != null ? '$identifier-checkbox' : null,
+          label: semanticLabel != null ? '$semanticLabel checkbox' : null,
+          child: Checkbox(
+            value: value,
+            isError: isError,
+            tristate: tristate,
+            onChanged: onChanged,
+          ),
         ),
         ..._buildText(text, onChanged != null),
       ],
@@ -37,7 +51,7 @@ class AppCheckbox extends StatelessWidget {
 
   List<Widget> _buildText(String? text, bool enabled) {
     if (text != null) {
-      final textWidget = AppText.bodyMedium(text);
+      final textWidget = AppText.bodyMedium(text, identifier: identifier);
       return [const AppGap.small3(), Flexible(child: textWidget)];
     } else {
       return [];

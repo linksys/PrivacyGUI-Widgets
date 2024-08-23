@@ -174,7 +174,7 @@ class AppIconButton extends StatelessWidget {
             explicitChildNodes: explicitChildNodes,
             excludeSemantics:
                 excludeSemantics ?? (identifier == null ? false : true),
-            identifier: identifier,
+            identifier: identifier != null ? '$identifier-button' : null,
             child: Icon(
               icon,
               color: color,
@@ -196,7 +196,7 @@ class AppIconButton extends StatelessWidget {
             explicitChildNodes: explicitChildNodes,
             excludeSemantics:
                 excludeSemantics ?? (identifier == null ? false : true),
-            identifier: identifier,
+            identifier: identifier != null ? '$identifier-button' : null,
             child: Icon(
               icon,
               color: color,
@@ -212,7 +212,7 @@ class AppIconButton extends StatelessWidget {
             explicitChildNodes: explicitChildNodes,
             excludeSemantics:
                 excludeSemantics ?? (identifier == null ? false : true),
-            identifier: identifier,
+            identifier: identifier != null ? '$identifier-button' : null,
             child: Icon(
               icon,
               color: color,
@@ -228,7 +228,7 @@ class AppIconButton extends StatelessWidget {
             explicitChildNodes: explicitChildNodes,
             excludeSemantics:
                 excludeSemantics ?? (identifier == null ? false : true),
-            identifier: identifier,
+            identifier: identifier != null ? '$identifier-button' : null,
             child: Icon(
               icon,
               color: color,

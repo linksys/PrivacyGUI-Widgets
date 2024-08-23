@@ -22,9 +22,19 @@ class AppSectionLabel extends StatelessWidget {
     Key? key,
     required this.label,
     this.headerAction,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   }) : super(key: key);
+
   final String label;
   final Widget? headerAction;
+  final bool explicitChildNodes;
+  final bool excludeSemantics;
+  final String? identifier;
+  final String? semanticLabel;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +44,12 @@ class AppSectionLabel extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child: AppText.titleSmall(label)),
+            Expanded(
+                child: AppText.titleSmall(
+              label,
+              identifier:
+                  identifier != null ? '$identifier-section-label' : null,
+            )),
             if (headerAction != null) headerAction!,
           ],
         ),
@@ -50,12 +65,20 @@ class AppSection extends StatelessWidget {
     this.header,
     required this.child,
     this.contentBackground,
+    this.explicitChildNodes = false,
+    this.excludeSemantics = false,
+    this.identifier,
+    this.semanticLabel,
   }) : super(key: key);
 
   final bool enabled;
   final Widget? header;
   final Widget child;
   final Color? contentBackground;
+  final bool explicitChildNodes;
+  final bool excludeSemantics;
+  final String? identifier;
+  final String? semanticLabel;
 
   factory AppSection.withLabel({
     required String title,
@@ -63,6 +86,10 @@ class AppSection extends StatelessWidget {
     Widget? headerAction,
     bool enabled = false,
     Color? contentBackground,
+    bool? explicitChildNodes,
+    bool? excludeSemantics,
+    String? identifier,
+    String? semanticLabel,
   }) =>
       AppSection(
         header: AppSectionLabel(
@@ -86,6 +113,10 @@ class AppSection extends StatelessWidget {
     bool enabled = true,
     EdgeInsets? contentPadding,
     Color? contentBackground,
+    bool? explicitChildNodes,
+    bool? excludeSemantics,
+    String? identifier,
+    String? semanticLabel,
   }) =>
       AppSection(
         header: header,
@@ -96,6 +127,8 @@ class AppSection extends StatelessWidget {
           child: Column(
             children: [
               ...items.map((e) => AppSimplePanel(
+                    identifier: identifier,
+                    semanticLabel: semanticLabel,
                     title: e.title,
                     icon: e.iconData,
                     onTap: e.onTap,
