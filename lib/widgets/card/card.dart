@@ -36,6 +36,7 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      semanticContainer: false,
       elevation: 0,
       color: color,
       margin: margin ?? const EdgeInsets.only(),
@@ -62,12 +63,5 @@ class AppCard extends StatelessWidget {
   }
 
   Widget _buildChild(EdgeInsets? padding, Widget child) => Padding(
-      padding: padding ?? const EdgeInsets.all(Spacing.medium),
-      child: Semantics(
-          explicitChildNodes: explicitChildNodes,
-          excludeSemantics:
-              excludeSemantics ?? (identifier == null ? false : true),
-          identifier: identifier,
-          label: semanticLabel,
-          child: child));
+      padding: padding ?? const EdgeInsets.all(Spacing.medium), child: child);
 }
