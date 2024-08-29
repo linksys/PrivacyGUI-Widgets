@@ -14,6 +14,7 @@ class AppProgressBar extends StatefulWidget {
   final void Function(double)? callback;
   final Color? color;
   final Color? background;
+  final String? semanticLabel;
 
   const AppProgressBar({
     Key? key,
@@ -24,6 +25,7 @@ class AppProgressBar extends StatefulWidget {
     this.color,
     this.background,
     this.callback,
+    this.semanticLabel,
   }) : super(key: key);
 
   @override
@@ -67,6 +69,7 @@ class _AppProgressBarState extends State<AppProgressBar>
         backgroundColor:
             widget.background ?? Theme.of(context).colorScheme.inversePrimary,
         strokeWidth: widget.stroke ?? 4.0,
+        semanticsLabel: widget.semanticLabel,
       );
     }
     return LinearProgressIndicator(
@@ -75,6 +78,7 @@ class _AppProgressBarState extends State<AppProgressBar>
       backgroundColor:
           widget.background ?? Theme.of(context).colorScheme.inversePrimary,
       minHeight: widget.stroke,
+      semanticsLabel: widget.semanticLabel,
     );
   }
 }

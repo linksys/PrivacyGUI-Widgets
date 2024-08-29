@@ -128,6 +128,7 @@ class AppTreeNodeItemLarge extends StatelessWidget {
               Image(
                 image:
                     image ?? CustomTheme.of(context).images.devices.routerLn11,
+                semanticLabel: 'router image',
                 width: 80,
                 height: 80,
               ),
@@ -202,6 +203,7 @@ class AppTreeNodeDetailedItem extends StatelessWidget {
               Image(
                 image:
                     image ?? CustomTheme.of(context).images.devices.routerLn11,
+                semanticLabel: 'router image',
                 width: 40,
                 height: 40,
               ),
@@ -276,6 +278,7 @@ class _BorderInfoCellState extends State<BorderInfoCell> {
                   if (widget.icon != null) ...[
                     Icon(
                       widget.icon,
+                      semanticLabel: 'icon',
                       size: 36,
                       color: Theme.of(context).colorScheme.primary,
                     ),
@@ -320,6 +323,7 @@ class _InfoCellState extends State<InfoCell> {
           if (widget.icon != null) ...[
             Icon(
               widget.icon,
+              semanticLabel: 'icon',
               size: 36,
               color: Theme.of(context).colorScheme.primary,
             ),

@@ -53,7 +53,10 @@ class AppDeviceListCard extends StatelessWidget {
               : [],
           Padding(
             padding: const EdgeInsets.all(Spacing.small2),
-            child: Icon(leading),
+            child: Icon(
+              leading,
+              semanticLabel: '$title leading',
+            ),
           ),
         ],
       ),
@@ -66,7 +69,11 @@ class AppDeviceListCard extends StatelessWidget {
               child: AppText.labelLarge(band!),
             ),
           ],
-          if (trailing != null) Icon(trailing),
+          if (trailing != null)
+            Icon(
+              trailing,
+              semanticLabel: '$title trailing',
+            ),
         ],
       ),
       onTap: onTap,

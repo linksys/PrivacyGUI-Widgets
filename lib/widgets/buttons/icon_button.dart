@@ -170,16 +170,10 @@ class AppIconButton extends StatelessWidget {
       case _AppIconButtonStyle.normal:
         return IconButton(
           onPressed: onTap,
-          icon: Semantics(
-            explicitChildNodes: explicitChildNodes,
-            excludeSemantics:
-                excludeSemantics ?? (identifier == null ? false : true),
-            identifier: identifier,
-            child: Icon(
-              icon,
-              color: color,
-              semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
-            ),
+          icon: Icon(
+            icon,
+            color: color,
+            semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
           ),
           padding: padding,
           alignment: alignment,
@@ -192,48 +186,30 @@ class AppIconButton extends StatelessWidget {
       case _AppIconButtonStyle.outlined:
         return IconButton.outlined(
           onPressed: onTap,
-          icon: Semantics(
-            explicitChildNodes: explicitChildNodes,
-            excludeSemantics:
-                excludeSemantics ?? (identifier == null ? false : true),
-            identifier: identifier,
-            child: Icon(
-              icon,
-              color: color,
-              semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
-            ),
+          icon: Icon(
+            icon,
+            color: color,
+            semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
           ),
           padding: padding,
         );
       case _AppIconButtonStyle.filled:
         return IconButton.filled(
           onPressed: onTap,
-          icon: Semantics(
-            explicitChildNodes: explicitChildNodes,
-            excludeSemantics:
-                excludeSemantics ?? (identifier == null ? false : true),
-            identifier: identifier,
-            child: Icon(
-              icon,
-              color: color,
-              semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
-            ),
+          icon: Icon(
+            icon,
+            color: color,
+            semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
           ),
           padding: padding,
         );
       case _AppIconButtonStyle.tonal:
         return IconButton.filledTonal(
           onPressed: onTap,
-          icon: Semantics(
-            explicitChildNodes: explicitChildNodes,
-            excludeSemantics:
-                excludeSemantics ?? (identifier == null ? false : true),
-            identifier: identifier,
-            child: Icon(
-              icon,
-              color: color,
-              semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
-            ),
+          icon: Icon(
+            icon,
+            color: color,
+            semanticLabel: semanticLabel ?? '${icon?.codePoint ?? ''}',
           ),
           padding: padding,
         );
