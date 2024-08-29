@@ -31,6 +31,7 @@ required this.imgPortOff,
 required this.imgAddNodes,
 required this.linksysLogoBlack,
 required this.modemWaiting,
+required this.btnCheckSpeeds,
 required this.pnpFinishDesktop,
 required this.ledWhiteBlink,
 required this.speedtestPowered,
@@ -64,6 +65,7 @@ imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privac
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets', filter: const {"#ff231F20":"#fff3f3f3","#ff000000":"#ffffffff"}),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets', filter: const {"#ff000000":"#ffffffff"}),
 modemWaiting: exactAssetPicture('assets/images/modem_waiting.svg', package: 'privacygui_widgets'),
+btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package: 'privacygui_widgets'),
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
 ledWhiteBlink: exactAssetPicture('assets/images/led_white_blink.svg', package: 'privacygui_widgets'),
 speedtestPowered: const AssetImage('assets/images/speedtest_powered.png', package: 'privacygui_widgets'),
@@ -95,6 +97,7 @@ imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privac
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets'),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets'),
 modemWaiting: exactAssetPicture('assets/images/modem_waiting.svg', package: 'privacygui_widgets'),
+btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package: 'privacygui_widgets'),
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
 ledWhiteBlink: exactAssetPicture('assets/images/led_white_blink.svg', package: 'privacygui_widgets'),
 speedtestPowered: const AssetImage('assets/images/speedtest_powered.png', package: 'privacygui_widgets'),
@@ -126,6 +129,7 @@ final SvgLoader imgPortOff;
 final SvgLoader imgAddNodes;
 final SvgLoader linksysLogoBlack;
 final SvgLoader modemWaiting;
+final SvgLoader btnCheckSpeeds;
 final SvgLoader pnpFinishDesktop;
 final SvgLoader ledWhiteBlink;
 final ImageProvider speedtestPowered;
@@ -158,6 +162,7 @@ imgPortOff.named('imgPortOff'),
 imgAddNodes.named('imgAddNodes'),
 linksysLogoBlack.named('linksysLogoBlack'),
 modemWaiting.named('modemWaiting'),
+btnCheckSpeeds.named('btnCheckSpeeds'),
 pnpFinishDesktop.named('pnpFinishDesktop'),
 ledWhiteBlink.named('ledWhiteBlink'),
 speedtestPowered.named('speedtestPowered'),

@@ -14,6 +14,7 @@ class AppTreeNodeItem extends StatelessWidget {
   final Widget? tail;
   final String name;
   final String? status;
+  final String? thirdLine;
   final VoidCallback? onTap;
   final Color? background;
 
@@ -22,6 +23,7 @@ class AppTreeNodeItem extends StatelessWidget {
     this.tail,
     required this.name,
     this.status = '',
+    this.thirdLine,
     this.image,
     this.onTap,
     this.background,
@@ -35,14 +37,14 @@ class AppTreeNodeItem extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
-        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().medium,
       ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
+        borderRadius: CustomTheme.of(context).radius.asBorderRadius().medium,
         child: Container(
-          constraints:
-              const BoxConstraints(minWidth: 180, maxWidth: 300, maxHeight: 84),
+          constraints: const BoxConstraints(
+              minWidth: 180, maxWidth: 300, maxHeight: 108),
           padding: const EdgeInsets.all(Spacing.medium),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -68,7 +70,8 @@ class AppTreeNodeItem extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    if (status != null) AppText.bodySmall(status!)
+                    if (status != null) AppText.bodySmall(status!),
+                    if (thirdLine != null) AppText.bodySmall(thirdLine!),
                   ],
                 ),
               ),
@@ -252,36 +255,34 @@ class _BorderInfoCellState extends State<BorderInfoCell> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Container(
-            width: widget.width,
-            child: Card(
-              margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-              color: Theme.of(context).colorScheme.primaryContainer,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                    color: Theme.of(context).colorSchemeExt.primaryFixedDim ??
-                        Theme.of(context).colorScheme.outline),
-                borderRadius:
-                    CustomTheme.of(context).radius.asBorderRadius().extraLarge,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(Spacing.medium),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (widget.icon != null) ...[
-                      Icon(
-                        widget.icon,
-                        size: 36,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const AppGap.medium(),
-                    ],
-                    AppText.bodyLarge(widget.name),
+        Container(
+          width: widget.width,
+          child: Card(
+            margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+            color: Theme.of(context).colorScheme.primaryContainer,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                  color: Theme.of(context).colorSchemeExt.primaryFixedDim ??
+                      Theme.of(context).colorScheme.outline),
+              borderRadius:
+                  CustomTheme.of(context).radius.asBorderRadius().extraLarge,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(Spacing.medium),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (widget.icon != null) ...[
+                    Icon(
+                      widget.icon,
+                      size: 36,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const AppGap.medium(),
                   ],
-                ),
+                  AppText.bodyLarge(widget.name),
+                ],
               ),
             ),
           ),
@@ -407,6 +408,7 @@ class _AppTreeNodeCellState extends State<AppTreeNodeCell> {
                   left: widget.isRTL ? 0 : _leftPadding,
                   right: widget.isRTL ? _leftPadding : 0,
                 ),
+                // line for connecting internet cell and master cell
                 child: widget.level == 1 && widget.showConnectionLine
                     ? CustomPaint(
                         painter: _PathPainter(

@@ -72,9 +72,11 @@ class AppStyledText extends StatelessWidget {
     final textStyle =
         defaultTextStyle ?? Theme.of(context).textTheme.bodyMedium;
     final keys = List<String>.from(styleTags.keys)..addAll(callbackTags.keys);
-    final tags = keys.fold<Map<String, StyledTextActionTag>>({}, (map, key) {
-      map[key] = StyledTextActionTag(callbackTags[key] ?? (text, attributes) {},
-          style: styleTags[key] ?? textStyle);
+    final tags = keys.fold<Map<String, StyledTextTag>>({}, (map, key) {
+      map[key] = callbackTags[key] == null
+          ? StyledTextTag(style: styleTags[key] ?? textStyle)
+          : StyledTextActionTag(callbackTags[key] ?? (text, attributes) {},
+              style: styleTags[key] ?? textStyle);
       return map;
     });
     return StyledText(key: key, text: text, style: textStyle, tags: tags);
