@@ -14,6 +14,7 @@ enum LoadableWidgetType {
 class AppLoadableWidget extends StatefulWidget {
   final LoadableWidgetType type;
   final Size? spinnerSize;
+  final String? semanticsLabel;
   // Button
   final String? title;
   final IconData? icon;
@@ -32,6 +33,7 @@ class AppLoadableWidget extends StatefulWidget {
     super.key,
     required this.type,
     this.spinnerSize,
+    this.semanticsLabel,
     this.title,
     this.icon,
     this.onTap,
@@ -49,6 +51,7 @@ class AppLoadableWidget extends StatefulWidget {
     Key? key,
     required String title,
     Size? spinnerSize,
+    String? semanticsLabel,
     IconData? icon,
     Future Function()? onTap,
     Size? buttonSize,
@@ -58,6 +61,7 @@ class AppLoadableWidget extends StatefulWidget {
         type: LoadableWidgetType.elevatedButton,
         title: title,
         spinnerSize: spinnerSize,
+        semanticsLabel: semanticsLabel,
         icon: icon,
         onTap: onTap,
         buttonSize: buttonSize,
@@ -67,6 +71,7 @@ class AppLoadableWidget extends StatefulWidget {
     Key? key,
     required String title,
     Size? spinnerSize,
+    String? semanticsLabel,
     IconData? icon,
     Future Function()? onTap,
     Size? buttonSize,
@@ -76,6 +81,7 @@ class AppLoadableWidget extends StatefulWidget {
         type: LoadableWidgetType.filledButton,
         title: title,
         spinnerSize: spinnerSize,
+        semanticsLabel: semanticsLabel,
         icon: icon,
         onTap: onTap,
         buttonSize: buttonSize,
@@ -85,6 +91,7 @@ class AppLoadableWidget extends StatefulWidget {
     Key? key,
     required String title,
     Size? spinnerSize,
+    String? semanticsLabel,
     IconData? icon,
     Future Function()? onTap,
     Color? color,
@@ -95,6 +102,7 @@ class AppLoadableWidget extends StatefulWidget {
         type: LoadableWidgetType.outlineButton,
         title: title,
         spinnerSize: spinnerSize,
+        semanticsLabel: semanticsLabel,
         icon: icon,
         onTap: onTap,
         color: color,
@@ -105,6 +113,7 @@ class AppLoadableWidget extends StatefulWidget {
     Key? key,
     required String title,
     Size? spinnerSize,
+    String? semanticsLabel,
     IconData? icon,
     Future Function()? onTap,
     Color? color,
@@ -116,6 +125,7 @@ class AppLoadableWidget extends StatefulWidget {
         type: LoadableWidgetType.textButton,
         title: title,
         spinnerSize: spinnerSize,
+        semanticsLabel: semanticsLabel,
         icon: icon,
         onTap: onTap,
         color: color,
@@ -127,6 +137,7 @@ class AppLoadableWidget extends StatefulWidget {
     Key? key,
     required bool value,
     Size? spinnerSize,
+    String? semanticsLabel,
     IconData? icon,
     Future Function(dynamic)? onChanged,
     bool? showIcon,
@@ -137,6 +148,7 @@ class AppLoadableWidget extends StatefulWidget {
         key: key,
         type: LoadableWidgetType.appSwitch,
         spinnerSize: spinnerSize,
+        semanticsLabel: semanticsLabel,
         value: value,
         icon: icon,
         onChanged: onChanged,
@@ -158,7 +170,9 @@ class _AppLoadableWidgetState extends State<AppLoadableWidget> {
         ? SizedBox(
             height: widget.spinnerSize?.height,
             width: widget.spinnerSize?.width,
-            child: const CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              semanticsLabel: '${widget.semanticsLabel} spinner',
+            ),
           )
         : switch (widget.type) {
             LoadableWidgetType.elevatedButton => AppElevatedButton(

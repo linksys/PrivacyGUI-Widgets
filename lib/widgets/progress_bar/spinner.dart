@@ -5,10 +5,12 @@ import 'package:lottie/lottie.dart';
 
 class AppSpinner extends StatelessWidget {
   final Size? size;
+  final String? semanticLabel;
 
   const AppSpinner({
     Key? key,
     this.size,
+    this.semanticLabel,
   }) : super(key: key);
 
   @override
@@ -16,18 +18,21 @@ class AppSpinner extends StatelessWidget {
     return SizedBox(
       width: size?.width ?? 200,
       height: size?.height ?? 200,
-      child: Center(
-        child: ColorFiltered(
-          colorFilter: ColorFilter.mode(
-            Theme.of(context).colorSchemeExt.primaryFixed ??
-                Theme.of(context).colorScheme.onSurface,
-            BlendMode.srcATop,
-          ),
-          child: Lottie.asset(
-            'assets/lottie/loading.lottie',
-            decoder: customDecoder,
-            package: 'privacygui_widgets',
-            fit: BoxFit.contain,
+      child: Semantics(
+        label: semanticLabel,
+        child: Center(
+          child: ColorFiltered(
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).colorSchemeExt.primaryFixed ??
+                  Theme.of(context).colorScheme.onSurface,
+              BlendMode.srcATop,
+            ),
+            child: Lottie.asset(
+              'assets/lottie/loading.lottie',
+              decoder: customDecoder,
+              package: 'privacygui_widgets',
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),
