@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/buttons/popup_button.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 const double _leftPadding = 24;
@@ -153,76 +156,6 @@ class AppTreeNodeItemLarge extends StatelessWidget {
                   if (tail != null) tail!,
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class AppTreeNodeDetailedItem extends StatelessWidget {
-  final ImageProvider? image;
-  final Widget? tail;
-  final String name;
-  final Widget? details;
-  final VoidCallback? onTap;
-  final Color? background;
-
-  const AppTreeNodeDetailedItem({
-    super.key,
-    this.tail,
-    required this.name,
-    this.details,
-    this.image,
-    this.onTap,
-    this.background,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.zero,
-      color: background ?? Theme.of(context).colorScheme.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
-        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: CustomTheme.of(context).radius.asBorderRadius().large,
-        child: Container(
-          constraints: const BoxConstraints(
-              minWidth: 180, maxWidth: 300, maxHeight: 172),
-          padding: const EdgeInsets.all(Spacing.medium),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image(
-                image:
-                    image ?? CustomTheme.of(context).images.devices.routerLn11,
-                semanticLabel: 'router image',
-                width: 40,
-                height: 40,
-              ),
-              const AppGap.small3(),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText.labelLarge(
-                      name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    if (details != null) details!,
-                  ],
-                ),
-              ),
-              if (tail != null) Center(child: tail!),
             ],
           ),
         ),

@@ -7,6 +7,7 @@ class AppSectionItemData {
   final IconData? iconData;
   final String title;
   final String? description;
+  final bool? status;
 
   final VoidCallback? onTap;
   AppSectionItemData({
@@ -14,6 +15,7 @@ class AppSectionItemData {
     required this.title,
     this.description,
     this.onTap,
+    this.status
   });
 }
 
