@@ -69,7 +69,7 @@ btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package:
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
 ledWhiteBlink: exactAssetPicture('assets/images/led_white_blink.svg', package: 'privacygui_widgets'),
 speedtestPowered: const AssetImage('assets/images/speedtest_powered.png', package: 'privacygui_widgets'),
-imgPortOn: exactAssetPicture('assets/images/img_port_on.svg', package: 'privacygui_widgets'),
+imgPortOn: exactAssetPicture('assets/images/img_port_on.svg', package: 'privacygui_widgets', filter: const {"#ff74777f":"#ff008a2d"}),
 ledPurpleBlink: exactAssetPicture('assets/images/led_purple_blink.svg', package: 'privacygui_widgets'),
 devices: AppDevicesData.dark(),modemDevice: exactAssetPicture('assets/images/modem_device.svg', package: 'privacygui_widgets'),
 
@@ -101,7 +101,7 @@ btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package:
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
 ledWhiteBlink: exactAssetPicture('assets/images/led_white_blink.svg', package: 'privacygui_widgets'),
 speedtestPowered: const AssetImage('assets/images/speedtest_powered.png', package: 'privacygui_widgets'),
-imgPortOn: exactAssetPicture('assets/images/img_port_on.svg', package: 'privacygui_widgets'),
+imgPortOn: exactAssetPicture('assets/images/img_port_on.svg', package: 'privacygui_widgets', filter: const {"#ff74777f":"#ff008a2d"}),
 ledPurpleBlink: exactAssetPicture('assets/images/led_purple_blink.svg', package: 'privacygui_widgets'),
 devices: AppDevicesData.light(),modemDevice: exactAssetPicture('assets/images/modem_device.svg', package: 'privacygui_widgets'),
 

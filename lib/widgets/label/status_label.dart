@@ -23,7 +23,7 @@ class AppStatusLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = isOff
-        ? (offColor ?? Theme.of(context).colorScheme.surfaceVariant)
+        ? (offColor ?? Theme.of(context).colorScheme.outline)
         : (onColor ?? Theme.of(context).colorSchemeExt.green);
     return Row(
       mainAxisSize: MainAxisSize.min,
