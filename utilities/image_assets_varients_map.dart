@@ -34,4 +34,9 @@ const imageVarientsMap = <String, dynamic>{
     'method': 'filter',
     'dark': {'#FFD9D9D9': '#ffffffff', '#FF44474F': '#ffffffff'}
   },
+  'img_port_on.svg': {
+    'method': 'filter',
+    'dark': {'#ff74777f': '#ff008a2d'},
+    'light': {'#ff74777f': '#ff008a2d'}
+  }
 };
