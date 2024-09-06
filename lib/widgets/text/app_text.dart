@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
 
 enum AppTextLevel {
   displayLarge,
@@ -16,6 +17,7 @@ enum AppTextLevel {
   bodyLarge,
   bodyMedium,
   bodySmall,
+  bodyExtraSmall,
 }
 
 class AppText extends StatelessWidget {
@@ -186,6 +188,15 @@ class AppText extends StatelessWidget {
   })  : textLevel = AppTextLevel.bodySmall,
         super(key: key);
 
+  const AppText.bodyExtraSmall(
+    this.text, {
+    Key? key,
+    this.color,
+    this.maxLines,
+    this.overflow,
+    this.textAlign,
+  })  : textLevel = AppTextLevel.bodyExtraSmall,
+        super(key: key);
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -239,6 +250,9 @@ class AppText extends StatelessWidget {
         break;
       case AppTextLevel.bodySmall:
         style = theme.textTheme.bodySmall;
+        break;
+        case AppTextLevel.bodyExtraSmall:
+        style = theme.textSchemeExt.bodyExtraSmall;
         break;
     }
 

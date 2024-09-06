@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 class AnimatedMeter extends StatefulWidget {
   final double value; // Current value for the meter (0.0 - 1.0)
   final double size;
+  final double indicatorPathStrokeWidth;
+  final double markerRadius;
+  final bool displayIndicatorValues;
   final Widget Function(BuildContext context, double value) centerBuilder;
-  final Widget Function(BuildContext context, double value) bottomBuilder;
+  final Widget Function(BuildContext context, double value)? bottomBuilder;
   final List<double> markers;
 
   const AnimatedMeter({
@@ -13,9 +16,24 @@ class AnimatedMeter extends StatefulWidget {
     required this.value,
     this.size = 200,
     this.markers = const [],
+    this.indicatorPathStrokeWidth = 16,
+    this.displayIndicatorValues = true,
+    this.markerRadius = 4,
     required this.centerBuilder,
-    required this.bottomBuilder,
+    this.bottomBuilder,
   }) : super(key: key);
+
+  const AnimatedMeter.withDefaultMarks({
+    Key? key,
+    required this.value,
+    this.size = 200,
+    this.indicatorPathStrokeWidth = 16,
+    this.displayIndicatorValues = true,
+    this.markerRadius = 4,
+    required this.centerBuilder,
+    this.bottomBuilder,
+  })  : markers = const [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+        super(key: key);
 
   @override
   State<AnimatedMeter> createState() => _AnimatedMeterState();
@@ -49,6 +67,9 @@ class _AnimatedMeterState extends State<AnimatedMeter>
               painter: MeterPainter(
                 context,
                 value: value,
+                displayIndicatorValues: widget.displayIndicatorValues,
+                indicatorStrokeWidth: widget.indicatorPathStrokeWidth,
+                markerRadius: widget.markerRadius,
                 markers: widget.markers.map((e) => '$e').toList(),
               ),
               size: Size.square(widget.size), // Adjust size as needed
@@ -56,7 +77,7 @@ class _AnimatedMeterState extends State<AnimatedMeter>
             widget.centerBuilder(context, widget.value),
             Align(
               alignment: Alignment.bottomCenter,
-              child: widget.bottomBuilder(context, value),
+              child: widget.bottomBuilder?.call(context, value),
             ),
           ],
         ),
@@ -90,10 +111,17 @@ class MeterPainter extends CustomPainter {
   final double value;
   final BuildContext context;
   final List<String> markers;
+  final double indicatorStrokeWidth;
+  final double markerRadius;
+  final bool displayIndicatorValues;
+
   MeterPainter(
     this.context, {
     required this.value,
+    this.indicatorStrokeWidth = 16,
+    this.markerRadius = 4,
     this.markers = const [],
+    this.displayIndicatorValues = true,
   });
 
   @override
@@ -121,7 +149,7 @@ class MeterPainter extends CustomPainter {
     // Background painting 2
     final backgroundArcPaint2 = Paint()
       ..color = backgroundColor
-      ..strokeWidth = 16.0
+      ..strokeWidth = indicatorStrokeWidth
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     canvas.drawArc(
@@ -212,7 +240,6 @@ class MeterPainter extends CustomPainter {
     // Calculate marker positions and painting
     const markerColor = Colors.white;
     final numMarkers = markers.length;
-    const markerRadius = 4.0; // Adjust marker size as needed
     final Paint markerPaint = Paint()
       ..color = markerColor
       ..style = PaintingStyle.fill;
@@ -224,24 +251,26 @@ class MeterPainter extends CustomPainter {
       canvas.drawCircle(Offset(markerX, markerY), markerRadius, markerPaint);
 
       // Calculate text position and draw text
-      final markerTextRadius = radius - 24;
-      final textPainter = TextPainter(
-        text: TextSpan(
-          text: markers[i],
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
-              ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
-        ),
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-      );
-      textPainter.layout(minWidth: 0, maxWidth: double.infinity);
-      final markerTextX = center.dx + markerTextRadius * math.cos(angle);
-      final markerTextY = center.dy + markerTextRadius * math.sin(angle);
-      final textOffset = Offset(markerTextX - textPainter.width / 2,
-          markerTextY - textPainter.height / 2);
-      textPainter.paint(canvas, textOffset);
+      if (displayIndicatorValues) {
+        final markerTextRadius = radius - 24;
+        final textPainter = TextPainter(
+          text: TextSpan(
+            text: markers[i],
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+          ),
+          textAlign: TextAlign.center,
+          textDirection: TextDirection.ltr,
+        );
+        textPainter.layout(minWidth: 0, maxWidth: double.infinity);
+        final markerTextX = center.dx + markerTextRadius * math.cos(angle);
+        final markerTextY = center.dy + markerTextRadius * math.sin(angle);
+        final textOffset = Offset(markerTextX - textPainter.width / 2,
+            markerTextY - textPainter.height / 2);
+        textPainter.paint(canvas, textOffset);
+      }
     }
 
     // ... rest of the painting logic (needle, etc.) ...

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/theme/material/text_scheme_ext.dart';
 
 final linksysLightThemeData = ThemeData(
   useMaterial3: true,
@@ -14,7 +15,6 @@ final linksysLightThemeData = ThemeData(
   ],
   dialogTheme: DialogTheme(
       backgroundColor: lightColorSchemeExt.surfaceContainerHigh, elevation: 0),
-      
 );
 final linksysDarkThemeData = ThemeData(
   useMaterial3: true,
@@ -33,4 +33,5 @@ final linksysDarkThemeData = ThemeData(
 
 extension ThemeDataExt on ThemeData {
   ColorSchemeExt get colorSchemeExt => extension<ColorSchemeExt>()!;
+  TextSchemeExt get textSchemeExt => extension<TextSchemeExt>()!;
 }
