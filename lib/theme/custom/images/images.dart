@@ -30,6 +30,7 @@ required this.ledBlueSolid,
 required this.imgPortOff,
 required this.imgAddNodes,
 required this.linksysLogoBlack,
+required this.chromePrivacyErr,
 required this.modemWaiting,
 required this.btnCheckSpeeds,
 required this.pnpFinishDesktop,
@@ -64,6 +65,7 @@ ledBlueSolid: exactAssetPicture('assets/images/led_blue_solid.svg', package: 'pr
 imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets', filter: const {"#ff231F20":"#fff3f3f3","#ff000000":"#ffffffff"}),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets', filter: const {"#ff000000":"#ffffffff"}),
+chromePrivacyErr: const AssetImage('assets/images/chrome_privacy_err.png', package: 'privacygui_widgets'),
 modemWaiting: exactAssetPicture('assets/images/modem_waiting.svg', package: 'privacygui_widgets'),
 btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package: 'privacygui_widgets'),
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
@@ -96,6 +98,7 @@ ledBlueSolid: exactAssetPicture('assets/images/led_blue_solid.svg', package: 'pr
 imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets'),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets'),
+chromePrivacyErr: const AssetImage('assets/images/chrome_privacy_err.png', package: 'privacygui_widgets'),
 modemWaiting: exactAssetPicture('assets/images/modem_waiting.svg', package: 'privacygui_widgets'),
 btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package: 'privacygui_widgets'),
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
@@ -128,6 +131,7 @@ final SvgLoader ledBlueSolid;
 final SvgLoader imgPortOff;
 final SvgLoader imgAddNodes;
 final SvgLoader linksysLogoBlack;
+final ImageProvider chromePrivacyErr;
 final SvgLoader modemWaiting;
 final SvgLoader btnCheckSpeeds;
 final SvgLoader pnpFinishDesktop;
@@ -161,6 +165,7 @@ ledBlueSolid.named('ledBlueSolid'),
 imgPortOff.named('imgPortOff'),
 imgAddNodes.named('imgAddNodes'),
 linksysLogoBlack.named('linksysLogoBlack'),
+chromePrivacyErr.named('chromePrivacyErr'),
 modemWaiting.named('modemWaiting'),
 btnCheckSpeeds.named('btnCheckSpeeds'),
 pnpFinishDesktop.named('pnpFinishDesktop'),
