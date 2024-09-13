@@ -30,6 +30,7 @@ class TextInputField extends StatefulWidget {
     this.expands,
     this.identifier,
     this.semanticLabel,
+    this.focusNode,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -58,18 +59,19 @@ class TextInputField extends StatefulWidget {
   final bool? expands;
   final String? identifier;
   final String? semanticLabel;
+  final FocusNode? focusNode;
 
   @override
   TextInputFieldState createState() => TextInputFieldState();
 }
 
 class TextInputFieldState extends State<TextInputField> {
-  final FocusNode _focus = FocusNode();
+  late final FocusNode _focus;
 
   @override
   void initState() {
     super.initState();
-
+    _focus = widget.focusNode ?? FocusNode();
     _focus.addListener(_onFocusChange);
   }
 

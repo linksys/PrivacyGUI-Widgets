@@ -37,6 +37,8 @@ class AppPasswordField extends StatefulWidget {
   final String? identifier;
   final String? semanticLabel;
 
+  final FocusNode? focusNode;
+
   const AppPasswordField({
     super.key,
     this.headerText,
@@ -67,6 +69,7 @@ class AppPasswordField extends StatefulWidget {
     this.readOnly = false,
     this.identifier,
     this.semanticLabel,
+    this.focusNode,
   });
 
   AppPasswordField.withValidator({
@@ -99,6 +102,7 @@ class AppPasswordField extends StatefulWidget {
     this.readOnly = false,
     this.identifier,
     this.semanticLabel,
+    this.focusNode,
   }) : assert(validations != null && validations.isNotEmpty);
 
   @override
@@ -149,6 +153,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
           autofocus: widget.autofocus,
           identifier: widget.identifier,
           semanticLabel: widget.semanticLabel,
+          focusNode: widget.focusNode,
         ),
         if (widget.withValidator) const AppGap.large2(),
         if (widget.withValidator)

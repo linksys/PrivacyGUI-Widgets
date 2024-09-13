@@ -32,6 +32,7 @@ class AppTextField extends StatefulWidget {
     this.expands,
     this.identifier,
     this.semanticLabel,
+    this.focusNode,
   }) : super(key: key);
 
   const AppTextField.outline({
@@ -61,6 +62,7 @@ class AppTextField extends StatefulWidget {
     this.expands,
     this.identifier,
     this.semanticLabel,
+    this.focusNode,
   })  : border = const OutlineInputBorder(),
         super(key: key);
 
@@ -88,6 +90,7 @@ class AppTextField extends StatefulWidget {
     bool autofocus = false,
     String? identifier,
     String? semanticLabel,
+    FocusNode? focusNode,
   }) =>
       AppTextField(
         controller: controller,
@@ -109,6 +112,7 @@ class AppTextField extends StatefulWidget {
         onSubmitted: onSubmitted,
         textInputAction: textInputAction,
         border: border,
+        focusNode: focusNode,
         inputFormatters: [
           // allow only digits
           FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
@@ -149,6 +153,7 @@ class AppTextField extends StatefulWidget {
     bool acceptEmpty = false,
     String? identifier,
     String? semanticLabel,
+    FocusNode? focusNode,
   }) =>
       AppTextField(
         controller: controller,
@@ -170,6 +175,7 @@ class AppTextField extends StatefulWidget {
         onSubmitted: onSubmitted,
         textInputAction: textInputAction,
         border: border,
+        focusNode: focusNode,
         inputFormatters: [
           // allow only digits
           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -207,6 +213,7 @@ class AppTextField extends StatefulWidget {
   final BoxConstraints? suffixIconConstraints;
   final String? identifier;
   final String? semanticLabel;
+  final FocusNode? focusNode;
 
   @override
   AppTextFieldState createState() => AppTextFieldState();
@@ -242,6 +249,7 @@ class AppTextFieldState extends State<AppTextField> {
       expands: widget.expands,
       identifier: widget.identifier,
       semanticLabel: widget.semanticLabel,
+      focusNode: widget.focusNode,
     );
   }
 }
