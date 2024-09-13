@@ -7,9 +7,9 @@ import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 class AppDeviceListCard extends StatelessWidget {
   final IconData leading;
   final String title;
-  final String? description;
-  final IconData? trailing;
-  final String? band;
+  final Widget? description;
+  final Widget? trailing;
+  final Widget? band;
   final VoidCallback? onTap;
   final void Function(bool)? onSelected;
   final bool isSelected;
@@ -35,8 +35,9 @@ class AppDeviceListCard extends StatelessWidget {
     return AppListCard(
       color: color,
       borderColor: borderColor,
+      padding: const EdgeInsets.all(Spacing.medium),
       title: AppText.labelLarge(title),
-      description: description != null ? AppText.bodySmall(description!) : null,
+      description: description,
       leading: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
@@ -51,12 +52,9 @@ class AppDeviceListCard extends StatelessWidget {
                   ),
                 ]
               : [],
-          Padding(
-            padding: const EdgeInsets.all(Spacing.small2),
-            child: Icon(
-              leading,
-              semanticLabel: '$title leading',
-            ),
+          Icon(
+            leading,
+            semanticLabel: '$title leading',
           ),
         ],
       ),
@@ -65,15 +63,12 @@ class AppDeviceListCard extends StatelessWidget {
         children: [
           if (band != null) ...[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spacing.small2),
-              child: AppText.labelLarge(band!),
+              padding: const EdgeInsets.symmetric(horizontal: Spacing.medium),
+              child: band,
             ),
           ],
           if (trailing != null)
-            Icon(
-              trailing,
-              semanticLabel: '$title trailing',
-            ),
+            trailing!,
         ],
       ),
       onTap: onTap,
