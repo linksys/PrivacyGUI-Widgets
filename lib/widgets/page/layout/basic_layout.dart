@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 class AppBasicLayout extends StatelessWidget {
   final Widget? header;
@@ -20,7 +21,7 @@ class AppBasicLayout extends StatelessWidget {
     if (header != null) widgets.add(header!);
     if (content != null) widgets.add(Expanded(child: content!));
     if (footer != null) widgets.add(footer!);
-
+    widgets.add(const AppGap.small3());
     return Column(
       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
       children: widgets,
