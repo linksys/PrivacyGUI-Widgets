@@ -29,20 +29,23 @@ class AppResponsiveColumnLayout extends StatelessWidget {
     final column = ResponsiveLayout.getColumn(context, this.column);
     final remaining = ResponsiveLayout.maxColumn(context) - column;
     final centered = remaining > 1 && this.centered == true;
+
     final screenWidth = MediaQuery.of(context).size.width;
-    final leftNaviRailWidth =
-        ResponsiveLayout.isMobileLayout(context) || !isShowNaviRail
-            ? 0
-            : ResponsiveLayout.isOverMedimumLayout(context) &&
-                    !ResponsiveLayout.isOverLargeLayout(context)
-                ? ResponsiveLayout.naviRailWidthThin
-                : 0;
-    final padding = ((screenWidth - leftNaviRailWidth) -
-            (ResponsiveLayout.maxColumn(context) *
-                ResponsiveLayout.columnSize(context)) -
-            (ResponsiveLayout.columnPadding(context) *
-                (ResponsiveLayout.maxColumn(context) - 1))) /
-        2;
+
+    // Calculate flexable padding, using fixed padding on Small layout
+    final padding = !ResponsiveLayout.isOverSmallLayout(context)
+        ? ResponsiveLayout.pageHorizontalPadding(context)
+        : (screenWidth -
+                (ResponsiveLayout.maxColumn(context) *
+                    ResponsiveLayout.columnSize(context)) -
+                (ResponsiveLayout.columnPadding(context) *
+                    (ResponsiveLayout.maxColumn(context) - 1))) /
+            2;
+
+    // final calculatedColumnWidth =    (width -
+    //     (pageHorizontalPadding(context) * 2) -
+    //     (columnPadding(context) * (maxColumn(context) - 1))) /
+    // maxColumn(context);
     return Container(
       color: Theme.of(context).colorScheme.background,
       child: Column(
