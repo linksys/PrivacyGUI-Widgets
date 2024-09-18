@@ -12,6 +12,7 @@ class AppSwitchTriggerTile extends StatefulWidget {
   final Future Function(bool)? event;
   final void Function(bool)? onChanged;
   final bool toggleInCenter;
+  final String? semanticLabel;
 
   const AppSwitchTriggerTile({
     super.key,
@@ -25,6 +26,7 @@ class AppSwitchTriggerTile extends StatefulWidget {
     this.event,
     this.onChanged,
     this.toggleInCenter = false,
+    this.semanticLabel,
   });
 
   @override
@@ -93,6 +95,7 @@ class _AppSwitchTriggerTileState extends State<AppSwitchTriggerTile> {
     return _isLoading
         ? const CircularProgressIndicator()
         : AppSwitch(
+            semanticLabel: '${widget.semanticLabel} switch',
             value: widget.value,
             showIcon: widget.showSwitchIcon,
             onChanged: (value) {
