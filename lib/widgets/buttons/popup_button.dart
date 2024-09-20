@@ -120,43 +120,43 @@ class PopupButtonState extends State<AppPopupButton>
   OverlayEntry _overlayEntryBuilder() {
     return OverlayEntry(
       builder: (context) {
-        return GestureDetector(
-          onTap: () {
-            close();
-          },
-          child: Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color(0x66000000),
-                ),
+        return Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: const BoxDecoration(
+                color: Color(0x66000000),
               ),
-              CompositedTransformFollower(
-                link: _link,
-                targetAnchor: _resloveTargetAlignment(),
-                followerAnchor: _resloveFollowerAlignment(),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: widget.backgroundColor ??
-                          Theme.of(context).colorScheme.background,
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.outline,
-                      ),
-                      borderRadius: _borderRadius,
+              child: GestureDetector(
+                onTap: () {
+                  close();
+                },
+              ),
+            ),
+            CompositedTransformFollower(
+              link: _link,
+              targetAnchor: _resloveTargetAlignment(),
+              followerAnchor: _resloveFollowerAlignment(),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: widget.backgroundColor ??
+                        Theme.of(context).colorScheme.background,
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.outline,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: widget.builder(this),
-                    ),
+                    borderRadius: _borderRadius,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: widget.builder(this),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

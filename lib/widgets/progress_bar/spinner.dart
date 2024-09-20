@@ -23,8 +23,7 @@ class AppSpinner extends StatelessWidget {
         child: Center(
           child: ColorFiltered(
             colorFilter: ColorFilter.mode(
-              Theme.of(context).colorSchemeExt.primaryFixed ??
-                  Theme.of(context).colorScheme.onSurface,
+              Theme.of(context).colorScheme.primary,
               BlendMode.srcATop,
             ),
             child: Lottie.asset(
