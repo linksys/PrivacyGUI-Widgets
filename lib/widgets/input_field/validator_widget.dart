@@ -35,11 +35,13 @@ class AppValidatorWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (description != null)
+        if (description != null) ...[
           AppText.bodyMedium(
             description!,
+            maxLines: 5,
           ),
-        const AppGap.small3(),
+          const AppGap.small3(),
+        ],
         ...List.generate(
           validations.length,
           (index) {
@@ -53,6 +55,7 @@ class AppValidatorWidget extends StatelessWidget {
                 const AppGap.small2(),
                 AppText.bodyMedium(
                   validations[index].description,
+                  maxLines: 5,
                   color: textToValidate.isEmpty
                       ? _initColor(context)
                       : validations[index].validator.call(textToValidate)

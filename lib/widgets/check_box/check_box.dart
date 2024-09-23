@@ -10,6 +10,7 @@ class AppCheckbox extends StatelessWidget {
     this.isError = false,
     this.tristate = false,
     this.onChanged,
+    this.semanticLabel,
   });
 
   final bool? value;
@@ -17,6 +18,7 @@ class AppCheckbox extends StatelessWidget {
   final bool isError;
   final String? text;
   final void Function(bool?)? onChanged;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class AppCheckbox extends StatelessWidget {
       children: [
         Checkbox(
           value: value,
+          semanticLabel: '$semanticLabel checkbox',
           isError: isError,
           tristate: tristate,
           onChanged: onChanged,

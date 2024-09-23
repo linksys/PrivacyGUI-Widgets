@@ -39,7 +39,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? AppIconButton(
                 padding: const EdgeInsets.all(Spacing.small1),
                 icon: LinksysIcons.arrowBack,
-                identifier: 'now-page-back',
+                semanticLabel: 'back',
                 onTap: onBackTap,
                 // alignment: Alignment.centerLeft,
               )
@@ -59,7 +59,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
   })  : leading = showBack
             ? AppIconButton.noPadding(
                 icon: LinksysIcons.close,
-                identifier: 'now-page-close',
+                semanticLabel: 'close',
                 alignment: Alignment.centerRight,
                 onTap: onBackTap,
               )
