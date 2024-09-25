@@ -9,7 +9,7 @@ class AppNodeListCard extends StatelessWidget {
   final ImageProvider leading;
   final String title;
   final String? description;
-  final IconData? trailing;
+  final Widget? trailing;
   final String? band;
   final VoidCallback? onTap;
   final void Function(bool)? onSelected;
@@ -80,7 +80,7 @@ class AppNodeListCard extends StatelessWidget {
               child: AppText.labelLarge(band!),
             ),
           ],
-          if (trailing != null) Icon(trailing),
+          if (trailing != null) trailing!,
         ],
       ),
       onTap: onTap,
