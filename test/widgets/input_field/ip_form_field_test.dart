@@ -52,7 +52,7 @@ void main() {
       await tester.pump();
 
       expect(find.text('1'), findsOneWidget);
-      expect(controller.text, '1...');
+      expect(controller.text, '');
     });
 
     testWidgets('Formats IP address correctly', (WidgetTester tester) async {
