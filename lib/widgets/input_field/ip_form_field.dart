@@ -51,6 +51,9 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
   final _octet3Focus = FocusNode();
   final _octet4Focus = FocusNode();
 
+  final regex = RegExp(
+      r"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
+
   @override
   void initState() {
     super.initState();
@@ -258,6 +261,8 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
   }
 
   String _combineOctets() {
-    return '${_octet1Controller.text}.${_octet2Controller.text}.${_octet3Controller.text}.${_octet4Controller.text}';
+    final ip =
+        '${_octet1Controller.text}.${_octet2Controller.text}.${_octet3Controller.text}.${_octet4Controller.text}';
+    return regex.hasMatch(ip) ? ip : '';
   }
 }

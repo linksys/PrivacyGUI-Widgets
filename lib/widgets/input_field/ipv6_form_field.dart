@@ -48,6 +48,8 @@ class AppIPv6FormField extends StatefulWidget {
 }
 
 class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
+  final ipv6Regex = RegExp(
+      '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))');
   final _octet1Controller = TextEditingController();
   final _octet2Controller = TextEditingController();
   final _octet3Controller = TextEditingController();
@@ -316,6 +318,8 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
   }
 
   String _combineOctets() {
-    return '${_octet1Controller.text}:${_octet2Controller.text}:${_octet3Controller.text}:${_octet4Controller.text}:${_octet5Controller.text}:${_octet6Controller.text}:${_octet7Controller.text}:${_octet8Controller.text}';
+    final ipv6 =
+        '${_octet1Controller.text}:${_octet2Controller.text}:${_octet3Controller.text}:${_octet4Controller.text}:${_octet5Controller.text}:${_octet6Controller.text}:${_octet7Controller.text}:${_octet8Controller.text}';
+    return ipv6Regex.hasMatch(ipv6) ? ipv6 : '';
   }
 }
