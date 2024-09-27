@@ -38,5 +38,33 @@ const imageVarientsMap = <String, dynamic>{
     'method': 'filter',
     'dark': {'#ff74777f': '#ff008a2d'},
     'light': {'#ff74777f': '#ff008a2d'}
-  }
+  },
+  'node_light_solid_blue.svg': {
+    'method': 'filter',
+    'dark': {'#ff1a1c1e': '#ffaeaeae'}
+  },
+  'node_light_blink_blue.svg': {
+    'method': 'filter',
+    'dark': {'#ff1a1c1e': '#ffaeaeae'}
+  },
+  'node_light_solid_white.svg': {
+    'method': 'filter',
+    'dark': {'#ff1a1c1e': '#ffaeaeae'}
+  },
+  'node_light_blink_white.svg': {
+    'method': 'filter',
+    'dark': {'#ff1a1c1e': '#ffaeaeae'}
+  },
+  'node_light_solid_red.svg': {
+    'method': 'filter',
+    'dark': {'#ff1a1c1e': '#ffaeaeae'}
+  },
+  'node_light_blink_red.svg': {
+    'method': 'filter',
+    'dark': {'#ff1a1c1e': '#ffaeaeae'}
+  },
+  'node_light_blink_yellow.svg': {
+    'method': 'filter',
+    'dark': {'#ff1a1c1e': '#ffaeaeae'}
+  },
 };

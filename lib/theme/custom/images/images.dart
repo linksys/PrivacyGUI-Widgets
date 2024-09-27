@@ -11,14 +11,21 @@ import './devices.dart';
     const AppImagesData({
       required this.ledRedSolid,
 required this.openDns,
+required this.nodeLightSolidRed,
 required this.modemIdentifying,
+required this.nodeLightSolidBlue,
+required this.nodeLightBlinkRed,
 required this.imgRouterBlack,
 required this.ledBlueBlink,
+required this.nodeLightBlinkYellow,
 required this.imgMoveNodes,
+required this.nodeLightBlinkBlue,
+required this.nodeLightSolidWhite,
 required this.internetToDevice,
 required this.linksysWordmark,
 required this.internetToRouter,
 required this.ledWhiteSolid,
+required this.nodeLightBlinkWhite,
 required this.ledPurpleSolid,
 required this.ledYellowSolid,
 required this.ledRedBlink,
@@ -33,6 +40,7 @@ required this.linksysLogoBlack,
 required this.chromePrivacyErr,
 required this.modemWaiting,
 required this.btnCheckSpeeds,
+required this.nodeLightOff,
 required this.pnpFinishDesktop,
 required this.ledWhiteBlink,
 required this.speedtestPowered,
@@ -46,14 +54,21 @@ required this.modemDevice,
     factory AppImagesData.dark() => AppImagesData(
       ledRedSolid: exactAssetPicture('assets/images/led_red_solid.svg', package: 'privacygui_widgets'),
 openDns: const AssetImage('assets/images/open_dns.png', package: 'privacygui_widgets'),
+nodeLightSolidRed: exactAssetPicture('assets/images/node_light_solid_red.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
 modemIdentifying: exactAssetPicture('assets/images/modem_identifying.svg', package: 'privacygui_widgets'),
+nodeLightSolidBlue: exactAssetPicture('assets/images/node_light_solid_blue.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
+nodeLightBlinkRed: exactAssetPicture('assets/images/node_light_blink_red.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
 imgRouterBlack: exactAssetPicture('assets/images/img_router_black.svg', package: 'privacygui_widgets'),
 ledBlueBlink: exactAssetPicture('assets/images/led_blue_blink.svg', package: 'privacygui_widgets'),
+nodeLightBlinkYellow: exactAssetPicture('assets/images/node_light_blink_yellow.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
 imgMoveNodes: exactAssetPicture('assets/images/img_move_nodes.svg', package: 'privacygui_widgets', filter: const {"#ff000000":"#ffffffff"}),
+nodeLightBlinkBlue: exactAssetPicture('assets/images/node_light_blink_blue.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
+nodeLightSolidWhite: exactAssetPicture('assets/images/node_light_solid_white.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
 internetToDevice: exactAssetPicture('assets/images/internet_to_device.svg', package: 'privacygui_widgets', filter: const {"#FFD9D9D9":"#ffffffff","#FF44474F":"#ffffffff"}),
 linksysWordmark: exactAssetPicture('assets/images/linksys_wordmark.svg', package: 'privacygui_widgets'),
 internetToRouter: exactAssetPicture('assets/images/internet_to_router.svg', package: 'privacygui_widgets', filter: const {"#FFD9D9D9":"#ffffffff","#FF44474F":"#ffffffff"}),
 ledWhiteSolid: exactAssetPicture('assets/images/led_white_solid.svg', package: 'privacygui_widgets'),
+nodeLightBlinkWhite: exactAssetPicture('assets/images/node_light_blink_white.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
 ledPurpleSolid: exactAssetPicture('assets/images/led_purple_solid.svg', package: 'privacygui_widgets'),
 ledYellowSolid: exactAssetPicture('assets/images/led_yellow_solid.svg', package: 'privacygui_widgets'),
 ledRedBlink: exactAssetPicture('assets/images/led_red_blink.svg', package: 'privacygui_widgets'),
@@ -68,6 +83,7 @@ linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', pack
 chromePrivacyErr: const AssetImage('assets/images/chrome_privacy_err.png', package: 'privacygui_widgets'),
 modemWaiting: exactAssetPicture('assets/images/modem_waiting.svg', package: 'privacygui_widgets'),
 btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package: 'privacygui_widgets'),
+nodeLightOff: exactAssetPicture('assets/images/node_light_off.svg', package: 'privacygui_widgets'),
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
 ledWhiteBlink: exactAssetPicture('assets/images/led_white_blink.svg', package: 'privacygui_widgets'),
 speedtestPowered: const AssetImage('assets/images/speedtest_powered.png', package: 'privacygui_widgets'),
@@ -79,14 +95,21 @@ devices: AppDevicesData.dark(),modemDevice: exactAssetPicture('assets/images/mod
     factory AppImagesData.light() => AppImagesData(
       ledRedSolid: exactAssetPicture('assets/images/led_red_solid.svg', package: 'privacygui_widgets'),
 openDns: const AssetImage('assets/images/open_dns.png', package: 'privacygui_widgets'),
+nodeLightSolidRed: exactAssetPicture('assets/images/node_light_solid_red.svg', package: 'privacygui_widgets'),
 modemIdentifying: exactAssetPicture('assets/images/modem_identifying.svg', package: 'privacygui_widgets'),
+nodeLightSolidBlue: exactAssetPicture('assets/images/node_light_solid_blue.svg', package: 'privacygui_widgets'),
+nodeLightBlinkRed: exactAssetPicture('assets/images/node_light_blink_red.svg', package: 'privacygui_widgets'),
 imgRouterBlack: exactAssetPicture('assets/images/img_router_black.svg', package: 'privacygui_widgets'),
 ledBlueBlink: exactAssetPicture('assets/images/led_blue_blink.svg', package: 'privacygui_widgets'),
+nodeLightBlinkYellow: exactAssetPicture('assets/images/node_light_blink_yellow.svg', package: 'privacygui_widgets'),
 imgMoveNodes: exactAssetPicture('assets/images/img_move_nodes.svg', package: 'privacygui_widgets'),
+nodeLightBlinkBlue: exactAssetPicture('assets/images/node_light_blink_blue.svg', package: 'privacygui_widgets'),
+nodeLightSolidWhite: exactAssetPicture('assets/images/node_light_solid_white.svg', package: 'privacygui_widgets'),
 internetToDevice: exactAssetPicture('assets/images/internet_to_device.svg', package: 'privacygui_widgets'),
 linksysWordmark: exactAssetPicture('assets/images/linksys_wordmark.svg', package: 'privacygui_widgets', filter: const {"#ffffffff":"#ff000000"}),
 internetToRouter: exactAssetPicture('assets/images/internet_to_router.svg', package: 'privacygui_widgets'),
 ledWhiteSolid: exactAssetPicture('assets/images/led_white_solid.svg', package: 'privacygui_widgets'),
+nodeLightBlinkWhite: exactAssetPicture('assets/images/node_light_blink_white.svg', package: 'privacygui_widgets'),
 ledPurpleSolid: exactAssetPicture('assets/images/led_purple_solid.svg', package: 'privacygui_widgets'),
 ledYellowSolid: exactAssetPicture('assets/images/led_yellow_solid.svg', package: 'privacygui_widgets'),
 ledRedBlink: exactAssetPicture('assets/images/led_red_blink.svg', package: 'privacygui_widgets'),
@@ -101,6 +124,7 @@ linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', pack
 chromePrivacyErr: const AssetImage('assets/images/chrome_privacy_err.png', package: 'privacygui_widgets'),
 modemWaiting: exactAssetPicture('assets/images/modem_waiting.svg', package: 'privacygui_widgets'),
 btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package: 'privacygui_widgets'),
+nodeLightOff: exactAssetPicture('assets/images/node_light_off.svg', package: 'privacygui_widgets'),
 pnpFinishDesktop: exactAssetPicture('assets/images/pnp_finish_desktop.svg', package: 'privacygui_widgets'),
 ledWhiteBlink: exactAssetPicture('assets/images/led_white_blink.svg', package: 'privacygui_widgets'),
 speedtestPowered: const AssetImage('assets/images/speedtest_powered.png', package: 'privacygui_widgets'),
@@ -112,14 +136,21 @@ devices: AppDevicesData.light(),modemDevice: exactAssetPicture('assets/images/mo
 
     final SvgLoader ledRedSolid;
 final ImageProvider openDns;
+final SvgLoader nodeLightSolidRed;
 final SvgLoader modemIdentifying;
+final SvgLoader nodeLightSolidBlue;
+final SvgLoader nodeLightBlinkRed;
 final SvgLoader imgRouterBlack;
 final SvgLoader ledBlueBlink;
+final SvgLoader nodeLightBlinkYellow;
 final SvgLoader imgMoveNodes;
+final SvgLoader nodeLightBlinkBlue;
+final SvgLoader nodeLightSolidWhite;
 final SvgLoader internetToDevice;
 final SvgLoader linksysWordmark;
 final SvgLoader internetToRouter;
 final SvgLoader ledWhiteSolid;
+final SvgLoader nodeLightBlinkWhite;
 final SvgLoader ledPurpleSolid;
 final SvgLoader ledYellowSolid;
 final SvgLoader ledRedBlink;
@@ -134,6 +165,7 @@ final SvgLoader linksysLogoBlack;
 final ImageProvider chromePrivacyErr;
 final SvgLoader modemWaiting;
 final SvgLoader btnCheckSpeeds;
+final SvgLoader nodeLightOff;
 final SvgLoader pnpFinishDesktop;
 final SvgLoader ledWhiteBlink;
 final ImageProvider speedtestPowered;
@@ -146,14 +178,21 @@ final AppDevicesData devices;final SvgLoader modemDevice;
     List<Named<dynamic>> get props =>[
       ledRedSolid.named('ledRedSolid'),
 openDns.named('openDns'),
+nodeLightSolidRed.named('nodeLightSolidRed'),
 modemIdentifying.named('modemIdentifying'),
+nodeLightSolidBlue.named('nodeLightSolidBlue'),
+nodeLightBlinkRed.named('nodeLightBlinkRed'),
 imgRouterBlack.named('imgRouterBlack'),
 ledBlueBlink.named('ledBlueBlink'),
+nodeLightBlinkYellow.named('nodeLightBlinkYellow'),
 imgMoveNodes.named('imgMoveNodes'),
+nodeLightBlinkBlue.named('nodeLightBlinkBlue'),
+nodeLightSolidWhite.named('nodeLightSolidWhite'),
 internetToDevice.named('internetToDevice'),
 linksysWordmark.named('linksysWordmark'),
 internetToRouter.named('internetToRouter'),
 ledWhiteSolid.named('ledWhiteSolid'),
+nodeLightBlinkWhite.named('nodeLightBlinkWhite'),
 ledPurpleSolid.named('ledPurpleSolid'),
 ledYellowSolid.named('ledYellowSolid'),
 ledRedBlink.named('ledRedBlink'),
@@ -168,6 +207,7 @@ linksysLogoBlack.named('linksysLogoBlack'),
 chromePrivacyErr.named('chromePrivacyErr'),
 modemWaiting.named('modemWaiting'),
 btnCheckSpeeds.named('btnCheckSpeeds'),
+nodeLightOff.named('nodeLightOff'),
 pnpFinishDesktop.named('pnpFinishDesktop'),
 ledWhiteBlink.named('ledWhiteBlink'),
 speedtestPowered.named('speedtestPowered'),

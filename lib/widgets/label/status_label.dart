@@ -32,6 +32,7 @@ class AppStatusLabel extends StatelessWidget {
         Icon(
           LinksysIcons.circle,
           color: color,
+          size: 16,
         ),
         const AppGap.small2(),
         AppText.bodyMedium(
