@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
-import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:tap_builder/tap_builder.dart';
 
 part 'panel_with_simple_title.dart';
 part 'panel_with_value_check.dart';
-part 'panel_with_switch.dart';
 
 class AppPanelLayout extends StatelessWidget {
   final AppWidgetState _state;
@@ -94,7 +92,6 @@ class AppPanelLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = CustomTheme.of(context);
     final iconTwo = this.iconTwo;
     final tail = this.tail;
     final description = this.description;

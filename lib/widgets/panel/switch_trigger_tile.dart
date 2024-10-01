@@ -98,11 +98,13 @@ class _AppSwitchTriggerTileState extends State<AppSwitchTriggerTile> {
             semanticLabel: '${widget.semanticLabel} switch',
             value: widget.value,
             showIcon: widget.showSwitchIcon,
-            onChanged: (value) {
-              _process(value).then((value) {
-                widget.onChanged?.call(value);
-              });
-            },
+            onChanged: widget.onChanged != null
+                ? (value) {
+                    _process(value).then((value) {
+                      widget.onChanged?.call(value);
+                    });
+                  }
+                : null,
           );
   }
 }

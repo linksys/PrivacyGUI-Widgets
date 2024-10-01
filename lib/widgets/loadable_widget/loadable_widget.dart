@@ -224,6 +224,7 @@ class _AppLoadableWidgetState extends State<AppLoadableWidget> {
               ),
             LoadableWidgetType.appSwitch => AppSwitch(
                 key: widget.key,
+                semanticLabel: '${widget.semanticsLabel} switch',
                 value: widget.value ?? false,
                 showIcon: widget.showIcon ?? false,
                 checkedIcon: widget.checkedIcon,
