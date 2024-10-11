@@ -20,6 +20,7 @@ required this.ledBlueBlink,
 required this.nodeLightBlinkYellow,
 required this.imgMoveNodes,
 required this.nodeLightBlinkBlue,
+required this.imgPlaceWiredNodes,
 required this.nodeLightSolidWhite,
 required this.internetToDevice,
 required this.linksysWordmark,
@@ -27,6 +28,7 @@ required this.internetToRouter,
 required this.ledWhiteSolid,
 required this.nodeLightBlinkWhite,
 required this.ledPurpleSolid,
+required this.imgWiredMoveNodes,
 required this.ledYellowSolid,
 required this.ledRedBlink,
 required this.modemPlugged,
@@ -63,6 +65,7 @@ ledBlueBlink: exactAssetPicture('assets/images/led_blue_blink.svg', package: 'pr
 nodeLightBlinkYellow: exactAssetPicture('assets/images/node_light_blink_yellow.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
 imgMoveNodes: exactAssetPicture('assets/images/img_move_nodes.svg', package: 'privacygui_widgets', filter: const {"#ff000000":"#ffffffff"}),
 nodeLightBlinkBlue: exactAssetPicture('assets/images/node_light_blink_blue.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
+imgPlaceWiredNodes: exactAssetPicture('assets/images/img_place_wired_nodes.svg', package: 'privacygui_widgets'),
 nodeLightSolidWhite: exactAssetPicture('assets/images/node_light_solid_white.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
 internetToDevice: exactAssetPicture('assets/images/internet_to_device.svg', package: 'privacygui_widgets', filter: const {"#FFD9D9D9":"#ffffffff","#FF44474F":"#ffffffff"}),
 linksysWordmark: exactAssetPicture('assets/images/linksys_wordmark.svg', package: 'privacygui_widgets'),
@@ -70,6 +73,7 @@ internetToRouter: exactAssetPicture('assets/images/internet_to_router.svg', pack
 ledWhiteSolid: exactAssetPicture('assets/images/led_white_solid.svg', package: 'privacygui_widgets'),
 nodeLightBlinkWhite: exactAssetPicture('assets/images/node_light_blink_white.svg', package: 'privacygui_widgets', filter: const {"#ff1a1c1e":"#ffaeaeae"}),
 ledPurpleSolid: exactAssetPicture('assets/images/led_purple_solid.svg', package: 'privacygui_widgets'),
+imgWiredMoveNodes: exactAssetPicture('assets/images/img_wired_move_nodes.svg', package: 'privacygui_widgets'),
 ledYellowSolid: exactAssetPicture('assets/images/led_yellow_solid.svg', package: 'privacygui_widgets'),
 ledRedBlink: exactAssetPicture('assets/images/led_red_blink.svg', package: 'privacygui_widgets'),
 modemPlugged: exactAssetPicture('assets/images/modem_plugged.svg', package: 'privacygui_widgets'),
@@ -104,6 +108,7 @@ ledBlueBlink: exactAssetPicture('assets/images/led_blue_blink.svg', package: 'pr
 nodeLightBlinkYellow: exactAssetPicture('assets/images/node_light_blink_yellow.svg', package: 'privacygui_widgets'),
 imgMoveNodes: exactAssetPicture('assets/images/img_move_nodes.svg', package: 'privacygui_widgets'),
 nodeLightBlinkBlue: exactAssetPicture('assets/images/node_light_blink_blue.svg', package: 'privacygui_widgets'),
+imgPlaceWiredNodes: exactAssetPicture('assets/images/img_place_wired_nodes.svg', package: 'privacygui_widgets'),
 nodeLightSolidWhite: exactAssetPicture('assets/images/node_light_solid_white.svg', package: 'privacygui_widgets'),
 internetToDevice: exactAssetPicture('assets/images/internet_to_device.svg', package: 'privacygui_widgets'),
 linksysWordmark: exactAssetPicture('assets/images/linksys_wordmark.svg', package: 'privacygui_widgets', filter: const {"#ffffffff":"#ff000000"}),
@@ -111,6 +116,7 @@ internetToRouter: exactAssetPicture('assets/images/internet_to_router.svg', pack
 ledWhiteSolid: exactAssetPicture('assets/images/led_white_solid.svg', package: 'privacygui_widgets'),
 nodeLightBlinkWhite: exactAssetPicture('assets/images/node_light_blink_white.svg', package: 'privacygui_widgets'),
 ledPurpleSolid: exactAssetPicture('assets/images/led_purple_solid.svg', package: 'privacygui_widgets'),
+imgWiredMoveNodes: exactAssetPicture('assets/images/img_wired_move_nodes.svg', package: 'privacygui_widgets'),
 ledYellowSolid: exactAssetPicture('assets/images/led_yellow_solid.svg', package: 'privacygui_widgets'),
 ledRedBlink: exactAssetPicture('assets/images/led_red_blink.svg', package: 'privacygui_widgets'),
 modemPlugged: exactAssetPicture('assets/images/modem_plugged.svg', package: 'privacygui_widgets'),
@@ -145,6 +151,7 @@ final SvgLoader ledBlueBlink;
 final SvgLoader nodeLightBlinkYellow;
 final SvgLoader imgMoveNodes;
 final SvgLoader nodeLightBlinkBlue;
+final SvgLoader imgPlaceWiredNodes;
 final SvgLoader nodeLightSolidWhite;
 final SvgLoader internetToDevice;
 final SvgLoader linksysWordmark;
@@ -152,6 +159,7 @@ final SvgLoader internetToRouter;
 final SvgLoader ledWhiteSolid;
 final SvgLoader nodeLightBlinkWhite;
 final SvgLoader ledPurpleSolid;
+final SvgLoader imgWiredMoveNodes;
 final SvgLoader ledYellowSolid;
 final SvgLoader ledRedBlink;
 final SvgLoader modemPlugged;
@@ -187,6 +195,7 @@ ledBlueBlink.named('ledBlueBlink'),
 nodeLightBlinkYellow.named('nodeLightBlinkYellow'),
 imgMoveNodes.named('imgMoveNodes'),
 nodeLightBlinkBlue.named('nodeLightBlinkBlue'),
+imgPlaceWiredNodes.named('imgPlaceWiredNodes'),
 nodeLightSolidWhite.named('nodeLightSolidWhite'),
 internetToDevice.named('internetToDevice'),
 linksysWordmark.named('linksysWordmark'),
@@ -194,6 +203,7 @@ internetToRouter.named('internetToRouter'),
 ledWhiteSolid.named('ledWhiteSolid'),
 nodeLightBlinkWhite.named('nodeLightBlinkWhite'),
 ledPurpleSolid.named('ledPurpleSolid'),
+imgWiredMoveNodes.named('imgWiredMoveNodes'),
 ledYellowSolid.named('ledYellowSolid'),
 ledRedBlink.named('ledRedBlink'),
 modemPlugged.named('modemPlugged'),
