@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/card/card.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
+
+class AppListExpandCard extends StatelessWidget {
+  const AppListExpandCard({
+    super.key,
+    this.leading,
+    this.trailing,
+    required this.title,
+    this.description,
+    this.showBorder = true,
+    this.padding,
+    this.onTap,
+    this.color,
+    this.borderColor,
+    this.crossAxisAlignment,
+    this.margin,
+  });
+
+  final Widget? leading;
+  final Widget? trailing;
+  final Widget title;
+  final Widget? description;
+  final VoidCallback? onTap;
+  final bool showBorder;
+  final EdgeInsets? padding;
+  final Color? color;
+  final Color? borderColor;
+  final CrossAxisAlignment? crossAxisAlignment;
+  final EdgeInsets? margin;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      showBorder: showBorder,
+      padding: padding ??
+          const EdgeInsets.symmetric(
+              vertical: Spacing.medium, horizontal: Spacing.large2),
+      onTap: onTap,
+      color: color,
+      borderColor: borderColor,
+      margin: margin,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+            children: [
+              if (leading != null) ...[leading!, const AppGap.medium()],
+              title,
+              if (trailing != null) trailing!
+            ],
+          ),
+          if (description != null) ...[
+            description!,
+          ],
+        ],
+      ),
+    );
+  }
+}

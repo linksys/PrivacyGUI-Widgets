@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 
 class AppTabBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget> tabs;
@@ -20,19 +21,17 @@ class AppTabBar extends StatelessWidget implements PreferredSizeWidget {
       fit: StackFit.passthrough,
       alignment: Alignment.bottomCenter,
       children: [
-        // Container(
-        //   decoration: BoxDecoration(
-        //     border: Border(
-        //       bottom: BorderSide(
-        //       ),
-        //     ),
-        //   ),
-        // ),
         TabBar(
           indicatorColor: Theme.of(context).colorScheme.primary,
           unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
           labelColor: Theme.of(context).colorScheme.primary,
-          labelPadding: EdgeInsets.only(bottom: labelPadding),
+          labelPadding: EdgeInsets.only(
+            left: Spacing.large2,
+            right: Spacing.large2,
+          ),
+          labelStyle: Theme.of(context).textTheme.titleSmall,
+          tabAlignment: TabAlignment.start,
+          isScrollable: true,
           tabs: tabs,
         ),
       ],

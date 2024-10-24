@@ -47,8 +47,8 @@ class AppTabLayout extends StatelessWidget {
         floating: floating,
         appBarTitle: appBarTitle,
         body: TabBarView(
-          children: tabContentViews,
           physics: NeverScrollableScrollPhysics(),
+          children: tabContentViews,
         ),
       ),
     );

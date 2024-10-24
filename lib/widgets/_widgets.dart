@@ -15,4 +15,3 @@ export 'switch/switch.dart';
 export 'text/app_styled_text.dart';
 export 'state.dart';
 export 'tab_bar/linksys_tab_bar.dart';
-export 'tab_bar/linksys_tab.dart';
