@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
+import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppDropdownButton<T> extends StatefulWidget {
@@ -56,12 +57,27 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              AppText.labelLarge(
-                                widget.label(e),
-                                color: e == _selected
-                                    ? Theme.of(context).colorScheme.primary
-                                    : Theme.of(context).colorScheme.onSurface,
-                              ),
+                              ResponsiveLayout.isOverLargeLayout(context)
+                                  ? AppText.labelLarge(
+                                      widget.label(e),
+                                      color: e == _selected
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
+                                    )
+                                  : AppText.labelMedium(
+                                      widget.label(e),
+                                      color: e == _selected
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
+                                    ),
                               if (e == _selected)
                                 Icon(
                                   LinksysIcons.check,
@@ -73,8 +89,9 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
                       ))
                   .toList(),
               selectedItemBuilder: (context) => widget.items
-                  .map(
-                      (e) => Center(child: AppText.labelLarge(widget.label(e))))
+                  .map((e) => ResponsiveLayout.isOverLargeLayout(context)
+                      ? AppText.labelLarge(widget.label(e))
+                      : AppText.labelMedium(widget.label(e)))
                   .toList(),
               focusColor: Colors.transparent,
               onChanged: (value) {
