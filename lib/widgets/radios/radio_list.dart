@@ -43,14 +43,14 @@ class AppRadioList<T> extends StatefulWidget {
 }
 
 class _AppRadioListState<T> extends State<AppRadioList<T>> {
-  T? _selected;
+  // T? _selected;
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _selected = widget.initial;
-    });
+    // setState(() {
+    //   _selected = widget.initial;
+    // });
   }
 
   @override
@@ -80,11 +80,11 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
           child: InkWell(
             onTap: () {
               setState(() {
-                _selected = item.value;
+                // _selected = item.value;
                 widget.onChanged?.call(
                     widget.items
-                        .indexWhere((element) => element.value == _selected),
-                    _selected);
+                        .indexWhere((element) => element.value == item.value),
+                    item.value);
               });
             },
             child: Row(
@@ -92,12 +92,12 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
                 AbsorbPointer(
                   child: Radio<T>(
                     value: item.value,
-                    groupValue: _selected,
+                    groupValue: widget.initial,
                     onChanged: (T? value) {
                       widget.onChanged?.call(
                           widget.items.indexWhere(
-                              (element) => element.value == _selected),
-                          _selected);
+                              (element) => element.value == item.value),
+                          item.value);
                     },
                   ),
                 ),
