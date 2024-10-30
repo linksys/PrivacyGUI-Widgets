@@ -58,6 +58,7 @@ class _AppTableSettingsViewState<T> extends State<AppTableSettingsView<T>> {
                             color: Theme.of(context).colorScheme.surface,
                             child: Center(
                                 child: Text(e,
+                                    textAlign: TextAlign.center,
                                     style: widget.headerStyle ??
                                         Theme.of(context)
                                             .textTheme

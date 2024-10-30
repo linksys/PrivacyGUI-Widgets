@@ -39,7 +39,6 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
           labelText: widget.title, border: OutlineInputBorder(), filled: true),
       child: DropdownButtonHideUnderline(
         child: ButtonTheme(
-          alignedDropdown: true,
           child: Theme(
             data: Theme.of(context).copyWith(
                 focusColor: Theme.of(context).colorScheme.primaryContainer),

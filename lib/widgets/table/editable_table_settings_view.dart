@@ -93,9 +93,10 @@ class AppEditableTableSettingsView<T> extends StatefulWidget {
   final Widget Function(BuildContext, int, T) cellBuilder;
   final Widget Function(BuildContext, int, T)? editCellBuilder;
   final int? editRowIndex;
-  final T Function() createItem;
+  final T Function() createNewItem;
   final String addLabel;
   final IconData? addIcon;
+  final bool? isEditingDataValid;
   final void Function(T cell)? onSaved;
   final void Function(T cell)? onDeleted;
 
@@ -109,9 +110,10 @@ class AppEditableTableSettingsView<T> extends StatefulWidget {
     required this.cellBuilder,
     this.editCellBuilder,
     this.editRowIndex,
-    required this.createItem,
+    required this.createNewItem,
     this.addLabel = '',
     this.addIcon,
+    this.isEditingDataValid,
     this.onSaved,
     this.onDeleted,
   });
@@ -154,7 +156,7 @@ class _AppEditableTableSettingsViewState<T>
               children: [
                 AppIconButton(
                   icon: LinksysIcons.check,
-                  onTap: () {},
+                  onTap: (widget.isEditingDataValid ?? true) ? () {} : null,
                 ),
                 AppIconButton(
                   icon: LinksysIcons.close,
@@ -171,10 +173,10 @@ class _AppEditableTableSettingsViewState<T>
         icon: widget.addIcon ?? LinksysIcons.add,
         onTap: () {
           setState(() {
-            _tempItem = widget.createItem.call();
+            _tempItem = widget.createNewItem.call();
             _editRow = widget.dataList.length;
           });
-          _editItem(widget.dataList.length, widget.createItem.call());
+          _editItem(widget.dataList.length, widget.createNewItem.call());
         },
       ),
     );
