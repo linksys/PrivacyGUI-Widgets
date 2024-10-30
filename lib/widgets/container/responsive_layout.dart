@@ -23,7 +23,7 @@ class ResponsiveLayout extends StatelessWidget {
     return switch (width) {
       <= small => 16.0,
       <= medium => 32.0,
-      <= large => 39.0,
+      <= large => 24.0,
       <= extraLarge => 200.0,
       _ => 178.0,
     };
@@ -34,7 +34,7 @@ class ResponsiveLayout extends StatelessWidget {
     return switch (width) {
       <= small => Spacing.medium,
       <= medium => Spacing.medium,
-      <= large => Spacing.small3,
+      <= large => Spacing.large2,
       <= extraLarge => Spacing.large1,
       _ => Spacing.large1,
     };

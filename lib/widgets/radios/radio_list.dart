@@ -1,7 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 
 class AppRadioListItem<T> {
@@ -23,6 +21,7 @@ class AppRadioListItem<T> {
 class AppRadioList<T> extends StatefulWidget {
   final List<AppRadioListItem<T>> items;
   final T? initial;
+  final T? selected;
   final void Function(int index, T? value)? onChanged;
   final MainAxisSize mainAxisSize;
   final bool withDivider;
@@ -32,6 +31,7 @@ class AppRadioList<T> extends StatefulWidget {
     super.key,
     required this.items,
     this.initial,
+    this.selected,
     this.onChanged,
     this.withDivider = false,
     this.mainAxisSize = MainAxisSize.max,
@@ -43,18 +43,23 @@ class AppRadioList<T> extends StatefulWidget {
 }
 
 class _AppRadioListState<T> extends State<AppRadioList<T>> {
-  // T? _selected;
+  T? _selected;
 
   @override
   void initState() {
     super.initState();
-    // setState(() {
-    //   _selected = widget.initial;
-    // });
+    setState(() {
+      _selected = widget.selected ?? widget.initial;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.selected != null) {
+      setState(() {
+        _selected = widget.selected;
+      });
+    }
     return Column(
       mainAxisSize: widget.mainAxisSize,
       children: widget.items
@@ -80,11 +85,11 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
           child: InkWell(
             onTap: () {
               setState(() {
-                // _selected = item.value;
+                _selected = item.value;
                 widget.onChanged?.call(
                     widget.items
-                        .indexWhere((element) => element.value == item.value),
-                    item.value);
+                        .indexWhere((element) => element.value == _selected),
+                    _selected);
               });
             },
             child: Row(
@@ -92,12 +97,12 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
                 AbsorbPointer(
                   child: Radio<T>(
                     value: item.value,
-                    groupValue: widget.initial,
+                    groupValue: _selected,
                     onChanged: (T? value) {
                       widget.onChanged?.call(
                           widget.items.indexWhere(
-                              (element) => element.value == item.value),
-                          item.value);
+                              (element) => element.value == _selected),
+                          _selected);
                     },
                   ),
                 ),
