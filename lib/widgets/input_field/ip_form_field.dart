@@ -209,59 +209,56 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
                 ? Theme.of(context).colorScheme.error
                 : Theme.of(context).colorScheme.outline));
     return Flexible(
-      // flex: readOnly ? 1 : 2,
+      flex: readOnly ? 1 : 2,
       fit: readOnly ? FlexFit.loose : FlexFit.tight,
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 80),
-        child: Semantics(
-          identifier: widget.identifier != null
-              ? '${widget.identifier}-octet-$index'
-              : null,
-          label: widget.semanticLabel != null
-              ? '${widget.semanticLabel} Octet $index'
-              : null,
-          child: readOnly
-              ? AppText.bodyMedium(
-                  controller.text,
-                )
-              : TextFormField(
-                  controller: controller,
-                  focusNode: focus,
-                  decoration: InputDecoration(
-                    border: border,
-                    enabledBorder: border,
-                    focusedBorder: border.copyWith(
-                        borderSide: border.borderSide.copyWith(
-                            color: Theme.of(context).colorScheme.primary)),
-                    hoverColor: Theme.of(context).colorScheme.onBackground,
-                  ),
-                  readOnly: readOnly,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                    // allow only  digits
-                    IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
-                    // custom class to format entered data from textField
-                    LengthLimitingTextInputFormatter(3)
-                    // restrict user to enter max 16 characters
-                  ],
-                  onTapOutside: (PointerDownEvent event) {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  },
-                  keyboardType: TextInputType.number,
-                  textInputAction:
-                      isLast ? TextInputAction.done : TextInputAction.next,
-                  onChanged: (value) {
-                    if (value.length >= 3) {
-                      FocusScope.of(context).requestFocus(nextFocus);
-                    }
-                    widget.controller?.text = _combineOctets();
-                    widget.onChanged?.call(_combineOctets());
-                  },
-                  onFieldSubmitted: (value) {
-                    FocusScope.of(context).requestFocus(nextFocus);
-                  },
+      child: Semantics(
+        identifier: widget.identifier != null
+            ? '${widget.identifier}-octet-$index'
+            : null,
+        label: widget.semanticLabel != null
+            ? '${widget.semanticLabel} Octet $index'
+            : null,
+        child: readOnly
+            ? AppText.bodyMedium(
+                controller.text,
+              )
+            : TextFormField(
+                controller: controller,
+                focusNode: focus,
+                decoration: InputDecoration(
+                  border: border,
+                  enabledBorder: border,
+                  focusedBorder: border.copyWith(
+                      borderSide: border.borderSide.copyWith(
+                          color: Theme.of(context).colorScheme.primary)),
+                  hoverColor: Theme.of(context).colorScheme.onBackground,
                 ),
-        ),
+                readOnly: readOnly,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  // allow only  digits
+                  IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
+                  // custom class to format entered data from textField
+                  LengthLimitingTextInputFormatter(3)
+                  // restrict user to enter max 16 characters
+                ],
+                onTapOutside: (PointerDownEvent event) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                keyboardType: TextInputType.number,
+                textInputAction:
+                    isLast ? TextInputAction.done : TextInputAction.next,
+                onChanged: (value) {
+                  if (value.length >= 3) {
+                    FocusScope.of(context).requestFocus(nextFocus);
+                  }
+                  widget.controller?.text = _combineOctets();
+                  widget.onChanged?.call(_combineOctets());
+                },
+                onFieldSubmitted: (value) {
+                  FocusScope.of(context).requestFocus(nextFocus);
+                },
+              ),
       ),
     );
   }

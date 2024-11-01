@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
+import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/buttons/button.dart';
+import 'package:privacygui_widgets/widgets/gap/gap.dart';
 import 'package:privacygui_widgets/widgets/table/table_settings_view.dart';
+import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 ///
 // AppEditableTableSettingsView<SinglePortForwardingRule>(
@@ -85,6 +88,7 @@ import 'package:privacygui_widgets/widgets/table/table_settings_view.dart';
 ///
 ///
 class AppEditableTableSettingsView<T> extends StatefulWidget {
+  final String? title;
   final List<String> headers;
   final TextStyle? headerStyle;
   final String actionHeader;
@@ -92,6 +96,8 @@ class AppEditableTableSettingsView<T> extends StatefulWidget {
   final List<T> dataList;
   final Widget Function(BuildContext, int, T) cellBuilder;
   final Widget Function(BuildContext, int, T)? editCellBuilder;
+  final EditableListItem Function(BuildContext, T) itemCardBuilder;
+  final Widget Function(BuildContext, T)? editItemCardBuilder;
   final int? editRowIndex;
   final T Function() createNewItem;
   final String addLabel;
@@ -99,9 +105,11 @@ class AppEditableTableSettingsView<T> extends StatefulWidget {
   final bool? isEditingDataValid;
   final void Function(T cell)? onSaved;
   final void Function(T cell)? onDeleted;
+  final String? emptyMessage;
 
   const AppEditableTableSettingsView({
     super.key,
+    this.title,
     required this.headers,
     this.headerStyle,
     this.actionHeader = '',
@@ -116,6 +124,9 @@ class AppEditableTableSettingsView<T> extends StatefulWidget {
     this.isEditingDataValid,
     this.onSaved,
     this.onDeleted,
+    this.emptyMessage,
+    required this.itemCardBuilder,
+    this.editItemCardBuilder,
   });
 
   @override
@@ -132,54 +143,80 @@ class _AppEditableTableSettingsViewState<T>
   Widget build(BuildContext context) {
     final lastIndex = widget.headers.length;
     return AppTableSettingsView<T>(
-      headers: [...widget.headers, widget.actionHeader],
-      dataList: [
-        ...widget.dataList,
-        if (_tempItem != null) _tempItem!,
-      ],
-      columnWidths: widget.columnWidths,
-      editRowIndex: _editRow,
-      cellBuilder: (context, index, rule) => index == lastIndex
-          ? Row(
-              children: [
+        title: widget.title,
+        headers: [...widget.headers, widget.actionHeader],
+        dataList: [
+          ...widget.dataList,
+          if (_tempItem != null) _tempItem!,
+        ],
+        columnWidths: widget.columnWidths,
+        editRowIndex: _editRow,
+        emptyView: SizedBox(
+            height: 120,
+            child: Center(child: AppText.bodyLarge(widget.emptyMessage ?? ''))),
+        cellBuilder: (context, index, rule) => index == lastIndex
+            ? Row(
+                children: [
+                  AppIconButton(
+                      icon: LinksysIcons.edit,
+                      onTap: () {
+                        _editItem(widget.dataList.indexOf(rule), null);
+                      }),
+                  AppIconButton(
+                    icon: LinksysIcons.delete,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ],
+              )
+            : widget.cellBuilder(context, index, rule),
+        editCellBuilder: (context, index, rule) => index == lastIndex
+            ? Row(
+                children: [
+                  AppIconButton(
+                    icon: LinksysIcons.check,
+                    color: (widget.isEditingDataValid ?? true)
+                        ? Theme.of(context).colorSchemeExt.green
+                        : Theme.of(context).colorScheme.outline,
+                    onTap: (widget.isEditingDataValid ?? true) ? () {} : null,
+                  ),
+                  AppIconButton(
+                    icon: LinksysIcons.close,
+                    onTap: () {
+                      _editItem(null, null);
+                    },
+                  ),
+                ],
+              )
+            : widget.editCellBuilder?.call(context, index, rule) ??
+                SizedBox.shrink(),
+        bottomWidget: AppTextButton(
+          widget.addLabel,
+          icon: widget.addIcon ?? LinksysIcons.add,
+          onTap: () {
+            setState(() {
+              _tempItem = widget.createNewItem.call();
+              _editRow = widget.dataList.length;
+            });
+            _editItem(widget.dataList.length, widget.createNewItem.call());
+          },
+        ),
+        itemCardBuilder: (context, data) {
+          final item = widget.itemCardBuilder(context, data);
+          return EditableListItemWidget(
+              title: item.title,
+              actions: [
                 AppIconButton(
                     icon: LinksysIcons.edit,
                     onTap: () {
-                      _editItem(widget.dataList.indexOf(rule), null);
+                      // TODO
                     }),
-                AppIconButton(icon: LinksysIcons.delete),
-              ],
-            )
-          : widget.cellBuilder(context, index, rule),
-      editCellBuilder: (context, index, rule) => index == lastIndex
-          ? Row(
-              children: [
                 AppIconButton(
-                  icon: LinksysIcons.check,
-                  onTap: (widget.isEditingDataValid ?? true) ? () {} : null,
-                ),
-                AppIconButton(
-                  icon: LinksysIcons.close,
-                  onTap: () {
-                    _editItem(null, null);
-                  },
+                  icon: LinksysIcons.delete,
+                  color: Theme.of(context).colorScheme.error,
                 ),
               ],
-            )
-          : widget.editCellBuilder?.call(context, index, rule) ??
-              SizedBox.shrink(),
-      bottomWidget: AppTextButton(
-        widget.addLabel,
-        icon: widget.addIcon ?? LinksysIcons.add,
-        onTap: () {
-          setState(() {
-            _tempItem = widget.createNewItem.call();
-            _editRow = widget.dataList.length;
-          });
-          _editItem(widget.dataList.length, widget.createNewItem.call());
-        },
-      ),
-    );
+              content: item.content);
+        });
   }
 
   void _editItem(int? index, T? item) {
@@ -187,5 +224,38 @@ class _AppEditableTableSettingsViewState<T>
       _tempItem = item;
       _editRow = index;
     });
+  }
+}
+
+class EditableListItem {
+  final String title;
+  final Widget content;
+
+  EditableListItem({required this.title, required this.content});
+}
+
+class EditableListItemWidget extends StatelessWidget {
+  final String title;
+  final List<Widget> actions;
+  final Widget content;
+  const EditableListItemWidget({
+    super.key,
+    required this.title,
+    required this.actions,
+    required this.content,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [AppText.titleSmall(title), Wrap(children: actions)],
+        ),
+        const AppGap.medium(),
+        content,
+      ],
+    );
   }
 }
