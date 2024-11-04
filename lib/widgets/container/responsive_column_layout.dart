@@ -33,14 +33,15 @@ class AppResponsiveColumnLayout extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     // Calculate flexable padding, using fixed padding on Small layout
-    final padding = !ResponsiveLayout.isOverSmallLayout(context)
-        ? ResponsiveLayout.pageHorizontalPadding(context)
-        : (screenWidth -
-                (ResponsiveLayout.maxColumn(context) *
-                    ResponsiveLayout.columnSize(context)) -
-                (ResponsiveLayout.columnPadding(context) *
-                    (ResponsiveLayout.maxColumn(context) - 1))) /
-            2;
+    // final padding = !ResponsiveLayout.isOverSmallLayout(context)
+    //     ? ResponsiveLayout.pageHorizontalPadding(context)
+    //     : (screenWidth -
+    //             (ResponsiveLayout.maxColumn(context) *
+    //                 ResponsiveLayout.columnSize(context)) -
+    //             (ResponsiveLayout.columnPadding(context) *
+    //                 (ResponsiveLayout.maxColumn(context) - 1))) /
+    //         2;
+    final padding = ResponsiveLayout.pageHorizontalPadding(context);
 
     // final calculatedColumnWidth =    (width -
     //     (pageHorizontalPadding(context) * 2) -
