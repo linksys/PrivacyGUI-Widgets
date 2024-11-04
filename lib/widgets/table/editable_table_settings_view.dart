@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/buttons/button.dart';
+import 'package:privacygui_widgets/widgets/card/card.dart';
 import 'package:privacygui_widgets/widgets/gap/gap.dart';
+import 'package:privacygui_widgets/widgets/page/base_page_view.dart';
 import 'package:privacygui_widgets/widgets/table/table_settings_view.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
@@ -208,7 +210,9 @@ class _AppEditableTableSettingsViewState<T>
                 AppIconButton(
                     icon: LinksysIcons.edit,
                     onTap: () {
-                      // TODO
+                      showDialog(context: context, builder: (context) {
+                        return AlertDialog(content: widget.editItemCardBuilder?.call(context, data),);
+                      });
                     }),
                 AppIconButton(
                   icon: LinksysIcons.delete,
