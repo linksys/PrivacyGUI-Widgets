@@ -15,8 +15,6 @@ class AppTableSettingsView<T> extends StatefulWidget {
   final Widget? emptyView;
   final Widget Function(BuildContext, int, T) cellBuilder;
   final Widget Function(BuildContext, int, T)? editCellBuilder;
-  final Widget Function(BuildContext, T) itemCardBuilder;
-  final Widget Function(BuildContext, T)? editItemCardBuilder;
 
   final int? editRowIndex;
   final Widget? bottomWidget;
@@ -30,8 +28,6 @@ class AppTableSettingsView<T> extends StatefulWidget {
     this.dataList = const [],
     required this.cellBuilder,
     this.editCellBuilder,
-    required this.itemCardBuilder,
-    this.editItemCardBuilder,
     this.editRowIndex,
     this.bottomWidget,
     this.emptyView,
@@ -44,43 +40,24 @@ class AppTableSettingsView<T> extends StatefulWidget {
 class _AppTableSettingsViewState<T> extends State<AppTableSettingsView<T>> {
   @override
   Widget build(BuildContext context) {
-    final isMobile = ResponsiveLayout.isMobileLayout(context);
     return Container(
       padding: EdgeInsets.zero,
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (widget.title != null) ...[
             _titleWidget(),
             const AppGap.medium(),
           ],
-          if (isMobile) _mobileListWidget(),
-          if (!isMobile) _desktopTableWidget(),
+          _desktopTableWidget(),
         ],
       ),
     );
   }
 
   Widget _titleWidget() {
-    final isMobile = ResponsiveLayout.isMobileLayout(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        AppText.titleSmall(widget.title!),
-        if (isMobile && widget.bottomWidget != null) widget.bottomWidget!,
-      ],
-    );
-  }
-
-  Widget _mobileListWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        ...widget.dataList
-            .map((e) => AppCard(child: widget.itemCardBuilder(context, e),))
-      ],
-    );
+    return AppText.titleSmall(widget.title!);
   }
 
   Widget _desktopTableWidget() {
