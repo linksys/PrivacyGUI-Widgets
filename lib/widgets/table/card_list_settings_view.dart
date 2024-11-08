@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/card/card.dart';
 import 'package:privacygui_widgets/widgets/gap/gap.dart';
@@ -22,10 +23,12 @@ class AppCardListSettingsView<T> extends StatefulWidget {
   });
 
   @override
-  State<AppCardListSettingsView<T>> createState() => _AppCardListSettingsViewState();
+  State<AppCardListSettingsView<T>> createState() =>
+      _AppCardListSettingsViewState();
 }
 
-class _AppCardListSettingsViewState<T> extends State<AppCardListSettingsView<T>> {
+class _AppCardListSettingsViewState<T>
+    extends State<AppCardListSettingsView<T>> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,9 +67,18 @@ class _AppCardListSettingsViewState<T> extends State<AppCardListSettingsView<T>>
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ...widget.dataList.map((e) => AppCard(
-              child: widget.itemCardBuilder(context, e),
-            ))
+        ...widget.dataList
+            .map((e) => AppCard(
+                  child: widget.itemCardBuilder(context, e),
+                ))
+            .expandIndexed<Widget>((index, element) sync* {
+          if (index != widget.dataList.length - 1) {
+            yield element;
+            yield const AppGap.medium();
+          } else {
+            yield element;
+          }
+        }).toList(),
       ],
     );
   }
