@@ -42,17 +42,17 @@ class ResponsiveLayout extends StatelessWidget {
 
   static double columnSize(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return switch (width) {
-      <= small => 70,
-      <= medium => 53,
-      <= large => 52,
-      <= extraLarge => 55,
-      _ => 72,
-    };
-    // return (width -
-    //         (pageHorizontalPadding(context) * 2) -
-    //         (columnPadding(context) * (maxColumn(context) - 1))) /
-    //     maxColumn(context);
+    // return switch (width) {
+    //   <= small => 70,
+    //   <= medium => 53,
+    //   <= large => 52,
+    //   <= extraLarge => 55,
+    //   _ => 72,
+    // };
+    return (width -
+            (pageHorizontalPadding(context) * 2) -
+            (columnPadding(context) * (maxColumn(context) - 1))) /
+        maxColumn(context);
   }
 
   static int maxColumn(BuildContext context) {
