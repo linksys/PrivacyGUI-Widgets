@@ -45,7 +45,7 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
             child: DropdownButton<T>(
               elevation: 0,
               padding: EdgeInsets.zero,
-              value: widget.initial,
+              value: _selected,
               isDense: true,
               items: widget.items
                   .map((e) => DropdownMenuItem<T>(
@@ -93,7 +93,7 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
                       : AppText.labelMedium(widget.label(e)))
                   .toList(),
               focusColor: Colors.transparent,
-              onChanged: (value) {
+              onChanged: widget.onChanged == null ? null : (value) {
                 if (value == null) {
                   return;
                 }
