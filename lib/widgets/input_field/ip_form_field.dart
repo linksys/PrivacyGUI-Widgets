@@ -284,6 +284,10 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
   String _combineOctets() {
     final ip =
         '${_octet1Controller.text}.${_octet2Controller.text}.${_octet3Controller.text}.${_octet4Controller.text}';
-    return regex.hasMatch(ip) ? ip : '';
+    return widget.acceptEmpty
+        ? ip
+        : regex.hasMatch(ip)
+            ? ip
+            : '';
   }
 }
