@@ -121,6 +121,24 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
             text: token[3],
             selection: TextSelection.collapsed(offset: token[3].length));
       }
+    } else {
+      final value = widget.acceptEmpty ? '' : '0';
+      _octet1Controller.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
+      _octet2Controller.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
+      _octet3Controller.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
+      _octet4Controller.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
     }
   }
 
