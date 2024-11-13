@@ -18,6 +18,7 @@ class AppIPFormField extends StatefulWidget {
     this.octet3ReadOnly = false,
     this.octet4ReadOnly = false,
     this.acceptEmpty = true,
+    this.enable = true,
     this.identifier,
     this.semanticLabel,
   });
@@ -33,6 +34,7 @@ class AppIPFormField extends StatefulWidget {
   final bool octet3ReadOnly;
   final bool octet4ReadOnly;
   final bool acceptEmpty;
+  final bool enable;
   final String? identifier;
   final String? semanticLabel;
 
@@ -252,6 +254,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
                   hoverColor: Theme.of(context).colorScheme.onBackground,
                 ),
                 readOnly: readOnly,
+                enabled: widget.enable,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                   // allow only  digits
