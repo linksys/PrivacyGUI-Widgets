@@ -24,6 +24,7 @@ class AppIPv6FormField extends StatefulWidget {
     this.octet8ReadOnly = false,
     this.identifier,
     this.semanticLabel,
+    this.forceWrapping = false
   });
 
   final TextEditingController? controller;
@@ -42,6 +43,7 @@ class AppIPv6FormField extends StatefulWidget {
   final bool octet8ReadOnly;
   final String? identifier;
   final String? semanticLabel;
+  final bool forceWrapping;
 
   @override
   State<AppIPv6FormField> createState() => _AppIPv6FormFieldState();
@@ -172,7 +174,7 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
           widget.header!,
           const AppGap.small2(),
         ],
-        ...ResponsiveLayout.isMobileLayout(context)
+        ...(ResponsiveLayout.isMobileLayout(context) | widget.forceWrapping)
             ? [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
