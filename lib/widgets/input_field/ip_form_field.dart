@@ -18,6 +18,7 @@ class AppIPFormField extends StatefulWidget {
     this.octet3ReadOnly = false,
     this.octet4ReadOnly = false,
     this.acceptEmpty = true,
+    this.enable = true,
     this.identifier,
     this.semanticLabel,
   });
@@ -33,6 +34,7 @@ class AppIPFormField extends StatefulWidget {
   final bool octet3ReadOnly;
   final bool octet4ReadOnly;
   final bool acceptEmpty;
+  final bool enable;
   final String? identifier;
   final String? semanticLabel;
 
@@ -121,6 +123,24 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
             text: token[3],
             selection: TextSelection.collapsed(offset: token[3].length));
       }
+    } else {
+      final value = widget.acceptEmpty ? '' : '0';
+      _octet1Controller.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
+      _octet2Controller.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
+      _octet3Controller.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
+      _octet4Controller.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
     }
   }
 
@@ -208,54 +228,58 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
             color: isError
                 ? Theme.of(context).colorScheme.error
                 : Theme.of(context).colorScheme.outline));
-    return Expanded(
-      child: Opacity(
-        opacity: readOnly ? 0.5 : 1.0,
-        child: Semantics(
-          identifier: widget.identifier != null
-              ? '${widget.identifier}-octet-$index'
-              : null,
-          label: widget.semanticLabel != null
-              ? '${widget.semanticLabel} Octet $index'
-              : null,
-          child: TextFormField(
-            controller: controller,
-            focusNode: focus,
-            decoration: InputDecoration(
-              border: border,
-              enabledBorder: border,
-              focusedBorder: border.copyWith(
-                  borderSide: border.borderSide
-                      .copyWith(color: Theme.of(context).colorScheme.primary)),
-              hoverColor: Theme.of(context).colorScheme.onBackground,
-            ),
-            readOnly: readOnly,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-              // allow only  digits
-              IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
-              // custom class to format entered data from textField
-              LengthLimitingTextInputFormatter(3)
-              // restrict user to enter max 16 characters
-            ],
-            onTapOutside: (PointerDownEvent event) {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            keyboardType: TextInputType.number,
-            textInputAction:
-                isLast ? TextInputAction.done : TextInputAction.next,
-            onChanged: (value) {
-              if (value.length >= 3) {
-                FocusScope.of(context).requestFocus(nextFocus);
-              }
-              widget.controller?.text = _combineOctets();
-              widget.onChanged?.call(_combineOctets());
-            },
-            onFieldSubmitted: (value) {
-              FocusScope.of(context).requestFocus(nextFocus);
-            },
-          ),
-        ),
+    return Flexible(
+      flex: readOnly ? 1 : 2,
+      fit: readOnly ? FlexFit.loose : FlexFit.tight,
+      child: Semantics(
+        identifier: widget.identifier != null
+            ? '${widget.identifier}-octet-$index'
+            : null,
+        label: widget.semanticLabel != null
+            ? '${widget.semanticLabel} Octet $index'
+            : null,
+        child: readOnly
+            ? AppText.bodyMedium(
+                controller.text,
+              )
+            : TextFormField(
+                controller: controller,
+                focusNode: focus,
+                decoration: InputDecoration(
+                  border: border,
+                  enabledBorder: border,
+                  focusedBorder: border.copyWith(
+                      borderSide: border.borderSide.copyWith(
+                          color: Theme.of(context).colorScheme.primary)),
+                  hoverColor: Theme.of(context).colorScheme.onBackground,
+                ),
+                readOnly: readOnly,
+                enabled: widget.enable,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  // allow only  digits
+                  IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
+                  // custom class to format entered data from textField
+                  LengthLimitingTextInputFormatter(3)
+                  // restrict user to enter max 16 characters
+                ],
+                onTapOutside: (PointerDownEvent event) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                keyboardType: TextInputType.number,
+                textInputAction:
+                    isLast ? TextInputAction.done : TextInputAction.next,
+                onChanged: (value) {
+                  if (value.length >= 3) {
+                    FocusScope.of(context).requestFocus(nextFocus);
+                  }
+                  widget.controller?.text = _combineOctets();
+                  widget.onChanged?.call(_combineOctets());
+                },
+                onFieldSubmitted: (value) {
+                  FocusScope.of(context).requestFocus(nextFocus);
+                },
+              ),
       ),
     );
   }
@@ -263,6 +287,10 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
   String _combineOctets() {
     final ip =
         '${_octet1Controller.text}.${_octet2Controller.text}.${_octet3Controller.text}.${_octet4Controller.text}';
-    return regex.hasMatch(ip) ? ip : '';
+    return widget.acceptEmpty
+        ? ip
+        : regex.hasMatch(ip)
+            ? ip
+            : '';
   }
 }
