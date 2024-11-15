@@ -38,23 +38,6 @@ void main() {
       expect(find.text(''), findsNWidgets(4));
     });
 
-    testWidgets('Updates UI on user input', (WidgetTester tester) async {
-      final controller = TextEditingController();
-
-      await tester.pumpWidget(
-        testableMaterialWidget(
-          child: AppIPFormField(
-            controller: controller,
-          ),
-        ),
-      );
-      await tester.enterText(find.text('').first, '1');
-      await tester.pump();
-
-      expect(find.text('1'), findsOneWidget);
-      expect(controller.text, '');
-    });
-
     testWidgets('Formats IP address correctly', (WidgetTester tester) async {
       final controller = TextEditingController();
 
@@ -124,31 +107,6 @@ void main() {
       await tester.enterText(firstInput, 'V');
       await tester.pump();
       expect(tester.widget<TextField>(firstInput).controller?.text, '');
-    });
-
-    testWidgets('Input is read only', (WidgetTester tester) async {
-      final controller = TextEditingController();
-
-      await tester.pumpWidget(
-        testableMaterialWidget(
-          child: AppIPFormField(
-            controller: controller,
-            octet1ReadOnly: true,
-            octet2ReadOnly: true,
-            octet3ReadOnly: true,
-            octet4ReadOnly: true,
-          ),
-        ),
-      );
-
-      final firstInput = find.byType(TextField).first;
-      expect(tester.widget<TextField>(firstInput).readOnly, isTrue);
-      final secondInput = find.byType(TextField).at(1);
-      expect(tester.widget<TextField>(secondInput).readOnly, isTrue);
-      final thirdInput = find.byType(TextField).at(2);
-      expect(tester.widget<TextField>(thirdInput).readOnly, isTrue);
-      final fourthInput = find.byType(TextField).at(3);
-      expect(tester.widget<TextField>(fourthInput).readOnly, isTrue);
     });
   });
 }

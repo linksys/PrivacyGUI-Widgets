@@ -13,6 +13,7 @@ class AppTabLayout extends StatelessWidget {
   final double? expandedHeight;
   final ScrollController? scrollController;
   final Color? color;
+  final void Function(int index)? onTap;
 
   AppTabLayout({
     super.key,
@@ -26,6 +27,7 @@ class AppTabLayout extends StatelessWidget {
     this.expandedHeight,
     this.scrollController,
     this.color,
+    this.onTap,
   })  : assert(tabs.isNotEmpty),
         assert(tabs.length == tabContentViews.length);
 
@@ -41,6 +43,7 @@ class AppTabLayout extends StatelessWidget {
         ),
         appBarBottom: AppTabBar(
           tabs: tabs,
+          onTap: onTap,
         ),
         snap: snap,
         pinned: pinned,

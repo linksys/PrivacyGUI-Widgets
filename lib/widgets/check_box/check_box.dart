@@ -29,6 +29,13 @@ class AppCheckbox extends StatelessWidget {
         Checkbox(
           value: value,
           semanticLabel: '$semanticLabel checkbox',
+          fillColor:
+              WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+            if (states.contains(WidgetState.selected)) {
+              return Theme.of(context).colorScheme.primary;
+            }
+            return Colors.transparent;
+          }),
           isError: isError,
           tristate: tristate,
           onChanged: onChanged,

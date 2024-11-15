@@ -4,6 +4,7 @@ import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 class AppTabBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget> tabs;
   final double labelPadding;
+  final void Function(int index)? onTap;
 
   @override
   final Size preferredSize;
@@ -12,6 +13,7 @@ class AppTabBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.tabs,
     this.labelPadding = 10.0,
+    this.onTap,
   })  : preferredSize = Size.fromHeight(18 + labelPadding),
         assert(tabs.isNotEmpty);
 
@@ -22,6 +24,7 @@ class AppTabBar extends StatelessWidget implements PreferredSizeWidget {
       alignment: Alignment.bottomCenter,
       children: [
         TabBar(
+          onTap: onTap,
           indicatorColor: Theme.of(context).colorScheme.primary,
           unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
           labelColor: Theme.of(context).colorScheme.primary,
