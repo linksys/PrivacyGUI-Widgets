@@ -288,7 +288,9 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
     final ip =
         '${_octet1Controller.text}.${_octet2Controller.text}.${_octet3Controller.text}.${_octet4Controller.text}';
     return widget.acceptEmpty
-        ? ip
+        ? ip == '...'
+            ? ''
+            : ip
         : regex.hasMatch(ip)
             ? ip
             : '';
