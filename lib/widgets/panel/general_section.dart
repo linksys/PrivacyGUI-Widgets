@@ -8,6 +8,7 @@ class AppSectionItemData {
   final String title;
   final String? description;
   final bool? status;
+  final bool isBeta;
 
   final VoidCallback? onTap;
   AppSectionItemData({
@@ -15,7 +16,8 @@ class AppSectionItemData {
     required this.title,
     this.description,
     this.onTap,
-    this.status
+    this.status,
+    this.isBeta = false,
   });
 }
 

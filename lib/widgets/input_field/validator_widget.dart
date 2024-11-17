@@ -53,14 +53,16 @@ class AppValidatorWidget extends StatelessWidget {
                         ? _checked(context)
                         : _unChecked(context),
                 const AppGap.small2(),
-                AppText.bodyMedium(
-                  validations[index].description,
-                  maxLines: 5,
-                  color: textToValidate.isEmpty
-                      ? _initColor(context)
-                      : validations[index].validator.call(textToValidate)
-                          ? _checkedColor(context)
-                          : _unCheckedColor(context),
+                Expanded(
+                  child: AppText.bodyMedium(
+                    validations[index].description,
+                    maxLines: 5,
+                    color: textToValidate.isEmpty
+                        ? _initColor(context)
+                        : validations[index].validator.call(textToValidate)
+                            ? _checkedColor(context)
+                            : _unCheckedColor(context),
+                  ),
                 ),
               ],
             );
