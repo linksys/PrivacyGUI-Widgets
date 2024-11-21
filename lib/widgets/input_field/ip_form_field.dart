@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/input_field/input_formatters.dart';
+import 'package:privacygui_widgets/widgets/input_field/ip_form_field_display_type.dart';
 
 class AppIPFormField extends StatefulWidget {
   const AppIPFormField({
@@ -21,6 +22,7 @@ class AppIPFormField extends StatefulWidget {
     this.enable = true,
     this.identifier,
     this.semanticLabel,
+    this.displayType = AppIpFormFieldDisplayType.normal,
   });
 
   final TextEditingController? controller;
@@ -37,6 +39,7 @@ class AppIPFormField extends StatefulWidget {
   final bool enable;
   final String? identifier;
   final String? semanticLabel;
+  final AppIpFormFieldDisplayType displayType;
 
   @override
   State<AppIPFormField> createState() => _AppIPFormFieldState();
@@ -155,8 +158,9 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
           widget.header!,
           const AppGap.small2(),
         ],
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          runSpacing: Spacing.small1,
           children: [
             _buildOctetInputForm(
               _octet1Focus,
@@ -207,12 +211,16 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
     );
   }
 
-  _buildDotWidget() => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: Spacing.small2),
-        child: AppText.titleLarge(
-          '.',
-        ),
-      );
+  _buildDotWidget() => widget.displayType == AppIpFormFieldDisplayType.noDot
+      ? SizedBox.shrink()
+      : Padding(
+          padding: widget.displayType == AppIpFormFieldDisplayType.tight
+              ? EdgeInsets.zero
+              : EdgeInsets.symmetric(horizontal: Spacing.small2),
+          child: AppText.titleLarge(
+            '.',
+          ),
+        );
 
   _buildOctetInputForm(
     FocusNode focus,
@@ -228,9 +236,10 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
             color: isError
                 ? Theme.of(context).colorScheme.error
                 : Theme.of(context).colorScheme.outline));
-    return Flexible(
-      flex: readOnly ? 1 : 2,
-      fit: readOnly ? FlexFit.loose : FlexFit.tight,
+    return SizedBox(
+      width: readOnly ? 48 : 60,
+      // flex: readOnly ? 1 : 2,
+      // fit: readOnly ? FlexFit.loose : FlexFit.tight,
       child: Semantics(
         identifier: widget.identifier != null
             ? '${widget.identifier}-octet-$index'

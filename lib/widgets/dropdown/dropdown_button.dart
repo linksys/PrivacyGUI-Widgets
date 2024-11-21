@@ -62,6 +62,7 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
               padding: EdgeInsets.zero,
               value: _selected,
               isDense: true,
+              isExpanded: true,
               items: widget.items
                   .map((e) => DropdownMenuItem<T>(
                         value: e,
@@ -71,27 +72,15 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ResponsiveLayout.isOverLargeLayout(context)
-                                  ? AppText.labelLarge(
-                                      widget.label(e),
-                                      color: e == _selected
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .primary
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .onSurface,
-                                    )
-                                  : AppText.labelMedium(
-                                      widget.label(e),
-                                      color: e == _selected
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .primary
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .onSurface,
-                                    ),
+                              Expanded(
+                                child: AppText.labelMedium(
+                                  widget.label(e),
+                                  overflow: TextOverflow.ellipsis,
+                                  color: e == _selected
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
                               if (e == _selected)
                                 Icon(
                                   LinksysIcons.check,
@@ -103,19 +92,13 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
                       ))
                   .toList(),
               selectedItemBuilder: (context) => widget.items
-                  .map((e) => ResponsiveLayout.isOverLargeLayout(context)
-                      ? AppText.labelLarge(
-                          widget.label(e),
-                          color: enable
-                              ? null
-                              : Theme.of(context).colorScheme.outline,
-                        )
-                      : AppText.labelMedium(
-                          widget.label(e),
-                          color: enable
-                              ? null
-                              : Theme.of(context).colorScheme.outline,
-                        ))
+                  .map((e) => AppText.labelMedium(
+                        widget.label(e),
+                        overflow: TextOverflow.ellipsis,
+                        color: enable
+                            ? null
+                            : Theme.of(context).colorScheme.outline,
+                      ))
                   .toList(),
               focusColor: Colors.transparent,
               onChanged: widget.onChanged == null
