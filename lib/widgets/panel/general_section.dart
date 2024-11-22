@@ -9,6 +9,7 @@ class AppSectionItemData {
   final String? description;
   final bool? status;
   final bool isBeta;
+  final bool disabledOnBridge;
 
   final VoidCallback? onTap;
   AppSectionItemData({
@@ -18,6 +19,7 @@ class AppSectionItemData {
     this.onTap,
     this.status,
     this.isBeta = false,
+    this.disabledOnBridge = false,
   });
 }
 
