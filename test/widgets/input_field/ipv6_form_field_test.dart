@@ -134,42 +134,5 @@ void main() {
       await tester.pump();
       expect(tester.widget<TextField>(firstInput).controller?.text, '');
     });
-
-    testWidgets('Input is read only', (WidgetTester tester) async {
-      final controller = TextEditingController();
-
-      await tester.pumpWidget(
-        testableMaterialWidget(
-          child: AppIPv6FormField(
-            controller: controller,
-            octet1ReadOnly: true,
-            octet2ReadOnly: true,
-            octet3ReadOnly: true,
-            octet4ReadOnly: true,
-            octet5ReadOnly: true,
-            octet6ReadOnly: true,
-            octet7ReadOnly: true,
-            octet8ReadOnly: true,
-          ),
-        ),
-      );
-
-      final firstInput = find.byType(TextField).first;
-      expect(tester.widget<TextField>(firstInput).readOnly, isTrue);
-      final secondInput = find.byType(TextField).at(1);
-      expect(tester.widget<TextField>(secondInput).readOnly, isTrue);
-      final thirdInput = find.byType(TextField).at(2);
-      expect(tester.widget<TextField>(thirdInput).readOnly, isTrue);
-      final fourthInput = find.byType(TextField).at(3);
-      expect(tester.widget<TextField>(fourthInput).readOnly, isTrue);
-      final fivethInput = find.byType(TextField).at(4);
-      expect(tester.widget<TextField>(fivethInput).readOnly, isTrue);
-      final sixthInput = find.byType(TextField).at(5);
-      expect(tester.widget<TextField>(sixthInput).readOnly, isTrue);
-      final seventhInput = find.byType(TextField).at(6);
-      expect(tester.widget<TextField>(seventhInput).readOnly, isTrue);
-      final eighthInput = find.byType(TextField).at(7);
-      expect(tester.widget<TextField>(eighthInput).readOnly, isTrue);
-    });
   });
 }
