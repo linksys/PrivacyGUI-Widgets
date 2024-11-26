@@ -14,6 +14,7 @@ class ResponsiveLayout extends StatelessWidget {
   // Desktop
   static const double large = 1240;
   static const double extraLarge = 1440;
+  static const double extraExtraLarge = 1680;
 
   static double tabletBreakpoint = medium;
   static double desktopBreakpoint = large;
@@ -25,7 +26,8 @@ class ResponsiveLayout extends StatelessWidget {
       <= medium => 32.0,
       <= large => 24.0,
       <= extraLarge => 200.0,
-      _ => 178.0,
+      <= extraExtraLarge => 256.0,
+      _ => 352.0,
     };
   }
 
@@ -36,6 +38,7 @@ class ResponsiveLayout extends StatelessWidget {
       <= medium => Spacing.medium,
       <= large => Spacing.large2,
       <= extraLarge => Spacing.large1,
+      <= extraExtraLarge => Spacing.large1,
       _ => Spacing.large1,
     };
   }
