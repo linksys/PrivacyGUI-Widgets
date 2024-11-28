@@ -122,7 +122,7 @@ final darkColorSchemeExt = ColorSchemeExt(
   surfaceContainerHighest: Color(neutralTonal.get(22)),
   green: Color(greenTonal.get(50)),
   onGreen: Color(greenTonal.get(0)),
-  secondaryGreen: Color(greenTonal.get(30)),
+  secondaryGreen: Color(greenTonal.get(40)),
   onSecondaryGreen: Color(greenTonal.get(90)),
   orange: Color(orangeTonal.get(80)),
   onOrange: Color(orangeTonal.get(20)),
