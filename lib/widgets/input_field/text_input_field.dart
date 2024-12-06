@@ -95,7 +95,7 @@ class TextInputFieldState extends State<TextInputField> {
   Widget build(BuildContext context) {
     return Semantics(
       identifier: widget.identifier,
-      label: widget.label,
+      label: widget.label ?? widget.semanticLabel,
       child: TextField(
         enabled: widget.enable,
         readOnly: widget.readOnly,
