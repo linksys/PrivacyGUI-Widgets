@@ -170,8 +170,11 @@ class _AppLoadableWidgetState extends State<AppLoadableWidget> {
         ? SizedBox(
             height: widget.spinnerSize?.height,
             width: widget.spinnerSize?.width,
-            child: CircularProgressIndicator(
-              semanticsLabel: '${widget.semanticsLabel} spinner',
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(
+                semanticsLabel: '${widget.semanticsLabel} spinner',
+              ),
             ),
           )
         : switch (widget.type) {

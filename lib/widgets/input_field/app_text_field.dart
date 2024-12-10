@@ -114,6 +114,7 @@ class AppTextField extends StatefulWidget {
         border: border,
         focusNode: focusNode,
         inputFormatters: [
+          UpperCaseTextFormatter(),
           // allow only digits
           FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
           // custom class to format entered data from textField
