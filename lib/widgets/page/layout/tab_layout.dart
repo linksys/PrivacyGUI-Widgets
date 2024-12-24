@@ -12,6 +12,7 @@ class AppTabLayout extends StatelessWidget {
   final bool floating;
   final double? expandedHeight;
   final ScrollController? scrollController;
+  final TabController? tabController;
   final Color? color;
   final void Function(int index)? onTap;
 
@@ -26,6 +27,7 @@ class AppTabLayout extends StatelessWidget {
     this.floating = false,
     this.expandedHeight,
     this.scrollController,
+    this.tabController,
     this.color,
     this.onTap,
   })  : assert(tabs.isNotEmpty),
@@ -42,6 +44,7 @@ class AppTabLayout extends StatelessWidget {
           child: flexibleSpace,
         ),
         appBarBottom: AppTabBar(
+          tabController: tabController,
           tabs: tabs,
           onTap: onTap,
         ),
@@ -50,6 +53,7 @@ class AppTabLayout extends StatelessWidget {
         floating: floating,
         appBarTitle: appBarTitle,
         body: TabBarView(
+          controller: tabController,
           physics: NeverScrollableScrollPhysics(),
           children: tabContentViews,
         ),
