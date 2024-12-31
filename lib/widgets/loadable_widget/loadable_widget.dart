@@ -11,21 +11,28 @@ enum LoadableWidgetType {
   appSwitch,
 }
 
+abstract class AppLoadableWidgetController {
+  void showSpinner();
+  void hideSpinner();
+}
+
 class AppLoadableWidget extends StatefulWidget {
   final LoadableWidgetType type;
   final Size? spinnerSize;
   final String? semanticsLabel;
+  final bool showSpinnerWhenTap;
   // Button
   final String? title;
   final IconData? icon;
-  final Future Function()? onTap;
+  final Future Function(AppLoadableWidgetController controller)? onTap;
   final Size? buttonSize;
   final EdgeInsets? padding;
   final Color? color;
   // Switch
   final bool? showIcon;
   final bool? value;
-  final Future Function(dynamic)? onChanged;
+  final Future Function(AppLoadableWidgetController controller, dynamic)?
+      onChanged;
   final Icon? checkedIcon;
   final Icon? uncheckIcon;
 
@@ -45,6 +52,7 @@ class AppLoadableWidget extends StatefulWidget {
     this.onChanged,
     this.checkedIcon,
     this.uncheckIcon,
+    this.showSpinnerWhenTap = true,
   });
 
   factory AppLoadableWidget.elevatedButton({
@@ -53,8 +61,9 @@ class AppLoadableWidget extends StatefulWidget {
     Size? spinnerSize,
     String? semanticsLabel,
     IconData? icon,
-    Future Function()? onTap,
+    Future Function(AppLoadableWidgetController controller)? onTap,
     Size? buttonSize,
+    bool showSpinnerWhenTap = true,
   }) =>
       AppLoadableWidget(
         key: key,
@@ -65,6 +74,7 @@ class AppLoadableWidget extends StatefulWidget {
         icon: icon,
         onTap: onTap,
         buttonSize: buttonSize,
+        showSpinnerWhenTap: showSpinnerWhenTap,
       );
 
   factory AppLoadableWidget.filledButton({
@@ -73,8 +83,9 @@ class AppLoadableWidget extends StatefulWidget {
     Size? spinnerSize,
     String? semanticsLabel,
     IconData? icon,
-    Future Function()? onTap,
+    Future Function(AppLoadableWidgetController controller)? onTap,
     Size? buttonSize,
+    bool showSpinnerWhenTap = true,
   }) =>
       AppLoadableWidget(
         key: key,
@@ -85,6 +96,7 @@ class AppLoadableWidget extends StatefulWidget {
         icon: icon,
         onTap: onTap,
         buttonSize: buttonSize,
+        showSpinnerWhenTap: showSpinnerWhenTap,
       );
 
   factory AppLoadableWidget.outlineButton({
@@ -93,9 +105,10 @@ class AppLoadableWidget extends StatefulWidget {
     Size? spinnerSize,
     String? semanticsLabel,
     IconData? icon,
-    Future Function()? onTap,
+    Future Function(AppLoadableWidgetController controller)? onTap,
     Color? color,
     Size? buttonSize,
+    bool showSpinnerWhenTap = true,
   }) =>
       AppLoadableWidget(
         key: key,
@@ -107,6 +120,7 @@ class AppLoadableWidget extends StatefulWidget {
         onTap: onTap,
         color: color,
         buttonSize: buttonSize,
+        showSpinnerWhenTap: showSpinnerWhenTap,
       );
 
   factory AppLoadableWidget.textButton({
@@ -115,10 +129,11 @@ class AppLoadableWidget extends StatefulWidget {
     Size? spinnerSize,
     String? semanticsLabel,
     IconData? icon,
-    Future Function()? onTap,
+    Future Function(AppLoadableWidgetController controller)? onTap,
     Color? color,
     Size? buttonSize,
     EdgeInsets? padding,
+    bool showSpinnerWhenTap = true,
   }) =>
       AppLoadableWidget(
         key: key,
@@ -131,6 +146,7 @@ class AppLoadableWidget extends StatefulWidget {
         color: color,
         buttonSize: buttonSize,
         padding: padding,
+        showSpinnerWhenTap: showSpinnerWhenTap,
       );
 
   factory AppLoadableWidget.appSwitch({
@@ -139,10 +155,11 @@ class AppLoadableWidget extends StatefulWidget {
     Size? spinnerSize,
     String? semanticsLabel,
     IconData? icon,
-    Future Function(dynamic)? onChanged,
+    Future Function(AppLoadableWidgetController controller, dynamic)? onChanged,
     bool? showIcon,
     Icon? checkedIcon,
     Icon? uncheckIcon,
+    bool showSpinnerWhenTap = true,
   }) =>
       AppLoadableWidget(
         key: key,
@@ -155,13 +172,15 @@ class AppLoadableWidget extends StatefulWidget {
         showIcon: showIcon,
         checkedIcon: checkedIcon,
         uncheckIcon: uncheckIcon,
+        showSpinnerWhenTap: showSpinnerWhenTap,
       );
 
   @override
   State<AppLoadableWidget> createState() => _AppLoadableWidgetState();
 }
 
-class _AppLoadableWidgetState extends State<AppLoadableWidget> {
+class _AppLoadableWidgetState extends State<AppLoadableWidget>
+    implements AppLoadableWidgetController {
   bool _isLoading = false;
 
   @override
@@ -243,27 +262,36 @@ class _AppLoadableWidgetState extends State<AppLoadableWidget> {
   }
 
   Future<void> _processOnTap() async {
-    setState(() {
-      _isLoading = true;
-    });
+    if (widget.showSpinnerWhenTap) {
+      showSpinner();
+    }
+    await widget.onTap?.call(this);
 
-    await widget.onTap?.call();
+    hideSpinner();
+  }
 
+  Future<bool> _processOnChanged(bool value) async {
+    if (widget.showSpinnerWhenTap) {
+      showSpinner();
+    }
+
+    await widget.onChanged?.call(this, value);
+
+    hideSpinner();
+    return value;
+  }
+
+  @override
+  void hideSpinner() {
     setState(() {
       _isLoading = false;
     });
   }
 
-  Future<bool> _processOnChanged(bool value) async {
+  @override
+  void showSpinner() {
     setState(() {
       _isLoading = true;
     });
-
-    await widget.onChanged?.call(value);
-
-    setState(() {
-      _isLoading = false;
-    });
-    return value;
   }
 }
