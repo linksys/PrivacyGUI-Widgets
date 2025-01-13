@@ -33,6 +33,7 @@ class AppTextField extends StatefulWidget {
     this.identifier,
     this.semanticLabel,
     this.focusNode,
+    this.textAlign,
   }) : super(key: key);
 
   const AppTextField.outline({
@@ -63,6 +64,7 @@ class AppTextField extends StatefulWidget {
     this.identifier,
     this.semanticLabel,
     this.focusNode,
+    this.textAlign,
   })  : border = const OutlineInputBorder(),
         super(key: key);
 
@@ -154,6 +156,7 @@ class AppTextField extends StatefulWidget {
     bool acceptEmpty = false,
     String? identifier,
     String? semanticLabel,
+    TextAlign textAlign = TextAlign.start,
     FocusNode? focusNode,
   }) =>
       AppTextField(
@@ -185,6 +188,7 @@ class AppTextField extends StatefulWidget {
         ],
         autofocus: autofocus,
         identifier: identifier,
+        textAlign: textAlign,
         semanticLabel: semanticLabel,
       );
 
@@ -215,6 +219,7 @@ class AppTextField extends StatefulWidget {
   final String? identifier;
   final String? semanticLabel;
   final FocusNode? focusNode;
+  final TextAlign? textAlign;
 
   @override
   AppTextFieldState createState() => AppTextFieldState();
@@ -251,6 +256,7 @@ class AppTextFieldState extends State<AppTextField> {
       identifier: widget.identifier,
       semanticLabel: widget.semanticLabel,
       focusNode: widget.focusNode,
+      textAlign: widget.textAlign,
     );
   }
 }

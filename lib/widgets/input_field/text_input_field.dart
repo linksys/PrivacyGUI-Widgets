@@ -31,6 +31,7 @@ class TextInputField extends StatefulWidget {
     this.identifier,
     this.semanticLabel,
     this.focusNode,
+    this.textAlign,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -60,6 +61,7 @@ class TextInputField extends StatefulWidget {
   final String? identifier;
   final String? semanticLabel;
   final FocusNode? focusNode;
+  final TextAlign? textAlign;
 
   @override
   TextInputFieldState createState() => TextInputFieldState();
@@ -102,6 +104,7 @@ class TextInputFieldState extends State<TextInputField> {
         obscureText: widget.secured,
         controller: widget.controller,
         autofillHints: widget.autofillHints,
+        textAlign: widget.textAlign ?? TextAlign.start,
         decoration: InputDecoration(
           border: widget.border,
           labelText: widget.label,

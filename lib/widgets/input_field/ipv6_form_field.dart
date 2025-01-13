@@ -12,7 +12,7 @@ class AppIPv6FormField extends StatefulWidget {
     this.onChanged,
     this.onFocusChanged,
     this.controller,
-    this.isError = false,
+    this.errorText,
     this.border = const UnderlineInputBorder(),
     this.octet1ReadOnly = false,
     this.octet2ReadOnly = false,
@@ -31,7 +31,7 @@ class AppIPv6FormField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<bool>? onFocusChanged;
   final Widget? header;
-  final bool isError;
+  final String? errorText;
   final InputBorder border;
   final bool octet1ReadOnly;
   final bool octet2ReadOnly;
@@ -167,6 +167,36 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
 
   @override
   Widget build(BuildContext context) {
+    final errorText = widget.errorText;
+    final isError = widget.errorText != null ? true : false;
+    final formList = <Widget>[
+      _buildOctetInputForm(_octet1Focus, _octet2Focus, _octet1Controller,
+          readOnly: widget.octet1ReadOnly, index: 0, isError: isError),
+      _buildDotWidget(),
+      _buildOctetInputForm(_octet2Focus, _octet3Focus, _octet2Controller,
+          readOnly: widget.octet2ReadOnly, index: 1, isError: isError),
+      _buildDotWidget(),
+      _buildOctetInputForm(_octet3Focus, _octet4Focus, _octet3Controller,
+          readOnly: widget.octet3ReadOnly, index: 2, isError: isError),
+      _buildDotWidget(),
+      _buildOctetInputForm(_octet4Focus, _octet5Focus, _octet4Controller,
+          readOnly: widget.octet4ReadOnly, index: 3, isError: isError),
+      _buildDotWidget(),
+      _buildOctetInputForm(_octet5Focus, _octet6Focus, _octet5Controller,
+          readOnly: widget.octet5ReadOnly, index: 4, isError: isError),
+      _buildDotWidget(),
+      _buildOctetInputForm(_octet6Focus, _octet7Focus, _octet6Controller,
+          readOnly: widget.octet6ReadOnly, index: 5, isError: isError),
+      _buildDotWidget(),
+      _buildOctetInputForm(_octet7Focus, _octet8Focus, _octet7Controller,
+          readOnly: widget.octet7ReadOnly, index: 6, isError: isError),
+      _buildDotWidget(),
+      _buildOctetInputForm(_octet8Focus, _octet8Focus, _octet8Controller,
+          readOnly: widget.octet8ReadOnly,
+          isLast: true,
+          index: 7,
+          isError: isError),
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -174,35 +204,23 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
           widget.header!,
           const AppGap.small2(),
         ],
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          runSpacing: Spacing.small1,
-          children: [
-            _buildOctetInputForm(_octet1Focus, _octet2Focus, _octet1Controller,
-                readOnly: widget.octet1ReadOnly, index: 0),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet2Focus, _octet3Focus, _octet2Controller,
-                readOnly: widget.octet2ReadOnly, index: 1),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet3Focus, _octet4Focus, _octet3Controller,
-                readOnly: widget.octet3ReadOnly, index: 2),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet4Focus, _octet5Focus, _octet4Controller,
-                readOnly: widget.octet4ReadOnly, index: 3),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet5Focus, _octet6Focus, _octet5Controller,
-                readOnly: widget.octet5ReadOnly, index: 4),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet6Focus, _octet7Focus, _octet6Controller,
-                readOnly: widget.octet6ReadOnly, index: 5),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet7Focus, _octet8Focus, _octet7Controller,
-                readOnly: widget.octet7ReadOnly, index: 6),
-            _buildDotWidget(),
-            _buildOctetInputForm(_octet8Focus, _octet8Focus, _octet8Controller,
-                readOnly: widget.octet8ReadOnly, isLast: true, index: 7),
-          ],
-        ),
+        widget.displayType == AppIpFormFieldDisplayType.normal
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: formList,
+              )
+            : Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runSpacing: Spacing.small1,
+                children: formList,
+              ),
+        if (errorText != null) const AppGap.small1(),
+        if (errorText != null)
+          AppText.bodySmall(
+            errorText,
+            color: Theme.of(context).colorScheme.error,
+            maxLines: 10,
+          ),
       ],
     );
   }
@@ -224,49 +242,101 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
     TextEditingController controller, {
     bool isLast = false,
     bool readOnly = false,
+    bool isError = false,
     int? index,
   }) {
-    return SizedBox(
-      width: readOnly ? 40 : 60,
-      child: Semantics(
-        identifier: widget.identifier != null
-            ? '${widget.identifier}-octet-$index'
-            : null,
-        label: widget.semanticLabel != null
-            ? '${widget.semanticLabel} Octet $index'
-            : null,
-        child: readOnly
-            ? AppText.bodyMedium(
-                controller.text,
-              )
-            : TextFormField(
-                controller: controller,
-                focusNode: focus,
-                decoration: InputDecoration(border: widget.border),
-                readOnly: readOnly,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
-                  // allow only  digits
-                  IPv6OctetsFormatter(),
-                  // custom class to format entered data from textField
-                  LengthLimitingTextInputFormatter(4)
-                  // restrict user to enter max 16 characters
-                ],
-                keyboardType: TextInputType.number,
-                textInputAction:
-                    isLast ? TextInputAction.done : TextInputAction.next,
-                onChanged: (value) {
-                  if (value.length >= 4) {
-                    FocusScope.of(context).requestFocus(nextFocus);
-                  }
-                  widget.controller?.text = _combineOctets();
-                  widget.onChanged?.call(_combineOctets());
-                },
-                onFieldSubmitted: (value) {
-                  FocusScope.of(context).requestFocus(nextFocus);
-                },
+    return widget.displayType == AppIpFormFieldDisplayType.tight
+        ? SizedBox(
+            width: 36,
+            child: _octetTextForm(
+              focus,
+              nextFocus,
+              controller,
+              isLast: isLast,
+              readOnly: readOnly,
+              isError: isError,
+              index: index,
+            ),
+          )
+        : Expanded(
+            child: _octetTextForm(
+              focus,
+              nextFocus,
+              controller,
+              isLast: isLast,
+              readOnly: readOnly,
+              isError: isError,
+              index: index,
+            ),
+          );
+  }
+
+  Widget _octetTextForm(
+    FocusNode focus,
+    FocusNode nextFocus,
+    TextEditingController controller, {
+    bool isLast = false,
+    bool readOnly = false,
+    bool isError = false,
+    int? index,
+  }) {
+    final border = widget.border.copyWith(
+        borderSide: widget.border.borderSide.copyWith(
+            color: isError
+                ? Theme.of(context).colorScheme.error
+                : Theme.of(context).colorScheme.outline));
+    return Semantics(
+      identifier: widget.identifier != null
+          ? '${widget.identifier}-octet-$index'
+          : null,
+      label: widget.semanticLabel != null
+          ? '${widget.semanticLabel} Octet $index'
+          : null,
+      child: readOnly
+          ? AppText.bodyMedium(
+              controller.text,
+            )
+          : TextFormField(
+              controller: controller,
+              focusNode: focus,
+              decoration: InputDecoration(
+                border: border,
+                enabledBorder: border,
+                focusedBorder: border.copyWith(
+                    borderSide: border.borderSide.copyWith(
+                        color: Theme.of(context).colorScheme.primary)),
+                hoverColor: Theme.of(context).colorScheme.onBackground,
+                isDense: widget.displayType == AppIpFormFieldDisplayType.normal
+                    ? false
+                    : true,
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: Spacing.small3,
+                ),
               ),
-      ),
+              readOnly: readOnly,
+              textAlign: TextAlign.center,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
+                // allow only  digits
+                IPv6OctetsFormatter(),
+                // custom class to format entered data from textField
+                LengthLimitingTextInputFormatter(4)
+                // restrict user to enter max 16 characters
+              ],
+              keyboardType: TextInputType.number,
+              textInputAction:
+                  isLast ? TextInputAction.done : TextInputAction.next,
+              onChanged: (value) {
+                if (value.length >= 4) {
+                  FocusScope.of(context).requestFocus(nextFocus);
+                }
+                widget.controller?.text = _combineOctets();
+                widget.onChanged?.call(_combineOctets());
+              },
+              onFieldSubmitted: (value) {
+                FocusScope.of(context).requestFocus(nextFocus);
+              },
+            ),
     );
   }
 

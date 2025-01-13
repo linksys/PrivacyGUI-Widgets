@@ -56,6 +56,8 @@ class AppCard extends StatelessWidget {
               borderRadius: showBorder
                   ? CustomTheme.of(context).radius.asBorderRadius().medium
                   : null,
+              splashColor: Theme.of(context).colorScheme.primary,
+              focusColor: Colors.transparent,
               onTap: onTap,
               child: _buildChild(padding, child),
             ),
