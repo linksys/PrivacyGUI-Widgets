@@ -130,6 +130,7 @@ class TextInputFieldState extends State<TextInputField> {
         maxLines: widget.secured ? 1 : widget.maxLines,
         minLines: widget.minLines,
         expands: widget.expands ?? false,
+        enableInteractiveSelection: !widget.readOnly,
       ),
     );
   }

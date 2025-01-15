@@ -23,6 +23,7 @@ class AppIPFormField extends StatefulWidget {
     this.identifier,
     this.semanticLabel,
     this.displayType = AppIpFormFieldDisplayType.normal,
+    this.autoFocus = false,
   });
 
   final TextEditingController? controller;
@@ -40,6 +41,7 @@ class AppIPFormField extends StatefulWidget {
   final String? identifier;
   final String? semanticLabel;
   final AppIpFormFieldDisplayType displayType;
+  final bool autoFocus;
 
   @override
   State<AppIPFormField> createState() => _AppIPFormFieldState();
@@ -55,6 +57,8 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
   final _octet2Focus = FocusNode();
   final _octet3Focus = FocusNode();
   final _octet4Focus = FocusNode();
+
+  bool _isSetFocus = false;
 
   final regex = RegExp(
       r"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
@@ -272,6 +276,11 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
     bool isError = false,
     int? index,
   }) {
+    var setFocus = false;
+    if (!_isSetFocus && widget.autoFocus && !readOnly) {
+      _isSetFocus = true;
+      setFocus = true;
+    }
     final border = widget.border.copyWith(
         borderSide: widget.border.borderSide.copyWith(
             color: isError
@@ -290,7 +299,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
             )
           : TextFormField(
               controller: controller,
-              focusNode: focus,
+              focusNode: setFocus ? (focus..requestFocus()) : focus,
               decoration: InputDecoration(
                 border: border,
                 enabledBorder: border,

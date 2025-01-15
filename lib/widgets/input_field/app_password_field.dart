@@ -111,6 +111,12 @@ class AppPasswordField extends StatefulWidget {
 
 class _AppPasswordFieldState extends State<AppPasswordField> {
   bool _isHidePassword = true;
+  late FocusNode _focusNode;
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = widget.focusNode ?? FocusNode(debugLabel: 'password-focus');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,6 +147,12 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
             onTap: () {
               setState(() {
                 _isHidePassword = !_isHidePassword;
+                if (_isHidePassword) {
+                  return;
+                }
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _focusNode.requestFocus();
+                });
               });
             },
             identifier: 'now-password-${_isHidePassword ? 'show' : 'hide'}',
@@ -153,7 +165,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
           autofocus: widget.autofocus,
           identifier: widget.identifier,
           semanticLabel: widget.semanticLabel,
-          focusNode: widget.focusNode,
+          focusNode: _focusNode,
         ),
         if (widget.withValidator) const AppGap.large2(),
         if (widget.withValidator)
