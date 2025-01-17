@@ -75,6 +75,7 @@ class AppSettingCard extends StatelessWidget {
       onTap: onTap,
       color: color,
       margin: margin,
+      borderColor: borderColor,
     );
   }
 }
