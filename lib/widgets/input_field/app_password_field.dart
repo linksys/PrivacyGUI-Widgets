@@ -156,7 +156,8 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
               });
             },
             identifier: 'now-password-${_isHidePassword ? 'show' : 'hide'}',
-            semanticLabel: _isHidePassword ? 'show password' : 'hide password',
+            semanticLabel:
+                '${widget.semanticLabel ?? ''} ${_isHidePassword ? 'show password' : 'hide password'}',
           ),
           suffixIconConstraints: widget.suffixIconConstraints,
           onSubmitted: widget.onSubmitted,
