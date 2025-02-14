@@ -22,7 +22,7 @@ const linksysTextTheme = TextTheme(
   ),
   displaySmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'privacygui_widgetsetsetsetsetsetsetsets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w400,
     fontSize: 36,
     decoration: TextDecoration.none,
@@ -58,7 +58,7 @@ const linksysTextTheme = TextTheme(
   ),
   titleLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'privacygui_widgetsets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w700,
     fontSize: 22,
     decoration: TextDecoration.none,
@@ -121,7 +121,7 @@ const linksysTextTheme = TextTheme(
   ),
   bodyMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
-    package: 'privacygui_widgetsets',
+    package: 'privacygui_widgets',
     fontWeight: FontWeight.w400,
     fontSize: 14,
     decoration: TextDecoration.none,
