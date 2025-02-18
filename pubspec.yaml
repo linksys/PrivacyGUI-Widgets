@@ -79,9 +79,6 @@ flutter:
     - family: LinksysIcons
       fonts:
         - asset: packages/privacygui_widgets/fonts/LinksysIcons.otf
-    - family: Roboto
-      fonts:
-        - asset: packages/privacygui_widgets/fonts/Roboto-Regular.ttf
     - family: NoToSans
       fonts:
         - asset: packages/privacygui_widgets/fonts/NotoSans-Regular.ttf
