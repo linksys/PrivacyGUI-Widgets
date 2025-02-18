@@ -79,3 +79,22 @@ flutter:
     - family: LinksysIcons
       fonts:
         - asset: packages/privacygui_widgets/fonts/LinksysIcons.otf
+    - family: Roboto
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/Roboto-Regular.ttf
+    - family: NoToSans
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSans-Regular.ttf
+    - family: NoToSansSC
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSansSC-Regular.ttf
+    - family: NoToSansKR
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSansKR-Regular.ttf
+    - family: NoToSansAR
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSansArabic-Regular.ttf
+    - family: NoToSansTh
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSansThai-Regular.ttf
+

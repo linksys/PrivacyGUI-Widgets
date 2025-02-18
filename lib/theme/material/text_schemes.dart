@@ -10,6 +10,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 64 / 57,
     letterSpacing: -0.25,
+    fontFamilyFallback: fontKeys,
   ),
   displayMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -19,6 +20,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 52 / 45,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
   displaySmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -28,6 +30,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 44 / 36,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
   headlineLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -37,6 +40,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 40 / 32,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
   headlineMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -46,6 +50,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 36 / 28,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
   headlineSmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -55,6 +60,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 32 / 24,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
   titleLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -64,6 +70,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 28 / 22,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
   titleMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -73,6 +80,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 24 / 16,
     letterSpacing: 0.15,
+    fontFamilyFallback: fontKeys,
   ),
   titleSmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -82,6 +90,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 20 / 14,
     letterSpacing: 0.1,
+    fontFamilyFallback: fontKeys,
   ),
   labelLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -91,6 +100,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 20 / 14,
     letterSpacing: 0.1,
+    fontFamilyFallback: fontKeys,
   ),
   labelMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -100,6 +110,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 16 / 12,
     letterSpacing: 0.5,
+    fontFamilyFallback: fontKeys,
   ),
   labelSmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -109,6 +120,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 16 / 11,
     letterSpacing: 0.5,
+    fontFamilyFallback: fontKeys,
   ),
   bodyLarge: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -118,6 +130,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 24 / 16,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
   bodyMedium: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -127,6 +140,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 20 / 14,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
   bodySmall: TextStyle(
     fontFamily: 'NeueHaasGrotTextRound',
@@ -136,6 +150,7 @@ const linksysTextTheme = TextTheme(
     decoration: TextDecoration.none,
     height: 16 / 12,
     letterSpacing: 0,
+    fontFamilyFallback: fontKeys,
   ),
 );
 
@@ -148,6 +163,7 @@ const textSchemeExt = TextSchemeExt(
   decoration: TextDecoration.none,
   height: 14 / 10,
   letterSpacing: 0,
+  fontFamilyFallback: fontKeys,
 ));
 
 extension TextThemeUtil on TextTheme {
@@ -172,3 +188,14 @@ extension TextThemeUtil on TextTheme {
     return list..removeWhere((element) => element == null);
   }
 }
+
+///
+/// Add fonts here is there has more fonts needed.
+///
+const fontKeys = [
+  'NoToSans',
+  'NoToSansKR',
+  'NoToSansSC',
+  'NoToSansAR',
+  'NoToSansTh'
+];
