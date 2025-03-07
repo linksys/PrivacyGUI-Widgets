@@ -43,19 +43,30 @@ class AppTabLayout extends StatelessWidget {
           color: color ?? Theme.of(context).colorScheme.background,
           child: flexibleSpace,
         ),
-        appBarBottom: AppTabBar(
-          tabController: tabController,
-          tabs: tabs,
-          onTap: onTap,
-        ),
+        // appBarBottom: AppTabBar(
+        //   tabController: tabController,
+        //   tabs: tabs,
+        //   onTap: onTap,
+        // ),
         snap: snap,
         pinned: pinned,
         floating: floating,
         appBarTitle: appBarTitle,
-        body: TabBarView(
-          controller: tabController,
-          physics: NeverScrollableScrollPhysics(),
-          children: tabContentViews,
+        body: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                physics: NeverScrollableScrollPhysics(),
+                children: tabContentViews,
+              ),
+            ),
+            AppTabBar(
+              tabController: tabController,
+              tabs: tabs,
+              onTap: onTap,
+            ),
+          ],
         ),
       ),
     );

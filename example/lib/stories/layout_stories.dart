@@ -6,7 +6,7 @@ Iterable<Story> layoutStories() {
       name: 'Layout/Expandable Page Layout',
       description: '',
       builder: (context) => AppPageView(
-        child: LayoutBuilder(
+        child: (context, constraints) =>LayoutBuilder(
           builder: (context, constraint) {
             return AppProfileHeaderLayout(
               expandedHeight: constraint.maxHeight / 2,
