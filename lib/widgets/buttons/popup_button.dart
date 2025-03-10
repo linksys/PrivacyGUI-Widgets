@@ -23,6 +23,8 @@ class AppPopupButton extends StatefulWidget {
   final Color? backgroundColor;
   final AppPopupVerticalPosition verticalPosition;
   final BuildContext? parent;
+  final double? maxWidth;
+  final double? maxHeight;
 
   const AppPopupButton({
     Key? key,
@@ -32,6 +34,8 @@ class AppPopupButton extends StatefulWidget {
     this.backgroundColor,
     this.verticalPosition = AppPopupVerticalPosition.bottom,
     this.parent,
+    this.maxWidth = 500,
+    this.maxHeight,
   }) : super(key: key);
 
   @override
@@ -138,28 +142,75 @@ class PopupButtonState extends State<AppPopupButton>
               link: _link,
               targetAnchor: _resloveTargetAlignment(),
               followerAnchor: _resloveFollowerAlignment(),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: widget.backgroundColor ??
-                        Theme.of(context).colorScheme.background,
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.outline,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return ConstrainedBox(
+                    constraints: BoxConstraints(
+                        maxHeight:
+                            widget.maxHeight ?? constraints.maxHeight * 0.7,
+                        maxWidth:
+                            widget.maxWidth ?? constraints.maxWidth * 0.7),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: widget.backgroundColor ??
+                              Theme.of(context).colorScheme.background,
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                          borderRadius: _borderRadius,
+                        ),
+                        child: SingleChildScrollView(
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: widget.builder(this)),
+                        ),
+                      ),
                     ),
-                    borderRadius: _borderRadius,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: widget.builder(this),
-                  ),
-                ),
+                  );
+                },
               ),
             ),
           ],
         );
       },
     );
+  }
+
+  // new function to calculate popup position
+  RelativeRect _calculatePopupPosition(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final buttonRect = _key.currentContext?.findRenderObject() as RenderBox;
+    final buttonPosition = buttonRect.localToGlobal(Offset.zero);
+    final buttonSize = buttonRect.size;
+
+    final availableHeight = screenSize.height;
+    final availableWidth = screenSize.width;
+
+    final verticalOffset = 8.0;
+    final horizontalOffset = 0.0;
+
+    final double popupWidth = widget.maxWidth ?? availableWidth * 0.7;
+    final double popupHeight = widget.maxHeight ?? availableHeight * 0.7;
+
+    double left = buttonPosition.dx;
+    double top = buttonPosition.dy;
+
+    if (widget.verticalPosition == AppPopupVerticalPosition.bottom) {
+      top += buttonSize.height + verticalOffset;
+    } else {
+      top -= popupHeight + verticalOffset;
+    }
+
+    if ((left + popupWidth) > availableWidth) {
+      left = availableWidth - popupWidth - horizontalOffset;
+    } else if (left < horizontalOffset) {
+      left = horizontalOffset;
+    }
+
+    return RelativeRect.fromLTRB(
+        left, top, availableWidth - (left + popupWidth), 0);
   }
 
   Alignment _resloveTargetAlignment() {
