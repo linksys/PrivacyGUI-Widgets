@@ -5,7 +5,8 @@ import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
 
 class AppPageView extends StatefulWidget {
   final LinksysAppBar? appBar;
-  final Widget Function(BuildContext context, BoxConstraints constraints)? child;
+  final Widget Function(BuildContext context, BoxConstraints constraints)?
+      child;
   final EdgeInsets? padding;
   final bool? scrollable;
   final ScrollController? scrollController;
@@ -157,28 +158,32 @@ class _AppPageViewState extends State<AppPageView> {
     //   // margin: ResponsiveLayout.pageHorizontalPadding(context),
     //   margin: max(0, padding),
     // );
-    return  Stack(
+    return Stack(
       children: [
-        widget.useContentMainPadding ? Row(
-          children: [
-            if (widget.useContentMainPadding) _Margin(margin: margin),
-            SizedBox(
-              width: _columnSpanWidth(column, widthPerColumn),
-              child: Padding(
-                padding: widget.padding ?? EdgeInsets.zero,
-                child: widget.child?.call(context, constraint),
-              ),
-            ),
-            if (remaining > 0) ...[
-              _Gutter(gutter: gutter),
-              SizedBox(
-                width: _columnSpanWidth(remaining, widthPerColumn),
-                child: Center(),
-              ),
-            ],
-            if (widget.useContentMainPadding) _Margin(margin: margin),
-          ],
-        ): Expanded(child: widget.child?.call(context, constraint) ?? SizedBox.shrink()),
+        widget.useContentMainPadding
+            ? Row(
+                children: [
+                  if (widget.useContentMainPadding) _Margin(margin: margin),
+                  SizedBox(
+                    width: _columnSpanWidth(column, widthPerColumn),
+                    child: Padding(
+                      padding: widget.padding ?? EdgeInsets.zero,
+                      child: widget.child?.call(context, constraint),
+                    ),
+                  ),
+                  if (remaining > 0) ...[
+                    _Gutter(gutter: gutter),
+                    SizedBox(
+                      width: _columnSpanWidth(remaining, widthPerColumn),
+                      child: Center(),
+                    ),
+                  ],
+                  if (widget.useContentMainPadding) _Margin(margin: margin),
+                ],
+              )
+            : Expanded(
+                child: widget.child?.call(context, constraint) ??
+                    SizedBox.shrink()),
         if (widget.isOverlayVisible)
           Row(
             children: [
@@ -193,20 +198,18 @@ class _AppPageViewState extends State<AppPageView> {
             ],
           ),
       ],
-    ) ;
+    );
   }
 
   Widget _scrollableView(BoxConstraints constraint) {
-    return ScrollNotificationObserver(
-      child: SingleChildScrollView(
-        controller: widget.scrollController,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: constraint.maxHeight,
-          ),
-          child: IntrinsicHeight(
-            child: _view(constraint),
-          ),
+    return SingleChildScrollView(
+      controller: widget.scrollController,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: constraint.maxHeight,
+        ),
+        child: IntrinsicHeight(
+          child: _view(constraint),
         ),
       ),
     );
