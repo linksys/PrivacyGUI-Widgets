@@ -12,6 +12,8 @@ class AppFilledButton extends StatelessWidget {
     this.explicitChildNodes = false,
     this.identifier,
     this.semanticLabel,
+    this.radius,
+    this.textStyle,
   });
 
   factory AppFilledButton.fillWidth(
@@ -24,6 +26,8 @@ class AppFilledButton extends StatelessWidget {
     bool explicitChildNodes = false,
     String? identifier,
     String? semanticLabel,
+    BorderRadius? radius,
+    TextStyle? textStyle,
   }) =>
       AppFilledButton(
         title,
@@ -39,6 +43,8 @@ class AppFilledButton extends StatelessWidget {
         excludeSemantics: excludeSemantics,
         identifier: identifier,
         semanticLabel: semanticLabel,
+        radius: radius,
+        textStyle: textStyle,
       );
 
   final String title;
@@ -50,6 +56,8 @@ class AppFilledButton extends StatelessWidget {
   final bool explicitChildNodes;
   final String? identifier;
   final String? semanticLabel;
+  final BorderRadius? radius;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +69,13 @@ class AppFilledButton extends StatelessWidget {
     final style = FilledButton.styleFrom(
       backgroundColor: color,
       // TODO Invisgate why access CustomTheme is not working
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.zero),
+      shape: RoundedRectangleBorder(
+        borderRadius: radius ?? BorderRadius.all(Radius.zero),
       ),
-      textStyle: Theme.of(context).textTheme.labelMedium,
+      textStyle: textStyle ?? Theme.of(context).textTheme.labelMedium,
       minimumSize: applySize,
+      // fixedSize: applySize,
+      // padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
     );
     return icon == null
         ? FilledButton(
