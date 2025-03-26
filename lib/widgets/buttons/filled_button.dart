@@ -63,8 +63,7 @@ class AppFilledButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var applySize = size;
     if (applySize == null || applySize.height == -1) {
-      applySize = Size(applySize?.width ?? 64,
-          ResponsiveLayout.isMobileLayout(context) ? 48 : 40);
+      applySize = Size(applySize?.width ?? 64, 48);
     }
     final style = FilledButton.styleFrom(
       backgroundColor: color,
@@ -73,9 +72,9 @@ class AppFilledButton extends StatelessWidget {
         borderRadius: radius ?? BorderRadius.all(Radius.zero),
       ),
       textStyle: textStyle ?? Theme.of(context).textTheme.labelMedium,
-      // minimumSize: applySize,
-      fixedSize: applySize,
-      padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+      minimumSize: applySize,
+      // fixedSize: applySize,
+      // padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
     );
     return icon == null
         ? FilledButton(
