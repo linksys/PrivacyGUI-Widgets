@@ -27,6 +27,7 @@ class AppText extends StatelessWidget {
   final TextOverflow? overflow;
   final AppTextLevel textLevel;
   final TextAlign? textAlign;
+  final bool selectable;
 
   const AppText(
     this.text, {
@@ -36,6 +37,7 @@ class AppText extends StatelessWidget {
     this.textLevel = AppTextLevel.displayMedium,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   }) : super(key: key);
 
   const AppText.displayLarge(
@@ -45,6 +47,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.displayLarge,
         super(key: key);
 
@@ -55,6 +58,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.displayMedium,
         super(key: key);
 
@@ -65,6 +69,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.displaySmall,
         super(key: key);
 
@@ -75,6 +80,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.headlineLarge,
         super(key: key);
 
@@ -85,6 +91,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.headlineMedium,
         super(key: key);
 
@@ -95,6 +102,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.headlineSmall,
         super(key: key);
 
@@ -105,6 +113,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.titleLarge,
         super(key: key);
 
@@ -115,6 +124,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.titleMedium,
         super(key: key);
 
@@ -125,6 +135,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.titleSmall,
         super(key: key);
 
@@ -135,6 +146,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.labelLarge,
         super(key: key);
 
@@ -145,6 +157,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.labelMedium,
         super(key: key);
 
@@ -155,6 +168,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.labelSmall,
         super(key: key);
 
@@ -165,6 +179,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.bodyLarge,
         super(key: key);
 
@@ -175,6 +190,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.bodyMedium,
         super(key: key);
 
@@ -185,6 +201,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.bodySmall,
         super(key: key);
 
@@ -195,6 +212,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.selectable = false,
   })  : textLevel = AppTextLevel.bodyExtraSmall,
         super(key: key);
   @override
@@ -225,7 +243,6 @@ class AppText extends StatelessWidget {
         break;
       case AppTextLevel.titleLarge:
         style = theme.textTheme.titleLarge;
-        maxLines = 2;
         break;
       case AppTextLevel.titleMedium:
         style = theme.textTheme.titleMedium;
@@ -251,19 +268,31 @@ class AppText extends StatelessWidget {
       case AppTextLevel.bodySmall:
         style = theme.textTheme.bodySmall;
         break;
-        case AppTextLevel.bodyExtraSmall:
+      case AppTextLevel.bodyExtraSmall:
         style = theme.textSchemeExt.bodyExtraSmall;
         break;
     }
 
-    return Text(
-      text,
-      style: style?.copyWith(
-        color: this.color ?? color,
-      ),
-      maxLines: this.maxLines ?? maxLines,
-      overflow: overflow,
-      textAlign: textAlign,
-    );
+    return selectable
+        ? SelectableText(
+            text,
+            style: style?.copyWith(
+              color: this.color ?? color,
+              overflow: overflow,
+            ),
+            maxLines: this.maxLines ?? maxLines,
+            // overflow: overflow,
+            textAlign: textAlign,
+          )
+        : Text(
+            text,
+            style: style?.copyWith(
+              color: this.color ?? color,
+              overflow: overflow,
+            ),
+            maxLines: this.maxLines ?? maxLines,
+            // overflow: overflow,
+            textAlign: textAlign,
+          );
   }
 }
