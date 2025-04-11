@@ -14,6 +14,7 @@ class AppFilledButton extends StatelessWidget {
     this.semanticLabel,
     this.radius,
     this.textStyle,
+    this.fitText = false,
   });
 
   factory AppFilledButton.fillWidth(
@@ -28,6 +29,7 @@ class AppFilledButton extends StatelessWidget {
     String? semanticLabel,
     BorderRadius? radius,
     TextStyle? textStyle,
+    bool fitText = false,
   }) =>
       AppFilledButton(
         title,
@@ -45,6 +47,7 @@ class AppFilledButton extends StatelessWidget {
         semanticLabel: semanticLabel,
         radius: radius,
         textStyle: textStyle,
+        fitText: fitText,
       );
 
   final String title;
@@ -58,6 +61,7 @@ class AppFilledButton extends StatelessWidget {
   final String? semanticLabel;
   final BorderRadius? radius;
   final TextStyle? textStyle;
+  final bool fitText;
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +89,18 @@ class AppFilledButton extends StatelessWidget {
               excludeSemantics:
                   excludeSemantics ?? (identifier == null ? false : true),
               identifier: identifier,
-              child: Text(
-                title,
-                semanticsLabel: semanticLabel,
-              ),
+              child: fitText
+                  ? FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        title,
+                        semanticsLabel: semanticLabel,
+                      ),
+                    )
+                  : Text(
+                      title,
+                      semanticsLabel: semanticLabel,
+                    ),
             ),
           )
         : FilledButton.icon(
