@@ -1,6 +1,6 @@
 name: privacygui_widgets
 description: A new Flutter package project.
-version: 1.1.10
+version: 1.2.1
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -21,7 +21,6 @@ dependencies:
   material_color_utilities: ^0.11.1
   styled_text: ^8.1.0
   graphview: ^1.2.0
-  wolt_responsive_layout_grid: ^0.0.3
 
 dev_dependencies:
   flutter_test:
@@ -79,3 +78,19 @@ flutter:
     - family: LinksysIcons
       fonts:
         - asset: packages/privacygui_widgets/fonts/LinksysIcons.otf
+    - family: NoToSans
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSans-Regular.ttf
+    - family: NoToSansSC
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSansSC-Regular.ttf
+    - family: NoToSansKR
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSansKR-Regular.ttf
+    - family: NoToSansAR
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSansArabic-Regular.ttf
+    - family: NoToSansTh
+      fonts:
+        - asset: packages/privacygui_widgets/fonts/NotoSansThai-Regular.ttf
+
