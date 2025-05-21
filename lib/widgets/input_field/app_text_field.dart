@@ -95,6 +95,7 @@ class AppTextField extends StatefulWidget {
     FocusNode? focusNode,
   }) =>
       AppTextField(
+        key: key,
         controller: controller,
         headerText: headerText,
         hintText: hintText,
@@ -160,6 +161,7 @@ class AppTextField extends StatefulWidget {
     FocusNode? focusNode,
   }) =>
       AppTextField(
+        key: key,
         controller: controller,
         headerText: headerText,
         hintText: hintText,

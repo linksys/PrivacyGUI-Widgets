@@ -7,10 +7,7 @@ class AppInfoCard extends StatelessWidget {
   final String title;
   final String? description;
   final Widget? trailing;
-  final String? band;
   final VoidCallback? onTap;
-  final void Function(bool)? onSelected;
-  final bool isSelected;
   final bool showBorder;
   final EdgeInsets? padding;
   final Color? color;
@@ -21,10 +18,7 @@ class AppInfoCard extends StatelessWidget {
     required this.title,
     this.description,
     this.trailing,
-    this.band,
-    this.isSelected = false,
     this.onTap,
-    this.onSelected,
     this.showBorder = true,
     this.padding,
     this.color,
