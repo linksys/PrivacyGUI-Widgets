@@ -13,7 +13,7 @@ final linksysLightThemeData = ThemeData(
     lightColorSchemeExt,
     textSchemeExt,
   ],
-  dialogTheme: DialogTheme(
+  dialogTheme: DialogThemeData(
       backgroundColor: lightColorSchemeExt.surfaceContainerHigh, elevation: 0),
 );
 final linksysDarkThemeData = ThemeData(
@@ -27,7 +27,7 @@ final linksysDarkThemeData = ThemeData(
     darkColorSchemeExt,
     textSchemeExt,
   ],
-  dialogTheme: DialogTheme(
+  dialogTheme: DialogThemeData(
       backgroundColor: darkColorSchemeExt.surfaceContainerHigh, elevation: 0),
 );
 
