@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/utils/named.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:privacygui_widgets/utils/svg.dart';
+import './devices_xl.dart';
 import './devices.dart';
 
 
@@ -36,6 +37,7 @@ required this.noInternetConnection,
 required this.fortinetDns,
 required this.imgRouterWhite,
 required this.ledBlueSolid,
+required this.devices_xl,
 required this.imgPortOff,
 required this.imgAddNodes,
 required this.linksysLogoBlack,
@@ -81,7 +83,7 @@ noInternetConnection: exactAssetPicture('assets/images/no_internet_connection.sv
 fortinetDns: const AssetImage('assets/images/fortinet_dns.png', package: 'privacygui_widgets'),
 imgRouterWhite: exactAssetPicture('assets/images/img_router_white.svg', package: 'privacygui_widgets'),
 ledBlueSolid: exactAssetPicture('assets/images/led_blue_solid.svg', package: 'privacygui_widgets'),
-imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
+devices_xl: AppDevices_xlData.dark(),imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets', filter: const {"#ff231F20":"#fff3f3f3","#ff000000":"#ffffffff"}),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets', filter: const {"#ff000000":"#ffffffff"}),
 chromePrivacyErr: const AssetImage('assets/images/chrome_privacy_err.png', package: 'privacygui_widgets'),
@@ -124,7 +126,7 @@ noInternetConnection: exactAssetPicture('assets/images/no_internet_connection.sv
 fortinetDns: const AssetImage('assets/images/fortinet_dns.png', package: 'privacygui_widgets'),
 imgRouterWhite: exactAssetPicture('assets/images/img_router_white.svg', package: 'privacygui_widgets'),
 ledBlueSolid: exactAssetPicture('assets/images/led_blue_solid.svg', package: 'privacygui_widgets'),
-imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
+devices_xl: AppDevices_xlData.light(),imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets'),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets'),
 chromePrivacyErr: const AssetImage('assets/images/chrome_privacy_err.png', package: 'privacygui_widgets'),
@@ -167,7 +169,7 @@ final SvgLoader noInternetConnection;
 final ImageProvider fortinetDns;
 final SvgLoader imgRouterWhite;
 final SvgLoader ledBlueSolid;
-final SvgLoader imgPortOff;
+final AppDevices_xlData devices_xl;final SvgLoader imgPortOff;
 final SvgLoader imgAddNodes;
 final SvgLoader linksysLogoBlack;
 final ImageProvider chromePrivacyErr;
@@ -211,7 +213,7 @@ noInternetConnection.named('noInternetConnection'),
 fortinetDns.named('fortinetDns'),
 imgRouterWhite.named('imgRouterWhite'),
 ledBlueSolid.named('ledBlueSolid'),
-imgPortOff.named('imgPortOff'),
+devices_xl.named('devices_xl'),imgPortOff.named('imgPortOff'),
 imgAddNodes.named('imgAddNodes'),
 linksysLogoBlack.named('linksysLogoBlack'),
 chromePrivacyErr.named('chromePrivacyErr'),

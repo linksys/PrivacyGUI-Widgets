@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:privacygui_widgets/hook/icon_hooks.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
 
 class CustomThemeData extends Equatable {
@@ -42,6 +43,14 @@ class CustomThemeData extends Equatable {
 
   TargetPlatform get platform => defaultTargetPlatform;
 
+
+  getRouterImage(String modelNumber) {
+    return images.devices_xl.getByName(
+          modelNumber,
+        ) ?? images.devices.getByName(
+          modelNumber,
+        ) ?? images.devices.getByName('routerMx6200');
+  }
   @override
   List<Object?> get props => [
         // icons,
