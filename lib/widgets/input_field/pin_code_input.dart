@@ -1,55 +1,62 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pinput/pinput.dart';
 
 class AppPinCodeInput extends StatelessWidget {
   final void Function(String)? onChanged;
-  final void Function(String?)? onCompleted;
+  final void Function(String?)? onSubmitted;
   final int length;
   final bool enabled;
   final TextEditingController? controller;
   final String? identifier;
   final String? semanticLabel;
+  final PinTheme? pinTheme;
+  final double? size;
 
   const AppPinCodeInput({
     super.key,
     this.onChanged,
-    this.onCompleted,
+    this.onSubmitted,
     required this.length,
     this.enabled = true,
     this.controller,
     this.identifier,
     this.semanticLabel,
+    this.pinTheme,
+    this.size,
   });
 
   @override
   Widget build(BuildContext context) {
+    final defaultPinTheme = pinTheme ??
+        PinTheme(
+          height: size ?? 56,
+          width: size ?? 56,
+          textStyle: Theme.of(context).textTheme.titleLarge,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.outline,
+            ),
+          ),
+        );
     return Semantics(
       identifier: identifier,
       label: semanticLabel,
-      child: PinCodeTextField(
-          key: const Key('otp_input_view_input_field_code'),
-          controller: controller,
-          onChanged: onChanged ?? (String? value) {},
-          onCompleted: (String? value) {},
-          length: length,
-          enabled: enabled,
-          appContext: context,
-          keyboardType: TextInputType.number,
-          hintCharacter: '-',
-          enableActiveFill: true,
-          autoDisposeControllers: false,
-          pinTheme: PinTheme(
-            shape: PinCodeFieldShape.box,
-            // fieldHeight: 102,
-            // fieldWidth: 88,
-            activeFillColor: Theme.of(context).colorScheme.primaryContainer,
-            inactiveFillColor: Theme.of(context).colorScheme.primaryContainer,
-            selectedFillColor: Theme.of(context).colorScheme.primaryContainer,
-            inactiveColor: Theme.of(context).colorScheme.primaryContainer,
-            activeColor: Theme.of(context).colorScheme.primaryContainer,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-          )),
+      child: Pinput(
+        onChanged: onChanged,
+        length: length,
+        controller: controller,
+        closeKeyboardWhenCompleted: false,
+        autofocus: true,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        defaultPinTheme: defaultPinTheme,
+        focusedPinTheme: defaultPinTheme.copyDecorationWith(
+          border: Border.all(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        onSubmitted: onSubmitted,
+      ),
     );
   }
 }

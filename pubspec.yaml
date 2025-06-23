@@ -13,7 +13,6 @@ dependencies:
   flutter_svg: ^2.0.10
   tap_builder: ^0.4.0
   gap: ^3.0.1
-  pin_code_fields: ^8.0.1
   collection: ^1.18.0
   stacked_listview: ^1.0.4
   lottie: ^3.1.0
@@ -21,6 +20,7 @@ dependencies:
   material_color_utilities: ^0.11.1
   styled_text: ^8.1.0
   graphview: ^1.2.0
+  pinput: ^5.0.1
 
 dev_dependencies:
   flutter_test:
