@@ -67,4 +67,9 @@ const imageVarientsMap = <String, dynamic>{
     'method': 'filter',
     'dark': {'#ff1a1c1e': '#ffaeaeae'}
   },
+  'dashboard_logo.png': {
+    'method': 'file',
+    'dark': 'logo_dark/dashboard_logo_dark.png',
+    'light': 'dashboard_logo.png'
+  },
 };

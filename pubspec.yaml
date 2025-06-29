@@ -41,6 +41,7 @@ flutter:
   #
   assets:
     - assets/images/
+    - assets/logo_dark/
     - assets/images/devices/
     - assets/images/devices_xl/
     - assets/lottie/

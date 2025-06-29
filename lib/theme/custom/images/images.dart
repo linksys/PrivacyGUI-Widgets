@@ -41,6 +41,7 @@ required this.devices_xl,
 required this.imgPortOff,
 required this.imgAddNodes,
 required this.linksysLogoBlack,
+required this.dashboardLogo,
 required this.chromePrivacyErr,
 required this.modemWaiting,
 required this.btnCheckSpeeds,
@@ -86,6 +87,7 @@ ledBlueSolid: exactAssetPicture('assets/images/led_blue_solid.svg', package: 'pr
 devices_xl: AppDevices_xlData.dark(),imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets', filter: const {"#ff231F20":"#fff3f3f3","#ff000000":"#ffffffff"}),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets', filter: const {"#ff000000":"#ffffffff"}),
+dashboardLogo: const AssetImage('assets/logo_dark/dashboard_logo_dark.png', package: 'privacygui_widgets'),
 chromePrivacyErr: const AssetImage('assets/images/chrome_privacy_err.png', package: 'privacygui_widgets'),
 modemWaiting: exactAssetPicture('assets/images/modem_waiting.svg', package: 'privacygui_widgets'),
 btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package: 'privacygui_widgets'),
@@ -129,6 +131,7 @@ ledBlueSolid: exactAssetPicture('assets/images/led_blue_solid.svg', package: 'pr
 devices_xl: AppDevices_xlData.light(),imgPortOff: exactAssetPicture('assets/images/img_port_off.svg', package: 'privacygui_widgets'),
 imgAddNodes: exactAssetPicture('assets/images/img_add_nodes.svg', package: 'privacygui_widgets'),
 linksysLogoBlack: exactAssetPicture('assets/images/linksys_logo_black.svg', package: 'privacygui_widgets'),
+dashboardLogo: const AssetImage('assets/images/dashboard_logo.png', package: 'privacygui_widgets'),
 chromePrivacyErr: const AssetImage('assets/images/chrome_privacy_err.png', package: 'privacygui_widgets'),
 modemWaiting: exactAssetPicture('assets/images/modem_waiting.svg', package: 'privacygui_widgets'),
 btnCheckSpeeds: exactAssetPicture('assets/images/btn_check_speeds.svg', package: 'privacygui_widgets'),
@@ -172,6 +175,7 @@ final SvgLoader ledBlueSolid;
 final AppDevices_xlData devices_xl;final SvgLoader imgPortOff;
 final SvgLoader imgAddNodes;
 final SvgLoader linksysLogoBlack;
+final ImageProvider dashboardLogo;
 final ImageProvider chromePrivacyErr;
 final SvgLoader modemWaiting;
 final SvgLoader btnCheckSpeeds;
@@ -216,6 +220,7 @@ ledBlueSolid.named('ledBlueSolid'),
 devices_xl.named('devices_xl'),imgPortOff.named('imgPortOff'),
 imgAddNodes.named('imgAddNodes'),
 linksysLogoBlack.named('linksysLogoBlack'),
+dashboardLogo.named('dashboardLogo'),
 chromePrivacyErr.named('chromePrivacyErr'),
 modemWaiting.named('modemWaiting'),
 btnCheckSpeeds.named('btnCheckSpeeds'),
