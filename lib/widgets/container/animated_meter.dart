@@ -54,7 +54,7 @@ class _AnimatedMeterState extends State<AnimatedMeter>
     _max = widget.markers.isEmpty ? 100 : widget.markers.last;
     _value = _getIndicatorValue(widget.value, _max, widget.markers);
     return TweenAnimationBuilder(
-      tween: Tween<double>(begin: 0.0, end: _value),
+      tween: Tween<double>(begin: 0.0, end: _value > 1 ? 1 : _value),
       duration: const Duration(milliseconds: 1000),
       builder: (context, value, child) => SizedBox(
         width: widget.size,

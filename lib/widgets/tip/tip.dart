@@ -27,7 +27,6 @@ class AppTips extends StatefulWidget {
 class _AppTipsState extends State<AppTips> {
   @override
   Widget build(BuildContext context) {
-    print('xxxxx: tips rebuild');
     final hasGlobalKey = widget.child.key is GlobalKey;
     final childKey = widget.child.key as GlobalKey? ?? GlobalKey();
     return Stack(
