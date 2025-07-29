@@ -1,6 +1,6 @@
 name: privacygui_widgets
 description: A new Flutter package project.
-version: 1.2.3
+version: 1.2.4
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -20,7 +20,6 @@ dependencies:
   material_color_utilities: ^0.11.1
   styled_text: ^8.1.0
   graphview: ^1.2.0
-  pinput: ^5.0.1
 
 dev_dependencies:
   flutter_test:
