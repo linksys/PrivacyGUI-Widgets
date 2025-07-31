@@ -1,348 +1,104 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
-import 'package:privacygui_widgets/widgets/_widgets.dart';
-import 'package:privacygui_widgets/widgets/input_field/input_formatters.dart';
-import 'package:privacygui_widgets/widgets/input_field/ip_form_field_display_type.dart';
 
 class AppIPv6FormField extends StatefulWidget {
-  const AppIPv6FormField({
-    super.key,
-    this.header,
-    this.onChanged,
-    this.onFocusChanged,
-    this.controller,
-    this.errorText,
-    this.border = const UnderlineInputBorder(),
-    this.octet1ReadOnly = false,
-    this.octet2ReadOnly = false,
-    this.octet3ReadOnly = false,
-    this.octet4ReadOnly = false,
-    this.octet5ReadOnly = false,
-    this.octet6ReadOnly = false,
-    this.octet7ReadOnly = false,
-    this.octet8ReadOnly = false,
-    this.identifier,
-    this.semanticLabel,
-    this.displayType = AppIpFormFieldDisplayType.normal,
-  });
-
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final ValueChanged<bool>? onFocusChanged;
-  final Widget? header;
-  final String? errorText;
+  final String? Function(String?)? validator;
+  final String? title;
+  final String? forceErrorText;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final InputBorder border;
-  final bool octet1ReadOnly;
-  final bool octet2ReadOnly;
-  final bool octet3ReadOnly;
-  final bool octet4ReadOnly;
-  final bool octet5ReadOnly;
-  final bool octet6ReadOnly;
-  final bool octet7ReadOnly;
-  final bool octet8ReadOnly;
+  final bool readOnly;
+  final AutovalidateMode autovalidateMode;
   final String? identifier;
   final String? semanticLabel;
-  final AppIpFormFieldDisplayType displayType;
+  final TextAlign textAlign;
+
+  const AppIPv6FormField({
+    super.key,
+    this.controller,
+    this.onChanged,
+    this.onFocusChanged,
+    this.validator,
+    this.title,
+    this.forceErrorText,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.border = const UnderlineInputBorder(),
+    this.readOnly = false,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.identifier,
+    this.semanticLabel,
+    this.textAlign = TextAlign.start,
+  });
 
   @override
   State<AppIPv6FormField> createState() => _AppIPv6FormFieldState();
 }
 
 class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
-  final ipv6Regex = RegExp(
-      '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))');
-  final _octet1Controller = TextEditingController();
-  final _octet2Controller = TextEditingController();
-  final _octet3Controller = TextEditingController();
-  final _octet4Controller = TextEditingController();
-  final _octet5Controller = TextEditingController();
-  final _octet6Controller = TextEditingController();
-  final _octet7Controller = TextEditingController();
-  final _octet8Controller = TextEditingController();
-
-  final _octet1Focus = FocusNode();
-  final _octet2Focus = FocusNode();
-  final _octet3Focus = FocusNode();
-  final _octet4Focus = FocusNode();
-  final _octet5Focus = FocusNode();
-  final _octet6Focus = FocusNode();
-  final _octet7Focus = FocusNode();
-  final _octet8Focus = FocusNode();
+  final _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _octet1Controller.text = '';
-    _octet2Controller.text = '';
-    _octet3Controller.text = '';
-    _octet4Controller.text = '';
-    _octet5Controller.text = '';
-    _octet6Controller.text = '';
-    _octet7Controller.text = '';
-    _octet8Controller.text = '';
-    widget.controller?.addListener(_onTextChanged);
-    _octet1Focus.addListener(_onFocusChange);
-    _octet2Focus.addListener(_onFocusChange);
-    _octet3Focus.addListener(_onFocusChange);
-    _octet4Focus.addListener(_onFocusChange);
-    _octet5Focus.addListener(_onFocusChange);
-    _octet6Focus.addListener(_onFocusChange);
-    _octet7Focus.addListener(_onFocusChange);
-    _octet8Focus.addListener(_onFocusChange);
 
-    _onTextChanged();
+    _focusNode.addListener(_onFocusChange);
   }
 
   @override
   void dispose() {
-    _octet1Focus.removeListener(_onFocusChange);
-    _octet2Focus.removeListener(_onFocusChange);
-    _octet3Focus.removeListener(_onFocusChange);
-    _octet4Focus.removeListener(_onFocusChange);
-    _octet5Focus.removeListener(_onFocusChange);
-    _octet6Focus.removeListener(_onFocusChange);
-    _octet7Focus.removeListener(_onFocusChange);
-    _octet8Focus.removeListener(_onFocusChange);
-    _octet1Controller.dispose();
-    _octet2Controller.dispose();
-    _octet3Controller.dispose();
-    _octet4Controller.dispose();
-    _octet5Controller.dispose();
-    _octet6Controller.dispose();
-    _octet7Controller.dispose();
-    _octet8Controller.dispose();
-    widget.controller?.removeListener(_onTextChanged);
+    _focusNode.removeListener(_onFocusChange);
+
     super.dispose();
   }
 
   void _onFocusChange() {
-    widget.onFocusChanged?.call(
-      _octet1Focus.hasFocus ||
-          _octet2Focus.hasFocus ||
-          _octet3Focus.hasFocus ||
-          _octet4Focus.hasFocus ||
-          _octet5Focus.hasFocus ||
-          _octet6Focus.hasFocus ||
-          _octet7Focus.hasFocus ||
-          _octet8Focus.hasFocus,
-    );
-  }
-
-  void _onTextChanged() {
-    final controller = widget.controller!;
-    final value = controller.text;
-    if (value.isNotEmpty) {
-      final token = value.split(':');
-      if (token.length != 8) {
-        return;
-      }
-
-      _octet1Controller.value = TextEditingValue(
-          text: token[0],
-          selection: TextSelection.collapsed(offset: token[0].length));
-      _octet2Controller.value = TextEditingValue(
-          text: token[1],
-          selection: TextSelection.collapsed(offset: token[1].length));
-      _octet3Controller.value = TextEditingValue(
-          text: token[2],
-          selection: TextSelection.collapsed(offset: token[2].length));
-      _octet4Controller.value = TextEditingValue(
-          text: token[3],
-          selection: TextSelection.collapsed(offset: token[3].length));
-      _octet5Controller.value = TextEditingValue(
-          text: token[4],
-          selection: TextSelection.collapsed(offset: token[4].length));
-      _octet6Controller.value = TextEditingValue(
-          text: token[5],
-          selection: TextSelection.collapsed(offset: token[5].length));
-      _octet7Controller.value = TextEditingValue(
-          text: token[6],
-          selection: TextSelection.collapsed(offset: token[6].length));
-      _octet8Controller.value = TextEditingValue(
-          text: token[7],
-          selection: TextSelection.collapsed(offset: token[7].length));
-    }
+    widget.onFocusChanged?.call(_focusNode.hasFocus);
   }
 
   @override
   Widget build(BuildContext context) {
-    final errorText = widget.errorText;
-    final isError = widget.errorText != null ? true : false;
-    final formList = <Widget>[
-      _buildOctetInputForm(_octet1Focus, _octet2Focus, _octet1Controller,
-          readOnly: widget.octet1ReadOnly, index: 0, isError: isError),
-      _buildDotWidget(),
-      _buildOctetInputForm(_octet2Focus, _octet3Focus, _octet2Controller,
-          readOnly: widget.octet2ReadOnly, index: 1, isError: isError),
-      _buildDotWidget(),
-      _buildOctetInputForm(_octet3Focus, _octet4Focus, _octet3Controller,
-          readOnly: widget.octet3ReadOnly, index: 2, isError: isError),
-      _buildDotWidget(),
-      _buildOctetInputForm(_octet4Focus, _octet5Focus, _octet4Controller,
-          readOnly: widget.octet4ReadOnly, index: 3, isError: isError),
-      _buildDotWidget(),
-      _buildOctetInputForm(_octet5Focus, _octet6Focus, _octet5Controller,
-          readOnly: widget.octet5ReadOnly, index: 4, isError: isError),
-      _buildDotWidget(),
-      _buildOctetInputForm(_octet6Focus, _octet7Focus, _octet6Controller,
-          readOnly: widget.octet6ReadOnly, index: 5, isError: isError),
-      _buildDotWidget(),
-      _buildOctetInputForm(_octet7Focus, _octet8Focus, _octet7Controller,
-          readOnly: widget.octet7ReadOnly, index: 6, isError: isError),
-      _buildDotWidget(),
-      _buildOctetInputForm(_octet8Focus, _octet8Focus, _octet8Controller,
-          readOnly: widget.octet8ReadOnly,
-          isLast: true,
-          index: 7,
-          isError: isError),
-    ];
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (widget.header != null) ...[
-          widget.header!,
-          const AppGap.small2(),
-        ],
-        widget.displayType == AppIpFormFieldDisplayType.normal
-            ? Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: formList,
-              )
-            : Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runSpacing: Spacing.small1,
-                children: formList,
-              ),
-        if (errorText != null) const AppGap.small1(),
-        if (errorText != null)
-          AppText.bodySmall(
-            errorText,
-            color: Theme.of(context).colorScheme.error,
-            maxLines: 10,
-          ),
-      ],
-    );
-  }
-
-  _buildDotWidget() => widget.displayType == AppIpFormFieldDisplayType.noDot
-      ? SizedBox.shrink()
-      : Padding(
-          padding: widget.displayType == AppIpFormFieldDisplayType.tight
-              ? EdgeInsets.zero
-              : EdgeInsets.symmetric(horizontal: Spacing.small2),
-          child: AppText.titleLarge(
-            ':',
-          ),
-        );
-
-  _buildOctetInputForm(
-    FocusNode focus,
-    FocusNode nextFocus,
-    TextEditingController controller, {
-    bool isLast = false,
-    bool readOnly = false,
-    bool isError = false,
-    int? index,
-  }) {
-    return widget.displayType == AppIpFormFieldDisplayType.tight
-        ? SizedBox(
-            width: 36,
-            child: _octetTextForm(
-              focus,
-              nextFocus,
-              controller,
-              isLast: isLast,
-              readOnly: readOnly,
-              isError: isError,
-              index: index,
-            ),
-          )
-        : Expanded(
-            child: _octetTextForm(
-              focus,
-              nextFocus,
-              controller,
-              isLast: isLast,
-              readOnly: readOnly,
-              isError: isError,
-              index: index,
-            ),
-          );
-  }
-
-  Widget _octetTextForm(
-    FocusNode focus,
-    FocusNode nextFocus,
-    TextEditingController controller, {
-    bool isLast = false,
-    bool readOnly = false,
-    bool isError = false,
-    int? index,
-  }) {
     final border = widget.border.copyWith(
-        borderSide: widget.border.borderSide.copyWith(
-            color: isError
-                ? Theme.of(context).colorScheme.error
-                : Theme.of(context).colorScheme.outline));
+        borderSide: widget.border.borderSide
+            .copyWith(color: Theme.of(context).colorScheme.outline));
     return Semantics(
       identifier: widget.identifier != null
-          ? '${widget.identifier}-octet-$index'
+          ? '${widget.identifier}-ipv6FormField'
           : null,
       label: widget.semanticLabel != null
-          ? '${widget.semanticLabel} Octet $index'
+          ? '${widget.semanticLabel} IPv6 Form Field'
           : null,
-      child: readOnly
-          ? AppText.bodyMedium(
-              controller.text,
-            )
-          : TextFormField(
-              controller: controller,
-              focusNode: focus,
-              decoration: InputDecoration(
-                border: border,
-                enabledBorder: border,
-                focusedBorder: border.copyWith(
-                    borderSide: border.borderSide.copyWith(
-                        color: Theme.of(context).colorScheme.primary)),
-                hoverColor: Theme.of(context).colorScheme.onBackground,
-                isDense: widget.displayType == AppIpFormFieldDisplayType.normal
-                    ? false
-                    : true,
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: Spacing.small3,
-                ),
-              ),
-              readOnly: readOnly,
-              textAlign: TextAlign.center,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
-                // allow only  digits
-                IPv6OctetsFormatter(),
-                // custom class to format entered data from textField
-                LengthLimitingTextInputFormatter(4)
-                // restrict user to enter max 16 characters
-              ],
-              keyboardType: TextInputType.number,
-              textInputAction:
-                  isLast ? TextInputAction.done : TextInputAction.next,
-              onChanged: (value) {
-                if (value.length >= 4) {
-                  FocusScope.of(context).requestFocus(nextFocus);
-                }
-                widget.controller?.text = _combineOctets();
-                widget.onChanged?.call(_combineOctets());
-              },
-              onFieldSubmitted: (value) {
-                FocusScope.of(context).requestFocus(nextFocus);
-              },
-            ),
+      child: TextFormField(
+        controller: widget.controller,
+        decoration: InputDecoration(
+          labelText: widget.title,
+          border: border,
+          enabledBorder: border,
+          focusedBorder: border.copyWith(
+              borderSide: border.borderSide
+                  .copyWith(color: Theme.of(context).colorScheme.primary)),
+          hoverColor: Theme.of(context).colorScheme.onSurface,
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.suffixIcon,
+        ),
+        readOnly: widget.readOnly,
+        textAlign: widget.textAlign,
+        inputFormatters: [
+          // allow only digits
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F:]')),
+        ],
+        onChanged: (value) {
+          widget.onChanged?.call(value);
+        },
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: widget.validator,
+        forceErrorText: widget.forceErrorText,
+      ),
     );
   }
 
-  String _combineOctets() {
-    final ipv6 =
-        '${_octet1Controller.text}:${_octet2Controller.text}:${_octet3Controller.text}:${_octet4Controller.text}:${_octet5Controller.text}:${_octet6Controller.text}:${_octet7Controller.text}:${_octet8Controller.text}';
-    return ipv6Regex.hasMatch(ipv6) ? ipv6 : '';
-  }
 }
