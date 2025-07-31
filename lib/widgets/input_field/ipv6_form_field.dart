@@ -16,6 +16,7 @@ class AppIPv6FormField extends StatefulWidget {
   final String? identifier;
   final String? semanticLabel;
   final TextAlign textAlign;
+  final FocusNode? focusNode;
 
   const AppIPv6FormField({
     super.key,
@@ -33,6 +34,7 @@ class AppIPv6FormField extends StatefulWidget {
     this.identifier,
     this.semanticLabel,
     this.textAlign = TextAlign.start,
+    this.focusNode,
   });
 
   @override
@@ -40,12 +42,15 @@ class AppIPv6FormField extends StatefulWidget {
 }
 
 class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
-  final _focusNode = FocusNode();
+  FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
 
+    if (widget.focusNode != null) {
+      _focusNode = widget.focusNode!;
+    }
     _focusNode.addListener(_onFocusChange);
   }
 
@@ -74,6 +79,7 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
           : null,
       child: TextFormField(
         controller: widget.controller,
+        focusNode: _focusNode,
         decoration: InputDecoration(
           labelText: widget.title,
           border: border,
