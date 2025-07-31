@@ -20,51 +20,7 @@ class AppPageView extends StatefulWidget {
   // Column system
   final bool useContentMainPadding;
   final bool isOverlayVisible;
-
-  // AppPageView.bottomSheetModal({
-  //   Key? key,
-  //   required this.bottomSheet,
-  //   this.padding,
-  //   this.scrollable = false,
-  //   this.scrollController,
-  //   this.background,
-  //   this.floatingActionButton,
-  //   this.floatingActionButtonAnimator,
-  //   this.floatingActionButtonLocation,
-  //   this.enableSafeArea = (left: true, top: true, right: true, bottom: true),
-  //   this.useContentMainPadding = true,
-  //   this.isOverlayVisible = false,
-  // })  : appBar = LinksysAppBar(
-  //         toolbarHeight: 150,
-  //       ),
-  //       child = BackdropFilter(
-  //         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-  //       ),
-  //       bottomNavigationBar = null,
-  //       super(key: key);
-
-  // AppPageView.bottomSheetModalBlur({
-  //   Key? key,
-  //   required this.bottomSheet,
-  //   this.padding,
-  //   this.scrollable = false,
-  //   this.scrollController,
-  //   this.floatingActionButton,
-  //   this.floatingActionButtonAnimator,
-  //   this.floatingActionButtonLocation,
-  //   this.enableSafeArea = (left: true, top: true, right: true, bottom: true),
-  //   this.useContentMainPadding = true,
-  //   this.isOverlayVisible = false,
-  // })  : appBar = LinksysAppBar(
-  //         toolbarHeight: 150,
-  //       ),
-  //       child = BackdropFilter(
-  //         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-  //         child: Container(),
-  //       ),
-  //       bottomNavigationBar = null,
-  //       background = Colors.black.withOpacity(0.4),
-  //       super(key: key);
+  final Future<void> Function()? onRefresh;
 
   const AppPageView({
     Key? key,
@@ -73,6 +29,7 @@ class AppPageView extends StatefulWidget {
     this.padding,
     this.scrollable = false,
     this.scrollController,
+    this.onRefresh,
     this.background,
     this.bottomSheet,
     this.bottomNavigationBar,
@@ -100,9 +57,16 @@ class _AppPageViewState extends State<AppPageView> {
         right: widget.enableSafeArea.right,
         bottom: widget.enableSafeArea.bottom,
         child: LayoutBuilder(builder: (context, constraint) {
-          return (widget.scrollable ?? false)
+          final view = widget.scrollable ?? false
               ? _scrollableView(constraint)
               : _view(constraint);
+          final refreshHandler = widget.onRefresh;
+          return refreshHandler != null
+              ? RefreshIndicator(
+                  onRefresh: refreshHandler,
+                  child: view,
+                )
+              : view;
         }),
       ),
       bottomSheet: widget.bottomSheet,
@@ -116,48 +80,29 @@ class _AppPageViewState extends State<AppPageView> {
   Widget _view(BoxConstraints constraint) {
     final column = ResponsiveLayout.getColumn(context, 12);
     final remaining = ResponsiveLayout.maxColumn(context) - column;
-    final centered = true;
-    // remaining > 1 && this.centered == true;
     final gutter = ResponsiveLayout.columnPadding(context);
     final padding = ResponsiveLayout.pageHorizontalPadding(context);
     final double margin = max(0, padding);
 
     ///
-    double _totalMarginWidth() => margin * 2;
+    double totalMarginWidth() => margin * 2;
 
-    int _totalColumnCount() => column + remaining;
-    double _totalGutterWidth() => (_totalColumnCount() - 1) * gutter;
-    double _totalWidthWithoutGutterAndMargin(double totalWidth) =>
-        totalWidth - _totalGutterWidth() - _totalMarginWidth();
+    int totalColumnCount() => column + remaining;
+    double totalGutterWidth() => (totalColumnCount() - 1) * gutter;
+    double totalWidthWithoutGutterAndMargin(double totalWidth) =>
+        totalWidth - totalGutterWidth() - totalMarginWidth();
 
-    double _columnSpanWidth(int columnSpan, double columnWidth) =>
+    double columnSpanWidth(int columnSpan, double columnWidth) =>
         (columnWidth * columnSpan) + (gutter * (columnSpan - 1));
 
     /// Returns the width of a single column.
     double columnWidth(double totalAvailableWidth) =>
-        _totalWidthWithoutGutterAndMargin(totalAvailableWidth) /
-        _totalColumnCount();
+        totalWidthWithoutGutterAndMargin(totalAvailableWidth) /
+        totalColumnCount();
 
     final totalAvailableWidth = constraint.maxWidth;
     final widthPerColumn = columnWidth(totalAvailableWidth);
 
-    // return WoltResponsiveLayoutGrid(
-    //   isOverlayVisible: false,
-    //   gutter: ResponsiveLayout.columnPadding(context),
-    //   columnSpanCells: [
-    //     WoltColumnSpanCell(
-    //       columnCellWidget: widget.child ?? Center(),
-    //       columnSpan: column,
-    //     ),
-    //     // if (remaining > 0)
-    //     //   WoltColumnSpanCell(
-    //     //     columnCellWidget: const Center(),
-    //     //     columnSpan: remaining,
-    //     //   ),
-    //   ],
-    //   // margin: ResponsiveLayout.pageHorizontalPadding(context),
-    //   margin: max(0, padding),
-    // );
     return Stack(
       children: [
         widget.useContentMainPadding
@@ -165,7 +110,7 @@ class _AppPageViewState extends State<AppPageView> {
                 children: [
                   if (widget.useContentMainPadding) _Margin(margin: margin),
                   SizedBox(
-                    width: _columnSpanWidth(column, widthPerColumn),
+                    width: columnSpanWidth(column, widthPerColumn),
                     child: Padding(
                       padding: widget.padding ?? EdgeInsets.zero,
                       child: widget.child?.call(context, constraint),
@@ -174,7 +119,7 @@ class _AppPageViewState extends State<AppPageView> {
                   if (remaining > 0) ...[
                     _Gutter(gutter: gutter),
                     SizedBox(
-                      width: _columnSpanWidth(remaining, widthPerColumn),
+                      width: columnSpanWidth(remaining, widthPerColumn),
                       child: Center(),
                     ),
                   ],
@@ -188,10 +133,10 @@ class _AppPageViewState extends State<AppPageView> {
           Row(
             children: [
               _Margin(margin: margin, isOverlay: true),
-              for (int i = 0; i < _totalColumnCount(); i++)
+              for (int i = 0; i < totalColumnCount(); i++)
                 Row(children: [
                   _Column(columnWidth: widthPerColumn, isOverlay: true),
-                  if (i != _totalColumnCount() - 1)
+                  if (i != totalColumnCount() - 1)
                     _Gutter(gutter: gutter, isOverlay: true),
                 ]),
               _Margin(margin: margin, isOverlay: true),
@@ -204,6 +149,7 @@ class _AppPageViewState extends State<AppPageView> {
   Widget _scrollableView(BoxConstraints constraint) {
     return SingleChildScrollView(
       controller: widget.scrollController,
+      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: ConstrainedBox(
         constraints: BoxConstraints(
           minHeight: constraint.maxHeight,
