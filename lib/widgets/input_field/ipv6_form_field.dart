@@ -100,7 +100,7 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
         onChanged: (value) {
           widget.onChanged?.call(value);
         },
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: widget.autovalidateMode,
         validator: widget.validator,
         forceErrorText: widget.forceErrorText,
       ),
