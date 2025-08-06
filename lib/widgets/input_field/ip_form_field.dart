@@ -13,7 +13,7 @@ class AppIPFormField extends StatefulWidget {
     this.onFocusChanged,
     this.controller,
     this.errorText,
-    this.border = const UnderlineInputBorder(),
+    this.border = const OutlineInputBorder(),
     this.octet1ReadOnly = false,
     this.octet2ReadOnly = false,
     this.octet3ReadOnly = false,
