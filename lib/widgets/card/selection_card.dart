@@ -62,7 +62,7 @@ class AppSelectionCard<T> extends StatelessWidget {
                         label: label!,
                       ),
                   ]),
-              AppText.bodyLarge(description),
+              AppText.bodyMedium(description),
             ],
           ),
         ],

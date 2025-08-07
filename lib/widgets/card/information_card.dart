@@ -38,7 +38,9 @@ class AppInformationCard extends StatelessWidget {
                     if (headerIcon != null) headerIcon!,
                     AppText.titleLarge(title),
                   ]),
-              if (description != null) AppText.bodyLarge(description!),
+              if (description != null)
+                AppText.bodyMedium(description!,
+                    color: Theme.of(context).colorScheme.outline),
             ],
           ),
           if (content != null) content!,

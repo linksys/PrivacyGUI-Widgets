@@ -298,6 +298,9 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
               controller.text,
             )
           : TextFormField(
+              key: widget.identifier != null
+                  ? ValueKey('${widget.identifier}-$index')
+                  : null,
               controller: controller,
               focusNode: setFocus ? (focus..requestFocus()) : focus,
               decoration: InputDecoration(
