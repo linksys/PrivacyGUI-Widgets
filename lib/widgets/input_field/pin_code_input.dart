@@ -1,5 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:privacygui_widgets/widgets/gap/gap.dart';
 
 /// Defines the visual decoration for a single PIN code input field.
 class PinCodeFieldDecoration {
@@ -242,7 +244,7 @@ class _AppPinCodeInputState extends State<AppPinCodeInput> {
           label: widget.semanticLabel,
           identifier: widget.semanticIdentifier,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(widget.length, (index) {
               // Determine field decoration based on current focus state.
               final PinCodeFieldDecoration currentFieldDecoration =
@@ -338,7 +340,14 @@ class _AppPinCodeInputState extends State<AppPinCodeInput> {
                   ),
                 ),
               );
-            }),
+            }).expandIndexed<Widget>((index, element) sync* {
+              if (index != widget.length - 1) {
+                yield element;
+                yield const AppGap.small2();
+              } else {
+                yield element;
+              }
+            }).toList(),
           ),
         ),
       ),
