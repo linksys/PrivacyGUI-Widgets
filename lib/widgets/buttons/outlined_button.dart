@@ -56,7 +56,7 @@ class AppOutlinedButton extends StatelessWidget {
     var applySize = size;
     if (applySize == null || applySize.height == -1) {
       applySize = Size(applySize?.width ?? 64,
-          ResponsiveLayout.isMobileLayout(context) ? 48 : 40);
+          ResponsiveLayout.isMobileLayout(context) ? 40 : 40);
     }
     final style = OutlinedButton.styleFrom(
         side: color == null

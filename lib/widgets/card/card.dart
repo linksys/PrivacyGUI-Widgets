@@ -65,5 +65,5 @@ class AppCard extends StatelessWidget {
   }
 
   Widget _buildChild(EdgeInsets? padding, Widget child) => Padding(
-      padding: padding ?? const EdgeInsets.all(Spacing.medium), child: child);
+      padding: padding ?? const EdgeInsets.all(Spacing.small3), child: child);
 }

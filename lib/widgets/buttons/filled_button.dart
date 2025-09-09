@@ -67,7 +67,7 @@ class AppFilledButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var applySize = size;
     if (applySize == null || applySize.height == -1) {
-      applySize = Size(applySize?.width ?? 64, 48);
+      applySize = Size(applySize?.width ?? 64, 40);
     }
     final style = FilledButton.styleFrom(
       backgroundColor: color,
