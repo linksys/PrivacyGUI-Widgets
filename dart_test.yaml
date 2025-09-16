@@ -1,0 +1,4 @@
+# dart_test.yaml
+tags:
+  Golden:
+    description: 'golden tests tag'

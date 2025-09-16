@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/theme/material/theme_data.dart';
 
-final mockLightThemeData =
-    linksysLightThemeData.copyWith(textTheme: mockLinksysDarkTextTheme);
-final mockDarkThemeData =
-    linksysDarkThemeData.copyWith(textTheme: mockLinksysLightTextTheme);
+final mockLightThemeData = linksysLightThemeData.copyWith(
+  textTheme: mockLinksysDarkTextTheme,
+  popupMenuTheme: const PopupMenuThemeData(
+    elevation: 0.0,
+    shadowColor: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      side: BorderSide(width: 1, color: Colors.grey),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+  ),
+);
+final mockDarkThemeData = linksysDarkThemeData.copyWith(
+  textTheme: mockLinksysLightTextTheme,
+  popupMenuTheme: const PopupMenuThemeData(
+    elevation: 0.0,
+    shadowColor: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      side: BorderSide(width: 1, color: Colors.grey),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+  ),
+);
 
 ///
 /// This is used to help to generate snapshots with localizations
