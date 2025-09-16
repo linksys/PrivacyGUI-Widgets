@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
-import 'package:privacygui_widgets/theme/custom_theme.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/input_field/validator_widget.dart';
 
-import '../../util.dart';
+import '../../tester/test_widget.dart';
 
 void main() {
   group('AppPasswordTextField', () {
     testWidgets('app password field header display', (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppPasswordField(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -21,7 +20,7 @@ void main() {
     });
 
     testWidgets('app password field description display', (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppPasswordField(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -32,7 +31,7 @@ void main() {
     });
 
     testWidgets('app password field hint display', (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppPasswordField(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -43,7 +42,7 @@ void main() {
     });
     testWidgets('app password field has show password icon as default',
         (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppPasswordField(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -55,7 +54,7 @@ void main() {
     testWidgets(
         'app password field display hide password by tapping show password',
         (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppPasswordField(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -69,7 +68,7 @@ void main() {
 
     testWidgets('app password field verify onChanged callback', (tester) async {
       String verifyChanged = '';
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: AppPasswordField(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -88,7 +87,7 @@ void main() {
     testWidgets('app password field verify onFocusChanged callback',
         (tester) async {
       bool? verifyChanged;
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: AppPasswordField(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -115,7 +114,7 @@ void main() {
               text != text.toLowerCase() && text != text.toUpperCase(),
         )
       ];
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: AppPasswordField.withValidator(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -146,7 +145,7 @@ void main() {
               text != text.toLowerCase() && text != text.toUpperCase(),
         )
       ];
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: AppPasswordField.withValidator(
         headerText: 'Password',
         descriptionText: 'Input your password',
@@ -178,7 +177,7 @@ void main() {
               text != text.toLowerCase() && text != text.toUpperCase(),
         )
       ];
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: AppPasswordField.withValidator(
         headerText: 'Password',
         descriptionText: 'Input your password',

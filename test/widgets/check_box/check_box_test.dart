@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gap/gap.dart';
 import 'package:privacygui_widgets/widgets/check_box/check_box.dart';
 
-import '../../util.dart';
+import '../../tester/test_widget.dart';
 
 void main() {
   group('AppCheckbox', () {
     testWidgets('AppCheckbox displays correctly', (WidgetTester tester) async {
       // Pump the widget with initial values
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppCheckbox(value: true),
         ),
       );
@@ -30,7 +30,7 @@ void main() {
         (WidgetTester tester) async {
       // Pump the widget with initial values
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppCheckbox(
             value: true,
             text: 'label 1',
@@ -59,7 +59,7 @@ void main() {
       bool? changedValue;
       // Pump the widget with initial values
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppCheckbox(
             value: false,
             onChanged: (value) => changedValue = value,
@@ -81,7 +81,7 @@ void main() {
       bool? changedValue;
       // Pump the widget with initial values
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppCheckbox(
             value: true,
             onChanged: (value) => changedValue = value,
@@ -101,7 +101,7 @@ void main() {
     testWidgets('AppCheckbox is disabled when value is null',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppCheckbox(value: false),
         ),
       );
@@ -115,7 +115,7 @@ void main() {
 
     testWidgets('AppCheckbox shows gap with text', (WidgetTester tester) async {
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppCheckbox(
             value: false,
             text: 'Label 1',
@@ -131,7 +131,7 @@ void main() {
     testWidgets('AppCheckbox hides gap without text',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppCheckbox(value: false),
         ),
       );
@@ -143,7 +143,7 @@ void main() {
 
     testWidgets('AppCheckbox shows error styling', (WidgetTester tester) async {
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppCheckbox(
             value: false,
             isError: true,

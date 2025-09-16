@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 
-import '../../util.dart';
+import '../../tester/test_widget.dart';
 
 void main() {
   group('AppSwitch', () {
@@ -13,7 +13,7 @@ void main() {
       }
 
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppSwitch(
             value: switchValue,
             onChanged: onChanged,
@@ -32,7 +32,7 @@ void main() {
     testWidgets('Uses default checked icon', (tester) async {
       const customIcon = Icon(Icons.check);
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppSwitch(
             value: true,
             checkedIcon: customIcon,
@@ -49,7 +49,7 @@ void main() {
     testWidgets('Uses default unchecked icon', (tester) async {
       const customIcon = Icon(Icons.close);
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppSwitch(
             value: true,
             uncheckIcon: customIcon,
@@ -65,7 +65,7 @@ void main() {
     testWidgets('Uses custom checked icon', (tester) async {
       const customIcon = Icon(Icons.star);
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppSwitch(
             value: true,
             checkedIcon: customIcon,
@@ -82,7 +82,7 @@ void main() {
     testWidgets('Uses custom unchecked icon', (tester) async {
       const customIcon = Icon(Icons.lightbulb);
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: const AppSwitch(
             value: true,
             uncheckIcon: customIcon,
@@ -100,7 +100,7 @@ void main() {
         (tester) async {
       const customIcon = Icon(Icons.lightbulb);
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppSwitch(
             value: false,
             showIcon: false,

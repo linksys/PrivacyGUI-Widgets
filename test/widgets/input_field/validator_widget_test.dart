@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
-import 'package:privacygui_widgets/theme/custom_theme.dart';
 import 'package:privacygui_widgets/widgets/input_field/validator_widget.dart';
 
-import '../../util.dart';
+import '../../tester/test_widget.dart';
+
 
 void main() {
   group('AppValidatorWidget', () {});
@@ -27,7 +27,7 @@ void main() {
         validator: (text) => false,
       ),
     ];
-    await tester.pumpWidget(testableMaterialWidget(
+    await tester.pumpWidget(buildTestWidget(
         child: AppValidatorWidget(
             description: 'new password',
             validations: mockValidations,
@@ -61,7 +61,7 @@ void main() {
         validator: (text) => false,
       ),
     ];
-    await tester.pumpWidget(testableMaterialWidget(
+    await tester.pumpWidget(buildTestWidget(
         child: AppValidatorWidget(
             description: 'new password',
             validations: mockValidations,
@@ -85,7 +85,7 @@ void main() {
             text.toLowerCase() != text && text.toUpperCase() != text,
       ),
     ];
-    await tester.pumpWidget(testableMaterialWidget(
+    await tester.pumpWidget(buildTestWidget(
         child: AppValidatorWidget(
             description: 'new password',
             validations: mockValidations,
@@ -109,7 +109,7 @@ void main() {
       ),
     ];
     const customChecked = Icon(Icons.check);
-    await tester.pumpWidget(testableMaterialWidget(
+    await tester.pumpWidget(buildTestWidget(
         child: AppValidatorWidget(
       description: 'new password',
       validations: mockValidations,
@@ -136,7 +136,7 @@ void main() {
       ),
     ];
     const customUnchecked = Icon(Icons.circle);
-    await tester.pumpWidget(testableMaterialWidget(
+    await tester.pumpWidget(buildTestWidget(
         child: AppValidatorWidget(
       description: 'new password',
       validations: mockValidations,

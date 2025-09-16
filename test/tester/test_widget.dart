@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';
 import 'package:privacygui_widgets/theme/custom_responsive.dart';
 
-import '../theme/theme.dart';
+import '../font_loader.dart';
 
 const rootFolder =
     String.fromEnvironment('goldenRoot', defaultValue: 'goldens');

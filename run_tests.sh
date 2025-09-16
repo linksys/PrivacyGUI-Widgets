@@ -1,9 +1,9 @@
-reportPath=$1
+reportPath=${1:-reports}
 echo "*********************Running Tests********************"
 flutter test --file-reporter json:$reportPath/tests.json --exclude-tags=golden
-if ! dart ../../test_scripts/test_result_parser.dart $reportPath/tests.json $reportPath/widget-test-reports.html; then
+# if ! dart ../test_scripts/test_result_parser.dart $reportPath/tests.json $reportPath/widget-test-reports.html; then
   echo 'Test failed!******************************************'
   exit 1
-else
-  echo 'Test passed!******************************************'
-fi
+# else
+#   echo 'Test passed!******************************************'
+# fi

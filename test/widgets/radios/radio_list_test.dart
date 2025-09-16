@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:privacygui_widgets/widgets/radios/radio_list.dart';
 
-import '../../util.dart';
+import '../../tester/test_widget.dart';
 
 void main() {
   group('AppRadioList', () {
@@ -16,7 +16,7 @@ void main() {
 
       // Build the widget with initial selection
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppRadioList(
             items: items,
             initial: 2,
@@ -62,7 +62,7 @@ void main() {
       // Build the widget
       // Build the widget with initial selection
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppRadioList(
             items: items,
             onChanged: onChanged,

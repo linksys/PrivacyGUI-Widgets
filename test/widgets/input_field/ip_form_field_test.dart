@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:privacygui_widgets/widgets/input_field/ip_form_field.dart';
 
-import '../../util.dart';
+import '../../tester/test_widget.dart';
 
 void main() {
   group('AppIPFormField Test', () {
@@ -10,7 +10,7 @@ void main() {
       final controller = TextEditingController();
       const headerText = 'Enter IP Address';
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppIPFormField(
             header: const Text(headerText),
             controller: controller,
@@ -28,7 +28,7 @@ void main() {
       final controller = TextEditingController();
 
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppIPFormField(
             controller: controller,
           ),
@@ -42,7 +42,7 @@ void main() {
       final controller = TextEditingController();
 
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppIPFormField(
             controller: controller,
           ),
@@ -65,7 +65,7 @@ void main() {
       final controller = TextEditingController();
 
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppIPFormField(
             controller: controller,
           ),
@@ -89,7 +89,7 @@ void main() {
       final controller = TextEditingController();
 
       await tester.pumpWidget(
-        testableMaterialWidget(
+        buildTestWidget(
           child: AppIPFormField(
             controller: controller,
           ),

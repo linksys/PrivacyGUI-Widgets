@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 
-import '../../util.dart';
+import '../../tester/test_widget.dart';
 
 void main() {
   group('AppTextField', () {
     testWidgets('Text prefix icon display properly', (tester) async {
       const custom = Icon(Icons.search);
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppTextField(
         prefixIcon: custom,
       )));
@@ -17,7 +17,7 @@ void main() {
     });
     testWidgets('Text prefix icon display properly', (tester) async {
       const custom = Icon(Icons.search);
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppTextField(
         suffixIcon: custom,
       )));
@@ -26,7 +26,7 @@ void main() {
     });
 
     testWidgets('Text hint display properly', (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppTextField(
         hintText: 'This is a hint',
       )));
@@ -35,7 +35,7 @@ void main() {
     });
 
     testWidgets('Text error display properly', (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppTextField(
         errorText: 'This is an error',
       )));
@@ -49,7 +49,7 @@ void main() {
 
     testWidgets('Text field focusable', (tester) async {
       bool? isFocus;
-      await tester.pumpWidget(testableMaterialWidget(child: AppTextField(
+      await tester.pumpWidget(buildTestWidget(child: AppTextField(
         onFocusChanged: (value) {
           isFocus = value;
         },
@@ -62,7 +62,7 @@ void main() {
     });
 
     testWidgets('Text field with description', (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppTextField(
         descriptionText: 'description here',
       )));
@@ -71,7 +71,7 @@ void main() {
     });
 
     testWidgets('Text field is secured', (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppTextField(
         secured: true,
       )));
@@ -80,7 +80,7 @@ void main() {
     });
 
     testWidgets('Text field is read only', (tester) async {
-      await tester.pumpWidget(testableMaterialWidget(
+      await tester.pumpWidget(buildTestWidget(
           child: const AppTextField(
         readOnly: true,
       )));

@@ -15,3 +15,5 @@ export 'switch/switch.dart';
 export 'text/app_styled_text.dart';
 export 'state.dart';
 export 'tab_bar/linksys_tab_bar.dart';
+export 'toggle/quick_toggle_list.dart';
+export 'shimmer/shimmer.dart';
