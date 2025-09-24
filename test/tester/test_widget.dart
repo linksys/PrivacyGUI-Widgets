@@ -45,7 +45,7 @@ void testWidgetGoldens(
   ValueVariant<Size>? variants,
   List<String>? tags,
 }) {
-  final variant = variants ?? ValueVariant<Size>(<Size>{});
+  final variant = variants ?? ValueVariant<Size>(<Size>{const Size(400, 400)});
   testWidgets(
     description,
     (tester) async {
