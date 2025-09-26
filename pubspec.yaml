@@ -20,6 +20,8 @@ dependencies:
   styled_text: ^8.1.0
   graphview: ^1.2.0
   two_dimensional_scrollables: ^0.3.7
+  qr_flutter: ^4.0.0
+  super_tooltip: ^2.0.9
 
 dev_dependencies:
   flutter_test:
