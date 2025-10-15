@@ -41,16 +41,12 @@ class WifiCard extends StatefulWidget {
     required this.onCardTapped,
     required this.onToggled,
     required this.onQrCodeTapped,
-    required this.toolTipController,
-    required this.beforeShowWiFiTip,
   });
 
   final WifiCredential credential;
   final Function() onCardTapped;
   final Function(bool) onToggled;
   final Function() onQrCodeTapped;
-  final SuperTooltipController? toolTipController;
-  final FutureOr<void> Function()? beforeShowWiFiTip;
 
   @override
   State<WifiCard> createState() => _WifiCardState();
@@ -127,13 +123,14 @@ class _WifiCardState extends State<WifiCard> {
   }
 
   Widget _buildTooltip(BuildContext context) {
+    final toolTipController = SuperTooltipController();
     return SuperTooltip(
       arrowTipDistance: 0,
       popupDirection: TooltipDirection.left,
       overlayDimensions: EdgeInsets.zero,
       bubbleDimensions: EdgeInsets.zero,
       showBarrier: false,
-      controller: widget.toolTipController,
+      controller: toolTipController,
       showOnTap: false,
       content: Container(
         color: Colors.white,
@@ -155,16 +152,12 @@ class _WifiCardState extends State<WifiCard> {
             height: 40,
           );
 
-          if (widget.toolTipController?.isVisible == false &&
+          if (toolTipController.isVisible == false &&
               rect.contains(e.position)) {
             final completer = Completer<void>();
             _completer = completer;
             try {
-              await Future.sync(() => widget.beforeShowWiFiTip?.call());
-              final showTooltip = widget.toolTipController?.showTooltip();
-              if (showTooltip != null) {
-                await showTooltip;
-              }
+              await toolTipController.showTooltip();
             } finally {
               if (!completer.isCompleted) {
                 completer.complete();
@@ -177,14 +170,11 @@ class _WifiCardState extends State<WifiCard> {
         },
         onExit: (e) async {
           await _waitForPendingTooltip();
-          if (widget.toolTipController?.isVisible == true) {
+          if (toolTipController.isVisible == true) {
             final completer = Completer<void>();
             _completer = completer;
             try {
-              final hideTooltip = widget.toolTipController?.hideTooltip();
-              if (hideTooltip != null) {
-                await hideTooltip;
-              }
+              await toolTipController.hideTooltip();
             } finally {
               if (!completer.isCompleted) {
                 completer.complete();

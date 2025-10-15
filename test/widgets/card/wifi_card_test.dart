@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:privacygui_widgets/widgets/card/card.dart';
 import 'package:privacygui_widgets/widgets/card/wifi_card.dart';
-import 'package:super_tooltip/super_tooltip.dart';
-
 import '../../tester/test_widget.dart';
 
 void main() {
@@ -38,8 +34,6 @@ void main() {
     VoidCallback? onCardTapped,
     ValueChanged<bool>? onToggled,
     VoidCallback? onQrCodeTapped,
-    SuperTooltipController? toolTipController,
-    FutureOr<void> Function()? beforeShowWiFiTip,
   }) {
     return buildTestWidget(
       child: WifiCard(
@@ -47,8 +41,6 @@ void main() {
         onCardTapped: onCardTapped ?? () {},
         onToggled: onToggled ?? (_) {},
         onQrCodeTapped: onQrCodeTapped ?? () {},
-        toolTipController: toolTipController ?? SuperTooltipController(),
-        beforeShowWiFiTip: beforeShowWiFiTip,
       ),
     );
   }
