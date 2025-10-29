@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
 
+/// A foundational page widget that provides a [Scaffold] and a body
+/// with a custom 12-column responsive grid system.
+///
+/// It serves as a lower-level layout tool, primarily used by more complex
+/// page widgets like `StyledAppPageView` for its non-sliver layouts.
 class AppPageView extends StatefulWidget {
   final LinksysAppBar? appBar;
   final Widget Function(BuildContext context, BoxConstraints constraints)?
@@ -17,9 +22,14 @@ class AppPageView extends StatefulWidget {
   final FloatingActionButtonAnimator? floatingActionButtonAnimator;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final ({bool left, bool top, bool right, bool bottom}) enableSafeArea;
-  // Column system
+
+  /// Whether to apply the main horizontal page padding (margins) to the content.
   final bool useContentMainPadding;
+
+  /// Whether to display the visual grid overlay for debugging.
   final bool isOverlayVisible;
+
+  /// A callback for pull-to-refresh functionality.
   final Future<void> Function()? onRefresh;
 
   const AppPageView({
@@ -57,9 +67,33 @@ class _AppPageViewState extends State<AppPageView> {
         right: widget.enableSafeArea.right,
         bottom: widget.enableSafeArea.bottom,
         child: LayoutBuilder(builder: (context, constraint) {
-          final view = widget.scrollable ?? false
-              ? _scrollableView(constraint)
-              : _view(constraint);
+          // 1. Build the core grid layout widget.
+          Widget view = _GridSystemLayout(
+            constraint: constraint,
+            child: widget.child,
+            padding: widget.padding,
+            useContentMainPadding: widget.useContentMainPadding,
+            isOverlayVisible: widget.isOverlayVisible,
+          );
+
+          // 2. Conditionally wrap it with a scroll view.
+          if (widget.scrollable ?? false) {
+            view = SingleChildScrollView(
+              controller: widget.scrollController,
+              physics:
+                  const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraint.maxHeight,
+                ),
+                child: IntrinsicHeight(
+                  child: view,
+                ),
+              ),
+            );
+          }
+
+          // 3. Conditionally wrap it with a refresh indicator.
           final refreshHandler = widget.onRefresh;
           return refreshHandler != null
               ? RefreshIndicator(
@@ -76,17 +110,34 @@ class _AppPageViewState extends State<AppPageView> {
       floatingActionButtonLocation: widget.floatingActionButtonLocation,
     );
   }
+}
 
-  Widget _view(BoxConstraints constraint) {
+/// A private widget responsible for rendering the 12-column grid system.
+class _GridSystemLayout extends StatelessWidget {
+  const _GridSystemLayout({
+    required this.constraint,
+    this.child,
+    this.padding,
+    this.useContentMainPadding = true,
+    this.isOverlayVisible = false,
+  });
+
+  final BoxConstraints constraint;
+  final Widget Function(BuildContext context, BoxConstraints constraints)? child;
+  final EdgeInsets? padding;
+  final bool useContentMainPadding;
+  final bool isOverlayVisible;
+
+  @override
+  Widget build(BuildContext context) {
+    // --- Grid Calculation Logic --- //
     final column = ResponsiveLayout.getColumn(context, 12);
     final remaining = ResponsiveLayout.maxColumn(context) - column;
     final gutter = ResponsiveLayout.columnPadding(context);
-    final padding = ResponsiveLayout.pageHorizontalPadding(context);
-    final double margin = max(0, padding);
+    final pagePadding = ResponsiveLayout.pageHorizontalPadding(context);
+    final double margin = max(0, pagePadding);
 
-    ///
     double totalMarginWidth() => margin * 2;
-
     int totalColumnCount() => column + remaining;
     double totalGutterWidth() => (totalColumnCount() - 1) * gutter;
     double totalWidthWithoutGutterAndMargin(double totalWidth) =>
@@ -95,41 +146,46 @@ class _AppPageViewState extends State<AppPageView> {
     double columnSpanWidth(int columnSpan, double columnWidth) =>
         (columnWidth * columnSpan) + (gutter * (columnSpan - 1));
 
-    /// Returns the width of a single column.
     double columnWidth(double totalAvailableWidth) =>
         totalWidthWithoutGutterAndMargin(totalAvailableWidth) /
         totalColumnCount();
 
     final totalAvailableWidth = constraint.maxWidth;
     final widthPerColumn = columnWidth(totalAvailableWidth);
+    // --- End of Grid Calculation Logic --- //
 
     return Stack(
       children: [
-        widget.useContentMainPadding
-            ? Row(
-                children: [
-                  if (widget.useContentMainPadding) _Margin(margin: margin),
-                  SizedBox(
-                    width: columnSpanWidth(column, widthPerColumn),
-                    child: Padding(
-                      padding: widget.padding ?? EdgeInsets.zero,
-                      child: widget.child?.call(context, constraint),
-                    ),
-                  ),
-                  if (remaining > 0) ...[
-                    _Gutter(gutter: gutter),
-                    SizedBox(
-                      width: columnSpanWidth(remaining, widthPerColumn),
-                      child: Center(),
-                    ),
-                  ],
-                  if (widget.useContentMainPadding) _Margin(margin: margin),
-                ],
-              )
-            : Expanded(
-                child: widget.child?.call(context, constraint) ??
-                    SizedBox.shrink()),
-        if (widget.isOverlayVisible)
+        // Main content layout
+        if (useContentMainPadding)
+          Row(
+            children: [
+              _Margin(margin: margin),
+              SizedBox(
+                width: columnSpanWidth(column, widthPerColumn),
+                child: Padding(
+                  padding: padding ?? EdgeInsets.zero,
+                  child: child?.call(context, constraint),
+                ),
+              ),
+              if (remaining > 0) ...[
+                _Gutter(gutter: gutter),
+                SizedBox(
+                  width: columnSpanWidth(remaining, widthPerColumn),
+                  child: const Center(),
+                ),
+              ],
+              _Margin(margin: margin),
+            ],
+          )
+        else
+          // Note: This Expanded might cause issues if the parent doesn't provide bounded width.
+          Expanded(
+            child: child?.call(context, constraint) ?? const SizedBox.shrink(),
+          ),
+
+        // Debug overlay to visualize the grid.
+        if (isOverlayVisible)
           Row(
             children: [
               _Margin(margin: margin, isOverlay: true),
@@ -145,22 +201,11 @@ class _AppPageViewState extends State<AppPageView> {
       ],
     );
   }
-
-  Widget _scrollableView(BoxConstraints constraint) {
-    return SingleChildScrollView(
-      controller: widget.scrollController,
-      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minHeight: constraint.maxHeight,
-        ),
-        child: IntrinsicHeight(
-          child: _view(constraint),
-        ),
-      ),
-    );
-  }
 }
+
+//region Grid Debug Widgets
+// These are helper widgets used only for visualizing the grid system when isOverlayVisible is true.
+//----------------------------------------------------------------------------
 
 class _Column extends StatelessWidget {
   const _Column({
@@ -215,3 +260,5 @@ class _Gutter extends StatelessWidget {
     );
   }
 }
+
+//endregion
