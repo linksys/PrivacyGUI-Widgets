@@ -34,6 +34,8 @@ class GroupList<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: groups.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         String category = groups[index].label;
         List itemsInCategory = groups[index].items;
@@ -49,7 +51,7 @@ class GroupList<T> extends StatelessWidget {
             const AppGap.medium(),
             ListView.separated(
               shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: itemsInCategory.length,
               itemBuilder: (BuildContext context, int index) =>
                   itemBuilder(itemsInCategory[index]),
