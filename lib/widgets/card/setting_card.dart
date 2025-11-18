@@ -32,6 +32,7 @@ class AppSettingCard extends StatelessWidget {
   });
 
   factory AppSettingCard.noBorder({
+    Key? key,
     Widget? leading,
     Widget? trailing,
     required String title,
@@ -44,6 +45,7 @@ class AppSettingCard extends StatelessWidget {
     bool selectableDescription = false,
   }) {
     return AppSettingCard(
+      key: key,
       leading: leading,
       trailing: trailing,
       title: title,
