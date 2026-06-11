@@ -755,18 +755,26 @@ class _AppStepperState extends State<AppStepper> with TickerProviderStateMixin {
           ),
         ),
         Expanded(
-          child: ListView(
-            controller: widget.controller,
-            physics: widget.physics,
-            padding: const EdgeInsets.symmetric(vertical: 24.0),
+          child: Column(
             children: <Widget>[
-              AnimatedSize(
-                curve: Curves.fastOutSlowIn,
-                duration: kThemeAnimationDuration,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: stepPanels),
+              Expanded(
+                child: ListView(
+                  controller: widget.controller,
+                  physics: widget.physics,
+                  padding: const EdgeInsets.symmetric(vertical: 24.0),
+                  children: <Widget>[
+                    AnimatedSize(
+                      curve: Curves.fastOutSlowIn,
+                      duration: kThemeAnimationDuration,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: stepPanels),
+                    ),
+                  ],
+                ),
               ),
+              // Keep the controls pinned below the scrollable content so they
+              // stay visible regardless of how tall the step content grows.
               _buildVerticalControls(widget.currentStep),
             ],
           ),
