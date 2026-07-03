@@ -55,9 +55,11 @@ class _AppFilledButtonWithLoadingState
                     isLoading = true;
                   });
                   await widget.onTap?.call();
-                  setState(() {
-                    isLoading = false;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
                 },
         ),
         if (isLoading)
