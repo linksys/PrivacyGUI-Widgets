@@ -19,11 +19,15 @@ class ResponsiveLayout extends StatelessWidget {
   static double tabletBreakpoint = medium;
   static double desktopBreakpoint = large;
 
+  // The grid below switches at `medium` with `<`, the same point as
+  // isDesktopLayout's `>=`, so a desktop layout always gets the 12-column grid.
+  // With `<=`, a page exactly 905 wide was laid out as desktop on the 8-column
+  // grid, and a 12-column row overflowed it by 429px.
   static double pageHorizontalPadding(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
       <= small => 16.0,
-      <= medium => 32.0,
+      < medium => 32.0,
       <= large => 24.0,
       <= extraLarge => 200.0,
       <= extraExtraLarge => 256.0,
@@ -35,7 +39,7 @@ class ResponsiveLayout extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
       <= small => Spacing.medium,
-      <= medium => Spacing.medium,
+      < medium => Spacing.medium,
       <= large => Spacing.large2,
       <= extraLarge => Spacing.large1,
       <= extraExtraLarge => Spacing.large1,
@@ -62,7 +66,7 @@ class ResponsiveLayout extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
       <= small => 4,
-      <= medium => 8,
+      < medium => 8,
       <= large => 12,
       <= extraLarge => 12,
       _ => 12,
