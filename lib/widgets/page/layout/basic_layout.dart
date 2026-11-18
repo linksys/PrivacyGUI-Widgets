@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/page/layout/fill_column.dart';
 
 class AppBasicLayout extends StatelessWidget {
@@ -18,33 +19,21 @@ class AppBasicLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // PROTOTYPE #1864 option B: in a scrolling page the height is unbounded,
-    // where Expanded cannot work. FillColumn gives the content what is left of
-    // the (at least viewport-tall) page instead, so a short page still centers
-    // its content and keeps the footer at the bottom.
-    return LayoutBuilder(builder: (context, constraints) {
-      final align = crossAxisAlignment ?? CrossAxisAlignment.start;
-      if (!constraints.hasBoundedHeight) {
-        return FillColumn(
-          crossAxisAlignment: align,
-          fillIndex: header != null ? 1 : 0,
-          children: [
-            if (header != null) header!,
-            content ?? const SizedBox.shrink(),
-            if (footer != null) footer!,
-            const AppGap.small3(),
-          ],
-        );
-      }
-      List<Widget> widgets = [];
-      if (header != null) widgets.add(header!);
-      if (content != null) widgets.add(Expanded(child: content!));
-      if (footer != null) widgets.add(footer!);
-      widgets.add(const AppGap.small3());
-      return Column(
-        crossAxisAlignment: align,
-        children: widgets,
-      );
-    });
+    // PROTOTYPE #1864 option B: one layout for both a bounded height (where
+    // FillColumn is a Column with an Expanded content) and the unbounded one
+    // of a scrolling page (where the content gets at least what is left). The
+    // same tree either way, so a parent that lays the page out twice does not
+    // rebuild the content's state.
+    return FillColumn(
+      crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
+      fillIndex: header != null ? 1 : 0,
+      children: [
+        if (header != null) header!,
+        content ?? const SizedBox.shrink(),
+        if (footer != null) footer!,
+        // A Gap needs a Flex parent, which FillColumn is not.
+        const SizedBox(height: Spacing.small3),
+      ],
+    );
   }
 }
