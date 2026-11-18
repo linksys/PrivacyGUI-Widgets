@@ -167,7 +167,10 @@ class _GridSystemLayout extends StatelessWidget {
         if (useContentMainPadding)
           Row(
             children: [
-              _Margin(margin: margin),
+              // PROTOTYPE #1864 option B: these transparent strips set the
+              // row's height to the page's where it does not scroll, as they
+              // always did; a scrolling page has no height for them to fill.
+              _Margin(margin: margin, fill: !scrollable),
               SizedBox(
                 width: columnSpanWidth(column, widthPerColumn),
                 // PROTOTYPE #1864 option B: in a scrolling page the content is
@@ -183,13 +186,13 @@ class _GridSystemLayout extends StatelessWidget {
                 ),
               ),
               if (remaining > 0) ...[
-                _Gutter(gutter: gutter),
+                _Gutter(gutter: gutter, fill: !scrollable),
                 SizedBox(
                   width: columnSpanWidth(remaining, widthPerColumn),
                   child: const Center(),
                 ),
               ],
-              _Margin(margin: margin),
+              _Margin(margin: margin, fill: !scrollable),
             ],
           )
         else
@@ -199,8 +202,12 @@ class _GridSystemLayout extends StatelessWidget {
           ),
 
         // Debug overlay to visualize the grid.
+        // PROTOTYPE #1864 option B: the overlay takes the content's height. Its
+        // strips ask for an infinite height, which a scrolling page no longer
+        // bounds without IntrinsicHeight.
         if (isOverlayVisible)
-          Row(
+          Positioned.fill(
+              child: Row(
             children: [
               _Margin(margin: margin, isOverlay: true),
               for (int i = 0; i < totalColumnCount(); i++)
@@ -211,7 +218,7 @@ class _GridSystemLayout extends StatelessWidget {
                 ]),
               _Margin(margin: margin, isOverlay: true),
             ],
-          ),
+          )),
       ],
     );
   }
@@ -225,16 +232,18 @@ class _Column extends StatelessWidget {
   const _Column({
     required this.columnWidth,
     this.isOverlay = false,
+    this.fill = false,
   });
 
   final double columnWidth;
   final bool isOverlay;
+  final bool fill;
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
       color: isOverlay ? Colors.red.withOpacity(0.2) : Colors.transparent,
-      child: SizedBox(width: columnWidth, height: isOverlay ? double.infinity : null),
+      child: SizedBox(width: columnWidth, height: isOverlay || fill ? double.infinity : null),
     );
   }
 }
@@ -243,16 +252,18 @@ class _Margin extends StatelessWidget {
   const _Margin({
     required this.margin,
     this.isOverlay = false,
+    this.fill = false,
   });
 
   final double margin;
   final bool isOverlay;
+  final bool fill;
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
       color: isOverlay ? Colors.green.withOpacity(0.2) : Colors.transparent,
-      child: SizedBox(width: margin, height: isOverlay ? double.infinity : null),
+      child: SizedBox(width: margin, height: isOverlay || fill ? double.infinity : null),
     );
   }
 }
@@ -261,16 +272,18 @@ class _Gutter extends StatelessWidget {
   const _Gutter({
     required this.gutter,
     this.isOverlay = false,
+    this.fill = false,
   });
 
   final double gutter;
   final bool isOverlay;
+  final bool fill;
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
       color: isOverlay ? Colors.cyan.withOpacity(0.2) : Colors.transparent,
-      child: SizedBox(width: gutter, height: isOverlay ? double.infinity : null),
+      child: SizedBox(width: gutter, height: isOverlay || fill ? double.infinity : null),
     );
   }
 }
