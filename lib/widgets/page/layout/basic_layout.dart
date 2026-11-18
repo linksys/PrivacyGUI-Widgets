@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/page/layout/fill_column.dart';
 
 class AppBasicLayout extends StatelessWidget {
   final Widget? header;
@@ -18,32 +19,20 @@ class AppBasicLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // PROTOTYPE #1864 option B: in a scrolling page the height is unbounded,
-    // where Expanded cannot work. The content then takes its own height, and
-    // the footer is pushed to the bottom of the (at least viewport-tall) page
-    // by spaceBetween instead of by an Expanded content.
+    // where Expanded cannot work. FillColumn gives the content what is left of
+    // the (at least viewport-tall) page instead, so a short page still centers
+    // its content and keeps the footer at the bottom.
     return LayoutBuilder(builder: (context, constraints) {
       final align = crossAxisAlignment ?? CrossAxisAlignment.start;
       if (!constraints.hasBoundedHeight) {
-        return Column(
+        return FillColumn(
           crossAxisAlignment: align,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          fillIndex: header != null ? 1 : 0,
           children: [
-            Column(
-              crossAxisAlignment: align,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (header != null) header!,
-                if (content != null) content!,
-              ],
-            ),
-            Column(
-              crossAxisAlignment: align,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (footer != null) footer!,
-                const AppGap.small3(),
-              ],
-            ),
+            if (header != null) header!,
+            content ?? const SizedBox.shrink(),
+            if (footer != null) footer!,
+            const AppGap.small3(),
           ],
         );
       }
