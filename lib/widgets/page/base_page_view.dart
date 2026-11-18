@@ -74,21 +74,24 @@ class _AppPageViewState extends State<AppPageView> {
             padding: widget.padding,
             useContentMainPadding: widget.useContentMainPadding,
             isOverlayVisible: widget.isOverlayVisible,
+            // PROTOTYPE #1864 option B: tells the grid the page scrolls.
+            scrollable: widget.scrollable ?? false,
           );
 
           // 2. Conditionally wrap it with a scroll view.
+          // PROTOTYPE #1864 option B: no IntrinsicHeight. The page is laid
+          // out with an unbounded height; the grid gives its content at least
+          // the viewport's height.
           if (widget.scrollable ?? false) {
             view = SingleChildScrollView(
               controller: widget.scrollController,
-              physics:
-                  const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight: constraint.maxHeight,
                 ),
-                child: IntrinsicHeight(
-                  child: view,
-                ),
+                child: view,
               ),
             );
           }
@@ -120,13 +123,17 @@ class _GridSystemLayout extends StatelessWidget {
     this.padding,
     this.useContentMainPadding = true,
     this.isOverlayVisible = false,
+    this.scrollable = false,
   });
 
   final BoxConstraints constraint;
-  final Widget Function(BuildContext context, BoxConstraints constraints)? child;
+  final Widget Function(BuildContext context, BoxConstraints constraints)?
+      child;
   final EdgeInsets? padding;
   final bool useContentMainPadding;
   final bool isOverlayVisible;
+  // PROTOTYPE #1864 option B.
+  final bool scrollable;
 
   @override
   Widget build(BuildContext context) {
@@ -163,9 +170,16 @@ class _GridSystemLayout extends StatelessWidget {
               _Margin(margin: margin),
               SizedBox(
                 width: columnSpanWidth(column, widthPerColumn),
-                child: Padding(
-                  padding: padding ?? EdgeInsets.zero,
-                  child: child?.call(context, constraint),
+                // PROTOTYPE #1864 option B: in a scrolling page the content is
+                // at least the viewport tall, so a short page keeps its footer
+                // at the bottom without IntrinsicHeight.
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      minHeight: scrollable ? constraint.maxHeight : 0),
+                  child: Padding(
+                    padding: padding ?? EdgeInsets.zero,
+                    child: child?.call(context, constraint),
+                  ),
                 ),
               ),
               if (remaining > 0) ...[
@@ -220,7 +234,7 @@ class _Column extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColoredBox(
       color: isOverlay ? Colors.red.withOpacity(0.2) : Colors.transparent,
-      child: SizedBox(width: columnWidth, height: double.infinity),
+      child: SizedBox(width: columnWidth, height: isOverlay ? double.infinity : null),
     );
   }
 }
@@ -238,7 +252,7 @@ class _Margin extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColoredBox(
       color: isOverlay ? Colors.green.withOpacity(0.2) : Colors.transparent,
-      child: SizedBox(width: margin, height: double.infinity),
+      child: SizedBox(width: margin, height: isOverlay ? double.infinity : null),
     );
   }
 }
@@ -256,7 +270,7 @@ class _Gutter extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColoredBox(
       color: isOverlay ? Colors.cyan.withOpacity(0.2) : Colors.transparent,
-      child: SizedBox(width: gutter, height: double.infinity),
+      child: SizedBox(width: gutter, height: isOverlay ? double.infinity : null),
     );
   }
 }
