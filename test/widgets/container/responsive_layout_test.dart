@@ -21,7 +21,142 @@ Future<T> readAt<T>(
   return value;
 }
 
+typedef Grid = ({int columns, double margin, double gutter});
+
+/// The layout flags, each named after the ResponsiveLayout method it holds:
+/// isMobileLayout, isOverSmallLayout, isDesktopLayout, isOverMedimumLayout,
+/// isOverLargeLayout and isOverExtraLargeLayout.
+typedef Flags = ({
+  bool mobile,
+  bool overSmall,
+  bool desktop,
+  bool overMedium,
+  bool overLarge,
+  bool overExtraLarge,
+});
+
+Grid gridAt(BuildContext context) => (
+      columns: ResponsiveLayout.maxColumn(context),
+      margin: ResponsiveLayout.pageHorizontalPadding(context),
+      gutter: ResponsiveLayout.columnPadding(context),
+    );
+
+Flags flagsAt(BuildContext context) => (
+      mobile: ResponsiveLayout.isMobileLayout(context) as bool,
+      overSmall: ResponsiveLayout.isOverSmallLayout(context) as bool,
+      desktop: ResponsiveLayout.isDesktopLayout(context) as bool,
+      overMedium: ResponsiveLayout.isOverMedimumLayout(context) as bool,
+      overLarge: ResponsiveLayout.isOverLargeLayout(context) as bool,
+      overExtraLarge: ResponsiveLayout.isOverExtraLargeLayout(context) as bool,
+    );
+
+/// Each band of the grid, from the breakpoint that starts it: its grid, and
+/// the layout flags that hold in it.
+const List<({double start, Grid grid, Flags flags})> bands = [
+  (
+    start: 0,
+    grid: (columns: 4, margin: 16, gutter: 16),
+    flags: (
+      mobile: true,
+      overSmall: false,
+      desktop: false,
+      overMedium: false,
+      overLarge: false,
+      overExtraLarge: false,
+    ),
+  ),
+  (
+    start: 600,
+    grid: (columns: 8, margin: 32, gutter: 16),
+    flags: (
+      mobile: true,
+      overSmall: true,
+      desktop: false,
+      overMedium: false,
+      overLarge: false,
+      overExtraLarge: false,
+    ),
+  ),
+  (
+    start: 905,
+    grid: (columns: 12, margin: 24, gutter: 24),
+    flags: (
+      mobile: false,
+      overSmall: true,
+      desktop: true,
+      overMedium: true,
+      overLarge: false,
+      overExtraLarge: false,
+    ),
+  ),
+  (
+    start: 1240,
+    grid: (columns: 12, margin: 200, gutter: 20),
+    flags: (
+      mobile: false,
+      overSmall: true,
+      desktop: true,
+      overMedium: true,
+      overLarge: true,
+      overExtraLarge: false,
+    ),
+  ),
+  (
+    start: 1440,
+    grid: (columns: 12, margin: 256, gutter: 20),
+    flags: (
+      mobile: false,
+      overSmall: true,
+      desktop: true,
+      overMedium: true,
+      overLarge: true,
+      overExtraLarge: true,
+    ),
+  ),
+  (
+    start: 1680,
+    grid: (columns: 12, margin: 352, gutter: 20),
+    flags: (
+      mobile: false,
+      overSmall: true,
+      desktop: true,
+      overMedium: true,
+      overLarge: true,
+      overExtraLarge: true,
+    ),
+  ),
+];
+
 void main() {
+  group('ResponsiveLayout on both sides of every breakpoint', () {
+    // A breakpoint starts its band, for the grid and the layout flags alike.
+    // The grid used to switch with `<=` and the flags with `>=`, so exactly on
+    // 600, 1240 and 1440 a flag already reported the next band while the grid
+    // was still the last one's. At 600 the Wi-Fi advanced list was then twice
+    // as wide as the page (#1876).
+    for (final (index, band) in bands.indexed.skip(1)) {
+      final below = bands[index - 1];
+      for (final (width, expected) in [
+        (band.start - 1, below),
+        (band.start, band),
+        (band.start + 1, band),
+      ]) {
+        testWidgets('$width is in the band that starts at ${expected.start}',
+            (tester) async {
+          final (grid, flags, columnSize) = await readAt(
+            tester,
+            width,
+            (c) => (gridAt(c), flagsAt(c), ResponsiveLayout.columnSize(c)),
+          );
+
+          expect(grid, expected.grid);
+          expect(flags, expected.flags);
+          expect(columnSize, greaterThan(0));
+        });
+      }
+    }
+  });
+
   group('ResponsiveLayout at the desktop breakpoint', () {
     testWidgets('905 is desktop and gets the 12-column grid', (tester) async {
       // isDesktopLayout is `>= medium`; the grid used `<= medium`, so at

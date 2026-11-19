@@ -19,59 +19,57 @@ class ResponsiveLayout extends StatelessWidget {
   static double tabletBreakpoint = medium;
   static double desktopBreakpoint = large;
 
-  // The grid below switches at `medium` with `<`, the same point as
-  // isDesktopLayout's `>=`, so a desktop layout always gets the 12-column grid.
-  // With `<=`, a page exactly 905 wide was laid out as desktop on the 8-column
-  // grid, and a 12-column row overflowed it by 429px.
-  static double pageHorizontalPadding(BuildContext context) {
+  /// The breakpoint that starts the band [context]'s width is in: the widest
+  /// of [small], [medium], [large], [extraLarge] and [extraExtraLarge] it has
+  /// reached, or 0 below [small]. A width exactly on a breakpoint is in the
+  /// band that breakpoint starts.
+  ///
+  /// The grid and the layout flags all read this, so they agree on every
+  /// width. They used to compare the width themselves, the grid with `<=` and
+  /// the flags with `>=`, so exactly on a breakpoint a flag already reported
+  /// the next band while the grid was still the last one's. At 905 a desktop
+  /// row overflowed the 8-column grid by 429px (PrivacyGUI#1802), and at 600
+  /// PrivacyGUI's Wi-Fi advanced list was twice as wide as the page
+  /// (PrivacyGUI#1876).
+  static double _bandStart(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return switch (width) {
-      <= small => 16.0,
-      < medium => 32.0,
-      <= large => 24.0,
-      <= extraLarge => 200.0,
-      <= extraExtraLarge => 256.0,
-      _ => 352.0,
+      >= extraExtraLarge => extraExtraLarge,
+      >= extraLarge => extraLarge,
+      >= large => large,
+      >= medium => medium,
+      >= small => small,
+      _ => 0,
     };
   }
 
-  static double columnPadding(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return switch (width) {
-      <= small => Spacing.medium,
-      < medium => Spacing.medium,
-      <= large => Spacing.large2,
-      <= extraLarge => Spacing.large1,
-      <= extraExtraLarge => Spacing.large1,
-      _ => Spacing.large1,
-    };
-  }
+  /// The grid of [context]'s band ([_bandStart]): the page margin on each
+  /// side, the gutter between columns, and the number of columns.
+  static ({double margin, double gutter, int columns}) _grid(
+          BuildContext context) =>
+      switch (_bandStart(context)) {
+        extraExtraLarge => (margin: 352, gutter: Spacing.large1, columns: 12),
+        extraLarge => (margin: 256, gutter: Spacing.large1, columns: 12),
+        large => (margin: 200, gutter: Spacing.large1, columns: 12),
+        medium => (margin: 24, gutter: Spacing.large2, columns: 12),
+        small => (margin: 32, gutter: Spacing.medium, columns: 8),
+        _ => (margin: 16, gutter: Spacing.medium, columns: 4),
+      };
+
+  static double pageHorizontalPadding(BuildContext context) =>
+      _grid(context).margin;
+
+  static double columnPadding(BuildContext context) => _grid(context).gutter;
 
   static double columnSize(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    // return switch (width) {
-    //   <= small => 70,
-    //   <= medium => 53,
-    //   <= large => 52,
-    //   <= extraLarge => 55,
-    //   _ => 72,
-    // };
     return (width -
             (pageHorizontalPadding(context) * 2) -
             (columnPadding(context) * (maxColumn(context) - 1))) /
         maxColumn(context);
   }
 
-  static int maxColumn(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return switch (width) {
-      <= small => 4,
-      < medium => 8,
-      <= large => 12,
-      <= extraLarge => 12,
-      _ => 12,
-    };
-  }
+  static int maxColumn(BuildContext context) => _grid(context).columns;
 
   static double getContentWidth(BuildContext context) =>
       maxColumn(context) * columnSize(context) +
@@ -84,19 +82,17 @@ class ResponsiveLayout extends StatelessWidget {
   }
   //
 
-  static isDesktopLayout(BuildContext context) =>
-      MediaQuery.of(context).size.width >= medium;
-  static isMobileLayout(BuildContext context) =>
-      MediaQuery.of(context).size.width < medium;
+  static isDesktopLayout(BuildContext context) => _bandStart(context) >= medium;
+  static isMobileLayout(BuildContext context) => _bandStart(context) < medium;
 
   static isOverSmallLayout(BuildContext context) =>
-      MediaQuery.of(context).size.width >= small;
+      _bandStart(context) >= small;
   static isOverMedimumLayout(BuildContext context) =>
-      MediaQuery.of(context).size.width >= medium;
+      _bandStart(context) >= medium;
   static isOverLargeLayout(BuildContext context) =>
-      MediaQuery.of(context).size.width >= large;
+      _bandStart(context) >= large;
   static isOverExtraLargeLayout(BuildContext context) =>
-      MediaQuery.of(context).size.width >= extraLarge;
+      _bandStart(context) >= extraLarge;
 
   const ResponsiveLayout({
     super.key,
