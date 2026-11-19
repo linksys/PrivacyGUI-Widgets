@@ -74,22 +74,21 @@ class _AppPageViewState extends State<AppPageView> {
             padding: widget.padding,
             useContentMainPadding: widget.useContentMainPadding,
             isOverlayVisible: widget.isOverlayVisible,
+            scrollable: widget.scrollable ?? false,
           );
 
-          // 2. Conditionally wrap it with a scroll view.
+          // 2. Conditionally wrap it with a scroll view. The page is laid out
+          // with no height limit, so it is as tall as its content, and the
+          // grid gives the content at least the viewport's height. There is
+          // no IntrinsicHeight here: a child can report a smaller intrinsic
+          // height than it lays out to, and the page then came out too short
+          // (linksys/PrivacyGUI#1864).
           if (widget.scrollable ?? false) {
             view = SingleChildScrollView(
               controller: widget.scrollController,
-              physics:
-                  const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraint.maxHeight,
-                ),
-                child: IntrinsicHeight(
-                  child: view,
-                ),
-              ),
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              child: view,
             );
           }
 
@@ -120,13 +119,18 @@ class _GridSystemLayout extends StatelessWidget {
     this.padding,
     this.useContentMainPadding = true,
     this.isOverlayVisible = false,
+    this.scrollable = false,
   });
 
   final BoxConstraints constraint;
-  final Widget Function(BuildContext context, BoxConstraints constraints)? child;
+  final Widget Function(BuildContext context, BoxConstraints constraints)?
+      child;
   final EdgeInsets? padding;
   final bool useContentMainPadding;
   final bool isOverlayVisible;
+
+  /// Whether the page scrolls, so that its height is unbounded.
+  final bool scrollable;
 
   @override
   Widget build(BuildContext context) {
@@ -160,22 +164,31 @@ class _GridSystemLayout extends StatelessWidget {
         if (useContentMainPadding)
           Row(
             children: [
-              _Margin(margin: margin),
+              // Where the page does not scroll, these strips make the row as
+              // tall as the page. A scrolling page has no height for them to
+              // fill; its content sets the row's height.
+              _Margin(margin: margin, fill: !scrollable),
               SizedBox(
                 width: columnSpanWidth(column, widthPerColumn),
-                child: Padding(
-                  padding: padding ?? EdgeInsets.zero,
-                  child: child?.call(context, constraint),
+                // A scrolling page's content is at least the viewport tall,
+                // so a short page still has room for a footer at the bottom.
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      minHeight: scrollable ? constraint.maxHeight : 0),
+                  child: Padding(
+                    padding: padding ?? EdgeInsets.zero,
+                    child: child?.call(context, constraint),
+                  ),
                 ),
               ),
               if (remaining > 0) ...[
-                _Gutter(gutter: gutter),
+                _Gutter(gutter: gutter, fill: !scrollable),
                 SizedBox(
                   width: columnSpanWidth(remaining, widthPerColumn),
                   child: const Center(),
                 ),
               ],
-              _Margin(margin: margin),
+              _Margin(margin: margin, fill: !scrollable),
             ],
           )
         else
@@ -184,19 +197,23 @@ class _GridSystemLayout extends StatelessWidget {
             child: child?.call(context, constraint) ?? const SizedBox.shrink(),
           ),
 
-        // Debug overlay to visualize the grid.
+        // Debug overlay to visualize the grid. It covers the content rather
+        // than sizing the page: on a scrolling page its strips would ask for
+        // an infinite height.
         if (isOverlayVisible)
-          Row(
-            children: [
-              _Margin(margin: margin, isOverlay: true),
-              for (int i = 0; i < totalColumnCount(); i++)
-                Row(children: [
-                  _Column(columnWidth: widthPerColumn, isOverlay: true),
-                  if (i != totalColumnCount() - 1)
-                    _Gutter(gutter: gutter, isOverlay: true),
-                ]),
-              _Margin(margin: margin, isOverlay: true),
-            ],
+          Positioned.fill(
+            child: Row(
+              children: [
+                _Margin(margin: margin, isOverlay: true),
+                for (int i = 0; i < totalColumnCount(); i++)
+                  Row(children: [
+                    _Column(columnWidth: widthPerColumn, isOverlay: true),
+                    if (i != totalColumnCount() - 1)
+                      _Gutter(gutter: gutter, isOverlay: true),
+                  ]),
+                _Margin(margin: margin, isOverlay: true),
+              ],
+            ),
           ),
       ],
     );
@@ -229,16 +246,21 @@ class _Margin extends StatelessWidget {
   const _Margin({
     required this.margin,
     this.isOverlay = false,
+    this.fill = false,
   });
 
   final double margin;
   final bool isOverlay;
 
+  /// Whether the strip is as tall as it may be. An overlay strip always is.
+  final bool fill;
+
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
       color: isOverlay ? Colors.green.withOpacity(0.2) : Colors.transparent,
-      child: SizedBox(width: margin, height: double.infinity),
+      child: SizedBox(
+          width: margin, height: isOverlay || fill ? double.infinity : null),
     );
   }
 }
@@ -247,16 +269,21 @@ class _Gutter extends StatelessWidget {
   const _Gutter({
     required this.gutter,
     this.isOverlay = false,
+    this.fill = false,
   });
 
   final double gutter;
   final bool isOverlay;
 
+  /// Whether the strip is as tall as it may be. An overlay strip always is.
+  final bool fill;
+
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
       color: isOverlay ? Colors.cyan.withOpacity(0.2) : Colors.transparent,
-      child: SizedBox(width: gutter, height: double.infinity),
+      child: SizedBox(
+          width: gutter, height: isOverlay || fill ? double.infinity : null),
     );
   }
 }
