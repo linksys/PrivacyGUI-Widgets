@@ -52,7 +52,9 @@ class _AppCardListSettingsViewState<T>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        AppText.titleSmall(widget.title!),
+        // Expanded, so a long title wraps before it reaches the actions
+        // instead of running past a narrow page (PrivacyGUI#1802).
+        Expanded(child: AppText.titleSmall(widget.title!)),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
