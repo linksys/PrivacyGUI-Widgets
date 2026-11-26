@@ -155,7 +155,10 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
                 });
               });
             },
-            identifier: 'now-password-${_isHidePassword ? 'show' : 'hide'}',
+            // A part of the field, and the same whether it shows or hides.
+            identifier: widget.identifier == null
+                ? null
+                : '${widget.identifier}-visibility',
             semanticLabel:
                 '${widget.semanticLabel ?? ''} ${_isHidePassword ? 'show password' : 'hide password'}',
           ),

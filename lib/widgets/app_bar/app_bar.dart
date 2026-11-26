@@ -105,8 +105,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal:
                             leading != null ? Spacing.medium : Spacing.zero),
-                    child:
-                        Semantics(identifier: 'now-page-title', child: title)),
+                    child: Semantics(identifier: 'page-title', child: title)),
               ),
           ],
         ),
@@ -121,7 +120,7 @@ class LinksysAppBar extends StatelessWidget implements PreferredSizeWidget {
       constraints: const BoxConstraints(minWidth: Spacing.large3),
       child: Semantics(
         explicitChildNodes: true,
-        identifier: 'now-page-trailing-container',
+        identifier: 'page-trailing',
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [...trailing.map((e) => e).toList()],

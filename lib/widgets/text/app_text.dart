@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 enum AppTextLevel {
   displayLarge,
@@ -28,6 +29,7 @@ class AppText extends StatelessWidget {
   final AppTextLevel textLevel;
   final TextAlign? textAlign;
   final bool selectable;
+  final String? identifier;
 
   const AppText(
     this.text, {
@@ -38,6 +40,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   }) : super(key: key);
 
   const AppText.displayLarge(
@@ -48,6 +51,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.displayLarge,
         super(key: key);
 
@@ -59,6 +63,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.displayMedium,
         super(key: key);
 
@@ -70,6 +75,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.displaySmall,
         super(key: key);
 
@@ -81,6 +87,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.headlineLarge,
         super(key: key);
 
@@ -92,6 +99,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.headlineMedium,
         super(key: key);
 
@@ -103,6 +111,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.headlineSmall,
         super(key: key);
 
@@ -114,6 +123,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.titleLarge,
         super(key: key);
 
@@ -125,6 +135,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.titleMedium,
         super(key: key);
 
@@ -136,6 +147,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.titleSmall,
         super(key: key);
 
@@ -147,6 +159,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.labelLarge,
         super(key: key);
 
@@ -158,6 +171,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.labelMedium,
         super(key: key);
 
@@ -169,6 +183,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.labelSmall,
         super(key: key);
 
@@ -180,6 +195,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.bodyLarge,
         super(key: key);
 
@@ -191,6 +207,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.bodyMedium,
         super(key: key);
 
@@ -202,6 +219,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.bodySmall,
         super(key: key);
 
@@ -213,6 +231,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.selectable = false,
+    this.identifier,
   })  : textLevel = AppTextLevel.bodyExtraSmall,
         super(key: key);
   @override
@@ -273,7 +292,7 @@ class AppText extends StatelessWidget {
         break;
     }
 
-    return selectable
+    final child = selectable
         ? SelectableText(
             text,
             style: style?.copyWith(
@@ -294,5 +313,9 @@ class AppText extends StatelessWidget {
             // overflow: overflow,
             textAlign: textAlign,
           );
+    // A selectable text is a read-only text field to the web engine.
+    return selectable
+        ? IdentifierSemantics.textField(identifier: identifier, child: child)
+        : IdentifierSemantics(identifier: identifier, child: child);
   }
 }

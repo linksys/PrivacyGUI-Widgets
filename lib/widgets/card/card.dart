@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppCard extends StatelessWidget {
   final VoidCallback? onTap;
@@ -35,6 +36,12 @@ class AppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The InkWell's tap merges into the identifier's node: the Card is no
+    // semantic container.
+    return IdentifierSemantics(identifier: identifier, child: _card(context));
+  }
+
+  Widget _card(BuildContext context) {
     return Card(
       semanticContainer: false,
       elevation: 0,

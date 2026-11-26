@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppSwitch extends StatelessWidget {
   const AppSwitch({
@@ -10,6 +11,7 @@ class AppSwitch extends StatelessWidget {
     this.checkedIcon,
     this.uncheckIcon,
     this.semanticLabel,
+    this.identifier,
   });
 
   const AppSwitch.withIcon({
@@ -19,6 +21,7 @@ class AppSwitch extends StatelessWidget {
     this.checkedIcon,
     this.uncheckIcon,
     this.semanticLabel,
+    this.identifier,
   }) : showIcon = true;
 
   final bool showIcon;
@@ -27,6 +30,7 @@ class AppSwitch extends StatelessWidget {
   final Icon? checkedIcon;
   final Icon? uncheckIcon;
   final String? semanticLabel;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
@@ -43,21 +47,27 @@ class AppSwitch extends StatelessWidget {
           }()
         : null;
     if (kIsWeb) {
-      return Semantics(
-        label: semanticLabel,
-        child: Switch(
-          value: value,
-          onChanged: onChanged,
-          thumbIcon: thumbIcon,
+      return IdentifierSemantics(
+        identifier: identifier,
+        child: Semantics(
+          label: semanticLabel,
+          child: Switch(
+            value: value,
+            onChanged: onChanged,
+            thumbIcon: thumbIcon,
+          ),
         ),
       );
     } else {
-      return Semantics(
-        label: semanticLabel,
-        child: Switch(
-          value: value,
-          onChanged: onChanged,
-          thumbIcon: thumbIcon,
+      return IdentifierSemantics(
+        identifier: identifier,
+        child: Semantics(
+          label: semanticLabel,
+          child: Switch(
+            value: value,
+            onChanged: onChanged,
+            thumbIcon: thumbIcon,
+          ),
         ),
       );
     }

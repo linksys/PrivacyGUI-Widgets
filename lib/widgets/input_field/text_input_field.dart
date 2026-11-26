@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class TextInputField extends StatefulWidget {
   const TextInputField({
@@ -95,42 +96,44 @@ class TextInputFieldState extends State<TextInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
+    return IdentifierSemantics.textField(
       identifier: widget.identifier,
-      label: widget.label ?? widget.semanticLabel,
-      child: TextField(
-        enabled: widget.enable,
-        readOnly: widget.readOnly,
-        obscureText: widget.secured,
-        controller: widget.controller,
-        autofillHints: widget.autofillHints,
-        textAlign: widget.textAlign ?? TextAlign.start,
-        decoration: InputDecoration(
-          border: widget.border,
-          labelText: widget.label,
-          prefixIcon: widget.prefixIcon,
-          suffixIcon: widget.suffixIcon,
-          hintText: widget.hintText,
-          errorText: widget.errorText,
-          errorMaxLines: 5,
-          helperText: widget.helperText,
-          prefixIconConstraints: widget.prefixIconConstraints,
-          suffixIconConstraints: widget.suffixIconConstraints,
+      child: Semantics(
+        label: widget.label ?? widget.semanticLabel,
+        child: TextField(
+          enabled: widget.enable,
+          readOnly: widget.readOnly,
+          obscureText: widget.secured,
+          controller: widget.controller,
+          autofillHints: widget.autofillHints,
+          textAlign: widget.textAlign ?? TextAlign.start,
+          decoration: InputDecoration(
+            border: widget.border,
+            labelText: widget.label,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
+            hintText: widget.hintText,
+            errorText: widget.errorText,
+            errorMaxLines: 5,
+            helperText: widget.helperText,
+            prefixIconConstraints: widget.prefixIconConstraints,
+            suffixIconConstraints: widget.suffixIconConstraints,
+          ),
+          onChanged: _onChanged,
+          onTapOutside: (PointerDownEvent event) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          keyboardType: widget.inputType,
+          focusNode: _focus,
+          onSubmitted: widget.onSubmitted,
+          textInputAction: widget.textInputAction,
+          inputFormatters: widget.inputFormatters,
+          autofocus: widget.autofocus,
+          maxLines: widget.secured ? 1 : widget.maxLines,
+          minLines: widget.minLines,
+          expands: widget.expands ?? false,
+          enableInteractiveSelection: !widget.readOnly,
         ),
-        onChanged: _onChanged,
-        onTapOutside: (PointerDownEvent event) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        keyboardType: widget.inputType,
-        focusNode: _focus,
-        onSubmitted: widget.onSubmitted,
-        textInputAction: widget.textInputAction,
-        inputFormatters: widget.inputFormatters,
-        autofocus: widget.autofocus,
-        maxLines: widget.secured ? 1 : widget.maxLines,
-        minLines: widget.minLines,
-        expands: widget.expands ?? false,
-        enableInteractiveSelection: !widget.readOnly,
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/utils/lottie.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:lottie/lottie.dart';
 
 class AppFullScreenSpinner extends StatelessWidget {
@@ -10,6 +11,7 @@ class AppFullScreenSpinner extends StatelessWidget {
   final Color? background;
   final Color? color;
   final bool wrap;
+  final String? identifier;
 
   const AppFullScreenSpinner({
     Key? key,
@@ -18,10 +20,16 @@ class AppFullScreenSpinner extends StatelessWidget {
     this.background,
     this.color,
     this.wrap = false,
+    this.identifier,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return IdentifierSemantics(
+        identifier: identifier, child: _spinner(context));
+  }
+
+  Widget _spinner(BuildContext context) {
     return Container(
       color: background ?? Theme.of(context).colorScheme.background,
       child: Center(

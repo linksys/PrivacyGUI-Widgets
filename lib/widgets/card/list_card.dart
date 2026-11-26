@@ -17,6 +17,7 @@ class AppListCard extends StatelessWidget {
     this.borderColor,
     this.crossAxisAlignment,
     this.margin,
+    this.identifier,
   });
 
   final Widget? leading;
@@ -30,6 +31,7 @@ class AppListCard extends StatelessWidget {
   final Color? borderColor;
   final CrossAxisAlignment? crossAxisAlignment;
   final EdgeInsets? margin;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class AppListCard extends StatelessWidget {
       color: color,
       borderColor: borderColor,
       margin: margin,
+      identifier: identifier,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,

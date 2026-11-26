@@ -4,6 +4,7 @@ import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/input_field/input_formatters.dart';
 import 'package:privacygui_widgets/widgets/input_field/ip_form_field_display_type.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppIPFormField extends StatefulWidget {
   const AppIPFormField({
@@ -286,66 +287,70 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
             color: isError
                 ? Theme.of(context).colorScheme.error
                 : Theme.of(context).colorScheme.outline));
-    return Semantics(
+    // Each octet is a text field of its own.
+    return IdentifierSemantics.textField(
       identifier: widget.identifier != null
           ? '${widget.identifier}-octet-$index'
           : null,
-      label: widget.semanticLabel != null
-          ? '${widget.semanticLabel} Octet $index'
-          : null,
-      child: readOnly
-          ? AppText.bodySmall(
-              controller.text,
-            )
-          : TextFormField(
-              key: widget.identifier != null
-                  ? ValueKey('${widget.identifier}-$index')
-                  : null,
-              controller: controller,
-              focusNode: setFocus ? (focus..requestFocus()) : focus,
-              decoration: InputDecoration(
-                border: border,
-                enabledBorder: border,
-                focusedBorder: border.copyWith(
-                    borderSide: border.borderSide.copyWith(
-                        color: Theme.of(context).colorScheme.primary)),
-                hoverColor: Theme.of(context).colorScheme.onBackground,
-                isDense: widget.displayType == AppIpFormFieldDisplayType.normal
-                    ? false
-                    : true,
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: Spacing.small3,
+      child: Semantics(
+        label: widget.semanticLabel != null
+            ? '${widget.semanticLabel} Octet $index'
+            : null,
+        child: readOnly
+            ? AppText.bodySmall(
+                controller.text,
+              )
+            : TextFormField(
+                key: widget.identifier != null
+                    ? ValueKey('${widget.identifier}-$index')
+                    : null,
+                controller: controller,
+                focusNode: setFocus ? (focus..requestFocus()) : focus,
+                decoration: InputDecoration(
+                  border: border,
+                  enabledBorder: border,
+                  focusedBorder: border.copyWith(
+                      borderSide: border.borderSide.copyWith(
+                          color: Theme.of(context).colorScheme.primary)),
+                  hoverColor: Theme.of(context).colorScheme.onBackground,
+                  isDense:
+                      widget.displayType == AppIpFormFieldDisplayType.normal
+                          ? false
+                          : true,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: Spacing.small3,
+                  ),
                 ),
-              ),
-              textAlign: TextAlign.center,
-              readOnly: readOnly,
-              enabled: widget.enable,
-              style: Theme.of(context).textTheme.bodySmall,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                // allow only  digits
-                IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
-                // custom class to format entered data from textField
-                LengthLimitingTextInputFormatter(3)
-                // restrict user to enter max 16 characters
-              ],
-              onTapOutside: (PointerDownEvent event) {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
-              keyboardType: TextInputType.number,
-              textInputAction:
-                  isLast ? TextInputAction.done : TextInputAction.next,
-              onChanged: (value) {
-                if (value.length >= 3) {
+                textAlign: TextAlign.center,
+                readOnly: readOnly,
+                enabled: widget.enable,
+                style: Theme.of(context).textTheme.bodySmall,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  // allow only  digits
+                  IPOctetsFormatter(acceptEmpty: widget.acceptEmpty),
+                  // custom class to format entered data from textField
+                  LengthLimitingTextInputFormatter(3)
+                  // restrict user to enter max 16 characters
+                ],
+                onTapOutside: (PointerDownEvent event) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                keyboardType: TextInputType.number,
+                textInputAction:
+                    isLast ? TextInputAction.done : TextInputAction.next,
+                onChanged: (value) {
+                  if (value.length >= 3) {
+                    FocusScope.of(context).requestFocus(nextFocus);
+                  }
+                  widget.controller?.text = _combineOctets();
+                  widget.onChanged?.call(_combineOctets());
+                },
+                onFieldSubmitted: (value) {
                   FocusScope.of(context).requestFocus(nextFocus);
-                }
-                widget.controller?.text = _combineOctets();
-                widget.onChanged?.call(_combineOctets());
-              },
-              onFieldSubmitted: (value) {
-                FocusScope.of(context).requestFocus(nextFocus);
-              },
-            ),
+                },
+              ),
+      ),
     );
   }
 

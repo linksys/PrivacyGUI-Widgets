@@ -11,6 +11,9 @@ class AppSectionItemData {
   final bool isBeta;
   final bool disabledOnBridge;
 
+  /// The identifier of the control that shows the item.
+  final String? identifier;
+
   final VoidCallback? onTap;
   AppSectionItemData({
     this.iconData,
@@ -20,6 +23,7 @@ class AppSectionItemData {
     this.status,
     this.isBeta = false,
     this.disabledOnBridge = false,
+    this.identifier,
   });
 }
 

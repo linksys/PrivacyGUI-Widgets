@@ -165,7 +165,10 @@ class AppIconButton extends StatelessWidget {
   final String? semanticLabel;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) =>
+      IdentifierSemantics(identifier: identifier, child: _button());
+
+  Widget _button() {
     switch (_style) {
       case _AppIconButtonStyle.normal:
         return IconButton(

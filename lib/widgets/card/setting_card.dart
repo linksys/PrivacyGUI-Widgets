@@ -15,6 +15,7 @@ class AppSettingCard extends StatelessWidget {
   final Color? borderColor;
   final EdgeInsets? margin;
   final bool selectableDescription;
+  final String? identifier;
 
   const AppSettingCard({
     super.key,
@@ -29,6 +30,7 @@ class AppSettingCard extends StatelessWidget {
     this.borderColor,
     this.margin,
     this.selectableDescription = false,
+    this.identifier,
   });
 
   factory AppSettingCard.noBorder({
@@ -43,6 +45,7 @@ class AppSettingCard extends StatelessWidget {
     Color? borderColor,
     EdgeInsets? margin,
     bool selectableDescription = false,
+    String? identifier,
   }) {
     return AppSettingCard(
       key: key,
@@ -59,6 +62,7 @@ class AppSettingCard extends StatelessWidget {
       borderColor: borderColor,
       margin: margin,
       selectableDescription: selectableDescription,
+      identifier: identifier,
     );
   }
 
@@ -87,6 +91,7 @@ class AppSettingCard extends StatelessWidget {
       color: color,
       margin: margin,
       borderColor: borderColor,
+      identifier: identifier,
     );
   }
 }
