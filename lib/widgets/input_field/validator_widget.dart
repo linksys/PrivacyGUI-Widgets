@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
 import 'package:privacygui_widgets/widgets/gap/gap.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppValidatorWidget extends StatelessWidget {
@@ -15,6 +16,7 @@ class AppValidatorWidget extends StatelessWidget {
   final Color? initColor;
   final Color? checkedColor;
   final Color? unCheckedColor;
+  final String? identifier;
 
   AppValidatorWidget({
     super.key,
@@ -28,10 +30,18 @@ class AppValidatorWidget extends StatelessWidget {
     this.initColor,
     this.checkedColor,
     this.unCheckedColor,
+    this.identifier,
   }) : assert(validations.isNotEmpty);
 
   @override
   Widget build(BuildContext context) {
+    return IdentifierSemantics(
+      identifier: identifier,
+      child: _validations(context),
+    );
+  }
+
+  Widget _validations(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

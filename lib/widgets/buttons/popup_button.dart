@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/theme/_theme.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 enum AppPopupVerticalPosition {
   top(-1.0),
@@ -26,6 +27,10 @@ class AppPopupButton extends StatefulWidget {
   final double? maxWidth;
   final double? maxHeight;
 
+  /// The button's identifier. The open menu is `{identifier}-menu`; the
+  /// controls that [builder] puts in it carry their own.
+  final String? identifier;
+
   const AppPopupButton({
     Key? key,
     required this.button,
@@ -36,6 +41,7 @@ class AppPopupButton extends StatefulWidget {
     this.parent,
     this.maxWidth = 500,
     this.maxHeight,
+    this.identifier,
   }) : super(key: key);
 
   @override
@@ -105,18 +111,21 @@ class PopupButtonState extends State<AppPopupButton>
         color: const Color(0x00000000),
         borderRadius: _borderRadius,
       ),
-      child: InkWell(
-        child: CompositedTransformTarget(
-          link: _link,
-          child: AbsorbPointer(child: widget.button),
+      child: IdentifierSemantics(
+        identifier: widget.identifier,
+        child: InkWell(
+          child: CompositedTransformTarget(
+            link: _link,
+            child: AbsorbPointer(child: widget.button),
+          ),
+          onTap: () {
+            if (isMenuOpen) {
+              close();
+            } else {
+              open();
+            }
+          },
         ),
-        onTap: () {
-          if (isMenuOpen) {
-            close();
-          } else {
-            open();
-          }
-        },
       ),
     );
   }
@@ -150,21 +159,24 @@ class PopupButtonState extends State<AppPopupButton>
                             widget.maxHeight ?? constraints.maxHeight * 0.7,
                         maxWidth:
                             widget.maxWidth ?? constraints.maxWidth * 0.7),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: widget.backgroundColor ??
-                              Theme.of(context).colorScheme.background,
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.outline,
+                    child: IdentifierSemantics(
+                      identifier: partIdentifier(widget.identifier, 'menu'),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: widget.backgroundColor ??
+                                Theme.of(context).colorScheme.background,
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                            borderRadius: _borderRadius,
                           ),
-                          borderRadius: _borderRadius,
-                        ),
-                        child: SingleChildScrollView(
-                          child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: widget.builder(this)),
+                          child: SingleChildScrollView(
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: widget.builder(this)),
+                          ),
                         ),
                       ),
                     ),

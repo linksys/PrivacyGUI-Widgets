@@ -6,6 +6,7 @@ class AppPanelWithValueCheck extends StatelessWidget {
   final String valueText;
   final Color? valueTextColor;
   final bool isChecked;
+  final String? identifier;
 
   const AppPanelWithValueCheck({
     Key? key,
@@ -14,6 +15,7 @@ class AppPanelWithValueCheck extends StatelessWidget {
     required this.valueText,
     this.valueTextColor,
     this.isChecked = false,
+    this.identifier,
   }) : super(key: key);
 
   Widget get _titleWidget => AppText.bodyLarge(title);
@@ -50,6 +52,13 @@ class AppPanelWithValueCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = (description == null) ? 56.0 : 74.0;
+    return IdentifierSemantics(
+      identifier: identifier,
+      child: _panel(context, height),
+    );
+  }
+
+  Widget _panel(BuildContext context, double height) {
     return TapBuilder(
       builder: (context, state, hasFocus) {
         switch (state) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppSwitchTriggerTile extends StatefulWidget {
   final Widget title;
@@ -14,6 +15,10 @@ class AppSwitchTriggerTile extends StatefulWidget {
   final bool toggleInCenter;
   final String? semanticLabel;
 
+  /// The identifier of the switch, and of the spinner that takes its place
+  /// while [event] runs.
+  final String? identifier;
+
   const AppSwitchTriggerTile({
     super.key,
     required this.title,
@@ -27,6 +32,7 @@ class AppSwitchTriggerTile extends StatefulWidget {
     this.onChanged,
     this.toggleInCenter = false,
     this.semanticLabel,
+    this.identifier,
   });
 
   @override
@@ -92,6 +98,13 @@ class _AppSwitchTriggerTileState extends State<AppSwitchTriggerTile> {
   }
 
   Widget _buildToggle() {
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: _switchOrSpinner(),
+    );
+  }
+
+  Widget _switchOrSpinner() {
     return _isLoading
         ? const CircularProgressIndicator()
         : AppSwitch(

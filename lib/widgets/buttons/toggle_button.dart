@@ -1,5 +1,5 @@
-
 import 'package:flutter/widgets.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 import 'button.dart';
 
@@ -32,6 +32,7 @@ class AppIconToggleButton extends StatelessWidget {
     this.animation = AppTweenAnimationData.leftRotate360,
     this.padding,
     this.onTap,
+    this.identifier,
   });
 
   final IconData icon1;
@@ -39,19 +40,25 @@ class AppIconToggleButton extends StatelessWidget {
   final AppTweenAnimationData animation;
   final EdgeInsets? padding;
   final void Function(AppIconToggleStatus)? onTap;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
-    return BaseIconToggleButton(
-      icon1: icon1,
-      icon2: icon2,
-      padding: padding,
-      onTap: onTap,
-      animatedSwitcherTransitionBuilder: (child, anim) => RotationTransition(
-        turns: child.key == ValueKey(icon1.codePoint)
-            ? _resolveAnimation(animation).animate(anim)
-            : _resolveAnimation(animation.reverse).animate(anim),
-        child: ScaleTransition(scale: anim, child: child),
+    // Around the switcher, so that the identifier stays on one node while the
+    // two icons cross-fade.
+    return IdentifierSemantics(
+      identifier: identifier,
+      child: BaseIconToggleButton(
+        icon1: icon1,
+        icon2: icon2,
+        padding: padding,
+        onTap: onTap,
+        animatedSwitcherTransitionBuilder: (child, anim) => RotationTransition(
+          turns: child.key == ValueKey(icon1.codePoint)
+              ? _resolveAnimation(animation).animate(anim)
+              : _resolveAnimation(animation.reverse).animate(anim),
+          child: ScaleTransition(scale: anim, child: child),
+        ),
       ),
     );
   }

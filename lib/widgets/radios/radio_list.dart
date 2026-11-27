@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppRadioListItem<T> {
   final String? title;
@@ -28,6 +29,12 @@ class AppRadioList<T> extends StatefulWidget {
   final MainAxisSize mainAxisSize;
   final bool withDivider;
   final double? itemHeight;
+  final String? identifier;
+
+  /// The key of an item's identifier, `{identifier}-item-{key}`. It comes from
+  /// the item's value, never from its title, which is translated. Without it,
+  /// the items have no identifier.
+  final String Function(T value)? itemKey;
 
   const AppRadioList({
     super.key,
@@ -38,6 +45,8 @@ class AppRadioList<T> extends StatefulWidget {
     this.withDivider = false,
     this.mainAxisSize = MainAxisSize.max,
     this.itemHeight,
+    this.identifier,
+    this.itemKey,
   });
 
   @override
@@ -62,18 +71,21 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
         _selected = widget.selected;
       });
     }
-    return Column(
-      mainAxisSize: widget.mainAxisSize,
-      children: widget.items
-          .mapIndexed((index, e) => _itemTile(item: e))
-          .expandIndexed<Widget>((index, element) sync* {
-        if (index != widget.items.length - 1) {
-          yield element;
-          if (widget.withDivider) yield const Divider();
-        } else {
-          yield element;
-        }
-      }).toList(),
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: Column(
+        mainAxisSize: widget.mainAxisSize,
+        children: widget.items
+            .mapIndexed((index, e) => _itemTile(item: e))
+            .expandIndexed<Widget>((index, element) sync* {
+          if (index != widget.items.length - 1) {
+            yield element;
+            if (widget.withDivider) yield const Divider();
+          } else {
+            yield element;
+          }
+        }).toList(),
+      ),
     );
   }
 
@@ -86,44 +98,51 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
           Container(
             constraints: const BoxConstraints(minHeight: 56),
             height: widget.itemHeight,
-            child: InkWell(
-              onTap: item.enabled ?  () {
-                setState(() {
-                  _selected = item.value;
-                  widget.onChanged?.call(
-                      widget.items
-                          .indexWhere((element) => element.value == _selected),
-                      _selected);
-                });
-              } : null,
-              child: Row(
-                children: [
-                  AbsorbPointer(
-                    child: Radio<T>(
-                      value: item.value,
-                      groupValue: _selected,
-                      onChanged: (T? value) {
-                        widget.onChanged?.call(
-                            widget.items.indexWhere(
-                                (element) => element.value == _selected),
-                            _selected);
-                      },
+            // The item's tap and its radio merge into the identifier's node.
+            child: IdentifierSemantics(
+              identifier: _itemIdentifier(item.value),
+              child: InkWell(
+                onTap: item.enabled
+                    ? () {
+                        setState(() {
+                          _selected = item.value;
+                          widget.onChanged?.call(
+                              widget.items.indexWhere(
+                                  (element) => element.value == _selected),
+                              _selected);
+                        });
+                      }
+                    : null,
+                child: Row(
+                  children: [
+                    AbsorbPointer(
+                      child: Radio<T>(
+                        value: item.value,
+                        groupValue: _selected,
+                        onChanged: (T? value) {
+                          widget.onChanged?.call(
+                              widget.items.indexWhere(
+                                  (element) => element.value == _selected),
+                              _selected);
+                        },
+                      ),
                     ),
-                  ),
-                  const AppGap.small3(),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        item.titleWidget ?? AppText.labelLarge(item.title ?? ''),
-                        if (item.subTitleWidget != null) ...[
-                          item.subTitleWidget!,
-                        ]
-                      ],
-                    ),
-                  )
-                ],
+                    const AppGap.small3(),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          item.titleWidget ??
+                              AppText.labelLarge(item.title ?? ''),
+                          if (item.subTitleWidget != null) ...[
+                            item.subTitleWidget!,
+                          ]
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -135,5 +154,12 @@ class _AppRadioListState<T> extends State<AppRadioList<T>> {
         ],
       ),
     );
+  }
+
+  String? _itemIdentifier(T value) {
+    final itemKey = widget.itemKey;
+    return itemKey == null
+        ? null
+        : partIdentifier(widget.identifier, 'item-${itemKey(value)}');
   }
 }

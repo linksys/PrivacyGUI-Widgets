@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:tap_builder/tap_builder.dart';
 
 part 'panel_with_simple_title.dart';
@@ -110,7 +111,7 @@ class AppPanelLayout extends StatelessWidget {
               ),
       ),
       child: AnimatedFractionallySizedBox(
-      duration: const Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 250),
         widthFactor: animationFactor,
         child: Padding(
           padding:

@@ -142,9 +142,9 @@ class _AppDropdownButtonState<T> extends State<AppDropdownButton<T>> {
   }
 
   String? _itemIdentifier(T item) {
-    final identifier = widget.identifier;
     final itemKey = widget.itemKey;
-    if (identifier == null || itemKey == null) return null;
-    return '$identifier-item-${itemKey(item)}';
+    return itemKey == null
+        ? null
+        : partIdentifier(widget.identifier, 'item-${itemKey(item)}');
   }
 }

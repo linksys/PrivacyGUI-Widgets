@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/card/list_card.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppNodeListCard extends StatelessWidget {
   final ImageProvider leading;
@@ -17,6 +18,10 @@ class AppNodeListCard extends StatelessWidget {
   final Color? color;
   final Color? borderColor;
 
+  /// The card's identifier. With [onSelected], its checkbox is
+  /// `{identifier}-select`.
+  final String? identifier;
+
   const AppNodeListCard({
     Key? key,
     required this.leading,
@@ -29,6 +34,7 @@ class AppNodeListCard extends StatelessWidget {
     this.onSelected,
     this.color,
     this.borderColor,
+    this.identifier,
   }) : super(key: key);
 
   @override
@@ -55,6 +61,7 @@ class AppNodeListCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: Spacing.medium),
                     child: AppCheckbox(
+                      identifier: partIdentifier(identifier, 'select'),
                       value: isSelected,
                       onChanged: (value) => onSelected?.call(value ?? false),
                     ),
@@ -84,6 +91,7 @@ class AppNodeListCard extends StatelessWidget {
         ],
       ),
       onTap: onTap,
+      identifier: identifier,
     );
   }
 }

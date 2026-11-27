@@ -16,6 +16,10 @@ class AppTabLayout extends StatelessWidget {
   final Color? color;
   final void Function(int index)? onTap;
 
+  /// The tab bar's identifier and tab keys, as `AppTabBar` takes them.
+  final String? identifier;
+  final List<String>? tabKeys;
+
   AppTabLayout({
     super.key,
     required this.tabs,
@@ -30,6 +34,8 @@ class AppTabLayout extends StatelessWidget {
     this.tabController,
     this.color,
     this.onTap,
+    this.identifier,
+    this.tabKeys,
   })  : assert(tabs.isNotEmpty),
         assert(tabs.length == tabContentViews.length);
 
@@ -65,6 +71,8 @@ class AppTabLayout extends StatelessWidget {
               tabController: tabController,
               tabs: tabs,
               onTap: onTap,
+              identifier: identifier,
+              tabKeys: tabKeys,
             ),
           ],
         ),

@@ -12,6 +12,7 @@ class AppInfoCard extends StatelessWidget {
   final EdgeInsets? padding;
   final Color? color;
   final Color? borderColor;
+  final String? identifier;
 
   const AppInfoCard({
     Key? key,
@@ -23,6 +24,7 @@ class AppInfoCard extends StatelessWidget {
     this.padding,
     this.color,
     this.borderColor,
+    this.identifier,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class AppInfoCard extends StatelessWidget {
       showBorder: showBorder,
       padding: padding,
       onTap: onTap,
+      identifier: identifier,
     );
   }
 }

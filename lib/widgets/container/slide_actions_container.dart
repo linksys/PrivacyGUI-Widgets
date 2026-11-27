@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:tap_builder/tap_builder.dart';
 
 class AppMenuItem extends Equatable {
@@ -10,16 +11,21 @@ class AppMenuItem extends Equatable {
   final Color? background;
   final VoidCallback? onTap;
 
+  /// The identifier of the control that shows the item.
+  final String? identifier;
+
   const AppMenuItem({
     this.icon,
     this.label,
     this.foreground,
     this.background,
     this.onTap,
+    this.identifier,
   });
 
   @override
-  List<Object?> get props => [icon, label, foreground, background, onTap];
+  List<Object?> get props =>
+      [icon, label, foreground, background, onTap, identifier];
 }
 
 class AppSlideActionContainer extends StatefulWidget {
@@ -27,11 +33,15 @@ class AppSlideActionContainer extends StatefulWidget {
   final List<AppMenuItem> leftMenuItems;
   final List<AppMenuItem> rightMenuItems;
 
+  /// The container's identifier. Each menu item carries its own.
+  final String? identifier;
+
   const AppSlideActionContainer({
     super.key,
     required this.child,
     this.leftMenuItems = const [],
     this.rightMenuItems = const [],
+    this.identifier,
   });
 
   @override
@@ -60,6 +70,13 @@ class AppSlideActionContainerState extends State<AppSlideActionContainer>
 
   @override
   Widget build(BuildContext context) {
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: _container(context),
+    );
+  }
+
+  Widget _container(BuildContext context) {
     final leftOffsetRatio =
         widget.leftMenuItems.any((element) => element.label != null)
             ? 0.25
@@ -145,6 +162,7 @@ class AppSlideActionContainerState extends State<AppSlideActionContainer>
                                     foreground: data.foreground,
                                     background: data.background,
                                     onTap: data.onTap,
+                                    identifier: data.identifier,
                                   ),
                                 );
                               }).toList(),
@@ -169,6 +187,7 @@ class AppSlideActionContainerState extends State<AppSlideActionContainer>
                                     foreground: data.foreground,
                                     background: data.background,
                                     onTap: data.onTap,
+                                    identifier: data.identifier,
                                   ),
                                 );
                               }).toList(),
@@ -197,6 +216,7 @@ class AppSliderMenuItem extends StatelessWidget {
   final Color? background;
   final String? label;
   final IconData? icon;
+  final String? identifier;
 
   const AppSliderMenuItem({
     super.key,
@@ -205,10 +225,16 @@ class AppSliderMenuItem extends StatelessWidget {
     this.background,
     this.label,
     this.icon,
+    this.identifier,
   });
 
   @override
   Widget build(BuildContext context) {
+    // The tap merges into the identifier's node.
+    return IdentifierSemantics(identifier: identifier, child: _item());
+  }
+
+  Widget _item() {
     final foregroundColorSet =
         AppWidgetStateColorSet(inactive: foreground, hovered: foreground);
     final backgroundColorSet =

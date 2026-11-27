@@ -4,6 +4,7 @@ import 'package:privacygui_widgets/widgets/card/card.dart';
 import 'package:privacygui_widgets/widgets/container/responsive_layout.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/gap/gap.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppTableSettingsView<T> extends StatefulWidget {
@@ -18,6 +19,7 @@ class AppTableSettingsView<T> extends StatefulWidget {
 
   final int? editRowIndex;
   final Widget? bottomWidget;
+  final String? identifier;
 
   const AppTableSettingsView({
     super.key,
@@ -31,6 +33,7 @@ class AppTableSettingsView<T> extends StatefulWidget {
     this.editRowIndex,
     this.bottomWidget,
     this.emptyView,
+    this.identifier,
   });
 
   @override
@@ -40,6 +43,15 @@ class AppTableSettingsView<T> extends StatefulWidget {
 class _AppTableSettingsViewState<T> extends State<AppTableSettingsView<T>> {
   @override
   Widget build(BuildContext context) {
+    // A table cell makes no node of its own, so the form that keeps a text
+    // field in a cell a node of its own.
+    return IdentifierSemantics.textField(
+      identifier: widget.identifier,
+      child: _view(),
+    );
+  }
+
+  Widget _view() {
     return Container(
       padding: EdgeInsets.zero,
       child: Column(

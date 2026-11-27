@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 enum AppStyledTextStyle {
   bold,
@@ -13,12 +14,17 @@ class AppStyledText extends StatelessWidget {
   final Map<String, TextStyle> styleTags;
   final Map<String, StyledTextTagActionCallback> callbackTags;
 
+  /// The text's identifier. Flutter 3.27.2 gives a span no identifier, so a
+  /// link inside the text is a node under the text's.
+  final String? identifier;
+
   const AppStyledText(
     this.text, {
     super.key,
     this.defaultTextStyle,
     required this.styleTags,
     required this.callbackTags,
+    this.identifier,
   });
 
   factory AppStyledText.bold(
@@ -28,6 +34,7 @@ class AppStyledText extends StatelessWidget {
     required List<String> tags,
     Color? color,
     Map<String, StyledTextTagActionCallback> callbackTags = const {},
+    String? identifier,
   }) {
     final textStyle =
         defaultTextStyle.copyWith(fontWeight: FontWeight.bold, color: color);
@@ -41,6 +48,7 @@ class AppStyledText extends StatelessWidget {
       defaultTextStyle: defaultTextStyle,
       styleTags: styleTags,
       callbackTags: callbackTags,
+      identifier: identifier,
     );
   }
 
@@ -51,6 +59,7 @@ class AppStyledText extends StatelessWidget {
     required TextStyle defaultTextStyle,
     required List<String> tags,
     Map<String, StyledTextTagActionCallback> callbackTags = const {},
+    String? identifier,
   }) {
     final textStyle = defaultTextStyle.copyWith(
         color: color, decoration: TextDecoration.underline);
@@ -64,6 +73,7 @@ class AppStyledText extends StatelessWidget {
       defaultTextStyle: defaultTextStyle,
       styleTags: styleTags,
       callbackTags: callbackTags,
+      identifier: identifier,
     );
   }
 
@@ -79,6 +89,9 @@ class AppStyledText extends StatelessWidget {
               style: styleTags[key] ?? textStyle);
       return map;
     });
-    return StyledText(key: key, text: text, style: textStyle, tags: tags);
+    return IdentifierSemantics(
+      identifier: identifier,
+      child: StyledText(key: key, text: text, style: textStyle, tags: tags),
+    );
   }
 }

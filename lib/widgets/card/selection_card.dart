@@ -11,6 +11,7 @@ class AppSelectionCard<T> extends StatelessWidget {
   final String? label;
   final String description;
   final void Function()? onTap;
+  final String? identifier;
 
   const AppSelectionCard({
     Key? key,
@@ -20,12 +21,14 @@ class AppSelectionCard<T> extends StatelessWidget {
     required this.value,
     required this.groupValue,
     this.onTap,
+    this.identifier,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final selected = value == groupValue;
     return AppCard(
+      identifier: identifier,
       onTap: selected ? null : onTap,
       borderColor: selected ? Theme.of(context).colorScheme.primary : null,
       color: selected

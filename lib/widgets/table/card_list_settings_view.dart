@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/card/card.dart';
 import 'package:privacygui_widgets/widgets/gap/gap.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppCardListSettingsView<T> extends StatefulWidget {
@@ -11,6 +12,7 @@ class AppCardListSettingsView<T> extends StatefulWidget {
   final Widget Function(BuildContext, T) itemCardBuilder;
   final Widget Function(BuildContext, T)? editItemCardBuilder;
   final List<Widget> actions;
+  final String? identifier;
 
   const AppCardListSettingsView({
     super.key,
@@ -20,6 +22,7 @@ class AppCardListSettingsView<T> extends StatefulWidget {
     this.editItemCardBuilder,
     this.actions = const [],
     this.emptyView,
+    this.identifier,
   });
 
   @override
@@ -31,6 +34,13 @@ class _AppCardListSettingsViewState<T>
     extends State<AppCardListSettingsView<T>> {
   @override
   Widget build(BuildContext context) {
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: _view(),
+    );
+  }
+
+  Widget _view() {
     return Container(
       padding: EdgeInsets.zero,
       child: Column(

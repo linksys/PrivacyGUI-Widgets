@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/gap/gap.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppCheckbox extends StatelessWidget {
@@ -11,6 +12,7 @@ class AppCheckbox extends StatelessWidget {
     this.tristate = false,
     this.onChanged,
     this.semanticLabel,
+    this.identifier,
   });
 
   final bool? value;
@@ -19,10 +21,19 @@ class AppCheckbox extends StatelessWidget {
   final String? text;
   final void Function(bool?)? onChanged;
   final String? semanticLabel;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
     final text = this.text;
+    // The checkbox and its text merge into the identifier's node.
+    return IdentifierSemantics(
+      identifier: identifier,
+      child: _row(context, text),
+    );
+  }
+
+  Widget _row(BuildContext context, String? text) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [

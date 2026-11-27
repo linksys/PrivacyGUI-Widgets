@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:privacygui_widgets/widgets/text/app_text.dart';
 
 class AppTips extends StatefulWidget {
@@ -10,6 +11,9 @@ class AppTips extends StatefulWidget {
   final Color? background;
   final bool showTips;
 
+  /// The identifier of the tip that [showTips] shows over [child].
+  final String? identifier;
+
   const AppTips({
     super.key,
     required this.child,
@@ -18,6 +22,7 @@ class AppTips extends StatefulWidget {
     this.leadIconColor,
     this.background,
     this.showTips = false,
+    this.identifier,
   });
 
   @override
@@ -36,24 +41,27 @@ class _AppTipsState extends State<AppTips> {
           child: Positioned(
             top: getOffset(childKey)?.dy, // Calculate desired position
             left: getOffset(childKey)?.dx, // Calculate desired position
-            child: Container(
-              decoration: BoxDecoration(
-                // Style like a tooltip
-                color: widget.background ??
-                    Theme.of(context).colorScheme.background,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              padding: EdgeInsets.all(8),
-              child: Row(
-                spacing: Spacing.small1,
-                children: [
-                  if (widget.leadIcon != null)
-                    Icon(
-                      widget.leadIcon,
-                      color: widget.leadIconColor,
-                    ),
-                  if (widget.tips != null) AppText.bodySmall(widget.tips!),
-                ],
+            child: IdentifierSemantics(
+              identifier: widget.identifier,
+              child: Container(
+                decoration: BoxDecoration(
+                  // Style like a tooltip
+                  color: widget.background ??
+                      Theme.of(context).colorScheme.background,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  spacing: Spacing.small1,
+                  children: [
+                    if (widget.leadIcon != null)
+                      Icon(
+                        widget.leadIcon,
+                        color: widget.leadIconColor,
+                      ),
+                    if (widget.tips != null) AppText.bodySmall(widget.tips!),
+                  ],
+                ),
               ),
             ),
           ),

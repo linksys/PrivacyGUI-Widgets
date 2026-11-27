@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/buttons/button.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 import 'package:privacygui_widgets/widgets/switch/switch.dart';
 
 enum LoadableWidgetType {
@@ -36,6 +37,10 @@ class AppLoadableWidget extends StatefulWidget {
   final Icon? checkedIcon;
   final Icon? uncheckIcon;
 
+  /// The identifier of the control, and of the spinner that takes its place
+  /// while [onTap] or [onChanged] runs.
+  final String? identifier;
+
   const AppLoadableWidget({
     super.key,
     required this.type,
@@ -53,6 +58,7 @@ class AppLoadableWidget extends StatefulWidget {
     this.checkedIcon,
     this.uncheckIcon,
     this.showSpinnerWhenTap = true,
+    this.identifier,
   });
 
   factory AppLoadableWidget.elevatedButton({
@@ -60,6 +66,7 @@ class AppLoadableWidget extends StatefulWidget {
     required String title,
     Size? spinnerSize,
     String? semanticsLabel,
+    String? identifier,
     IconData? icon,
     Future Function(AppLoadableWidgetController controller)? onTap,
     Size? buttonSize,
@@ -71,6 +78,7 @@ class AppLoadableWidget extends StatefulWidget {
         title: title,
         spinnerSize: spinnerSize,
         semanticsLabel: semanticsLabel,
+        identifier: identifier,
         icon: icon,
         onTap: onTap,
         buttonSize: buttonSize,
@@ -82,6 +90,7 @@ class AppLoadableWidget extends StatefulWidget {
     required String title,
     Size? spinnerSize,
     String? semanticsLabel,
+    String? identifier,
     IconData? icon,
     Future Function(AppLoadableWidgetController controller)? onTap,
     Size? buttonSize,
@@ -93,6 +102,7 @@ class AppLoadableWidget extends StatefulWidget {
         title: title,
         spinnerSize: spinnerSize,
         semanticsLabel: semanticsLabel,
+        identifier: identifier,
         icon: icon,
         onTap: onTap,
         buttonSize: buttonSize,
@@ -104,6 +114,7 @@ class AppLoadableWidget extends StatefulWidget {
     required String title,
     Size? spinnerSize,
     String? semanticsLabel,
+    String? identifier,
     IconData? icon,
     Future Function(AppLoadableWidgetController controller)? onTap,
     Color? color,
@@ -116,6 +127,7 @@ class AppLoadableWidget extends StatefulWidget {
         title: title,
         spinnerSize: spinnerSize,
         semanticsLabel: semanticsLabel,
+        identifier: identifier,
         icon: icon,
         onTap: onTap,
         color: color,
@@ -128,6 +140,7 @@ class AppLoadableWidget extends StatefulWidget {
     required String title,
     Size? spinnerSize,
     String? semanticsLabel,
+    String? identifier,
     IconData? icon,
     Future Function(AppLoadableWidgetController controller)? onTap,
     Color? color,
@@ -141,6 +154,7 @@ class AppLoadableWidget extends StatefulWidget {
         title: title,
         spinnerSize: spinnerSize,
         semanticsLabel: semanticsLabel,
+        identifier: identifier,
         icon: icon,
         onTap: onTap,
         color: color,
@@ -154,6 +168,7 @@ class AppLoadableWidget extends StatefulWidget {
     required bool value,
     Size? spinnerSize,
     String? semanticsLabel,
+    String? identifier,
     IconData? icon,
     Future Function(AppLoadableWidgetController controller, dynamic)? onChanged,
     bool? showIcon,
@@ -166,6 +181,7 @@ class AppLoadableWidget extends StatefulWidget {
         type: LoadableWidgetType.appSwitch,
         spinnerSize: spinnerSize,
         semanticsLabel: semanticsLabel,
+        identifier: identifier,
         value: value,
         icon: icon,
         onChanged: onChanged,
@@ -185,6 +201,13 @@ class _AppLoadableWidgetState extends State<AppLoadableWidget>
 
   @override
   Widget build(BuildContext context) {
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: _control(),
+    );
+  }
+
+  Widget _control() {
     return _isLoading
         ? SizedBox(
             height: widget.spinnerSize?.height,

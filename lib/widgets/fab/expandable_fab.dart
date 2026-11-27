@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
+
 class ExpandableFab extends StatefulWidget {
   const ExpandableFab({
     super.key,
@@ -9,6 +11,7 @@ class ExpandableFab extends StatefulWidget {
     required this.children,
     required this.icon,
     this.iconColor,
+    this.identifier,
   });
 
   final bool? initialOpen;
@@ -16,6 +19,10 @@ class ExpandableFab extends StatefulWidget {
   final List<Widget> children;
   final IconData icon;
   final Color? iconColor;
+
+  /// The identifier of the button that opens the actions. The one that closes
+  /// them is `{identifier}-close`. Each action in [children] carries its own.
+  final String? identifier;
 
   @override
   State<ExpandableFab> createState() => _ExpandableFabState();
@@ -68,9 +75,15 @@ class _ExpandableFabState extends State<ExpandableFab>
         alignment: Alignment.bottomRight,
         clipBehavior: Clip.none,
         children: [
-          _buildTapToCloseFab(),
+          IdentifierSemantics(
+            identifier: partIdentifier(widget.identifier, 'close'),
+            child: _buildTapToCloseFab(),
+          ),
           ..._buildExpandingActionButtons(),
-          _buildTapToOpenFab(),
+          IdentifierSemantics(
+            identifier: widget.identifier,
+            child: _buildTapToOpenFab(),
+          ),
         ],
       ),
     );
@@ -197,14 +210,23 @@ class ActionButton extends StatelessWidget {
     super.key,
     this.onPressed,
     required this.icon,
+    this.identifier,
   });
 
   final VoidCallback? onPressed;
   final Widget icon;
+  final String? identifier;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    return IdentifierSemantics(
+      identifier: identifier,
+      child: _button(theme),
+    );
+  }
+
+  Widget _button(ThemeData theme) {
     return Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,

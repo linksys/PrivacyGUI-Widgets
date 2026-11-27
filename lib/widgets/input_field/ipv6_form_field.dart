@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppIPv6FormField extends StatefulWidget {
   final TextEditingController? controller;
@@ -70,41 +71,40 @@ class _AppIPv6FormFieldState extends State<AppIPv6FormField> {
     final border = widget.border.copyWith(
         borderSide: widget.border.borderSide
             .copyWith(color: Theme.of(context).colorScheme.outline));
-    return Semantics(
-      identifier: widget.identifier != null
-          ? '${widget.identifier}-ipv6FormField'
-          : null,
-      label: widget.semanticLabel != null
-          ? '${widget.semanticLabel} IPv6 Form Field'
-          : null,
-      child: TextFormField(
-        controller: widget.controller,
-        focusNode: _focusNode,
-        decoration: InputDecoration(
-          labelText: widget.title,
-          border: border,
-          enabledBorder: border,
-          focusedBorder: border.copyWith(
-              borderSide: border.borderSide
-                  .copyWith(color: Theme.of(context).colorScheme.primary)),
-          hoverColor: Theme.of(context).colorScheme.onSurface,
-          prefixIcon: widget.prefixIcon,
-          suffixIcon: widget.suffixIcon,
+    return IdentifierSemantics.textField(
+      identifier: widget.identifier,
+      child: Semantics(
+        label: widget.semanticLabel != null
+            ? '${widget.semanticLabel} IPv6 Form Field'
+            : null,
+        child: TextFormField(
+          controller: widget.controller,
+          focusNode: _focusNode,
+          decoration: InputDecoration(
+            labelText: widget.title,
+            border: border,
+            enabledBorder: border,
+            focusedBorder: border.copyWith(
+                borderSide: border.borderSide
+                    .copyWith(color: Theme.of(context).colorScheme.primary)),
+            hoverColor: Theme.of(context).colorScheme.onSurface,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
+          ),
+          readOnly: widget.readOnly,
+          textAlign: widget.textAlign,
+          inputFormatters: [
+            // allow only digits
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F:]')),
+          ],
+          onChanged: (value) {
+            widget.onChanged?.call(value);
+          },
+          autovalidateMode: widget.autovalidateMode,
+          validator: widget.validator,
+          forceErrorText: widget.forceErrorText,
         ),
-        readOnly: widget.readOnly,
-        textAlign: widget.textAlign,
-        inputFormatters: [
-          // allow only digits
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F:]')),
-        ],
-        onChanged: (value) {
-          widget.onChanged?.call(value);
-        },
-        autovalidateMode: widget.autovalidateMode,
-        validator: widget.validator,
-        forceErrorText: widget.forceErrorText,
       ),
     );
   }
-
 }

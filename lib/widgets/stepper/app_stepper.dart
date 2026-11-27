@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 const TextStyle _kStepStyle = TextStyle(
   fontSize: 12.0,
@@ -61,7 +62,10 @@ class AppStepper extends StatefulWidget {
     this.connectorColor,
     this.connectorThickness,
     this.stepIconBuilder,
-  }) : assert(0 <= currentStep && currentStep < steps.length);
+    this.identifier,
+    this.stepKeys,
+  })  : assert(0 <= currentStep && currentStep < steps.length),
+        assert(stepKeys == null || stepKeys.length == steps.length);
 
   /// The steps of the stepper whose titles, subtitles, icons always get shown.
   ///
@@ -187,6 +191,16 @@ class AppStepper extends StatefulWidget {
   ///
   /// If null, the default icons will be used for respective [StepState].
   final StepIconBuilder? stepIconBuilder;
+
+  /// The stepper's identifier. Without [controlsBuilder], its buttons are
+  /// `{identifier}-continue` and `{identifier}-cancel`.
+  final String? identifier;
+
+  /// The key of each step's identifier, `{identifier}-step-{key}`, in the
+  /// order of [steps]. It comes from the step's data, never from its title,
+  /// which is translated, or its position, which changes when a step is
+  /// skipped. Without it, the steps have no identifier.
+  final List<String>? stepKeys;
 
   @override
   State<AppStepper> createState() => _AppStepperState();
@@ -426,44 +440,50 @@ class _AppStepperState extends State<AppStepper> with TickerProviderStateMixin {
           // and cancel button styles have been configured to match the original
           // version of this widget.
           children: <Widget>[
-            TextButton(
-              onPressed: widget.onStepContinue,
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-                    (Set<MaterialState> states) {
-                  return states.contains(MaterialState.disabled)
-                      ? null
-                      : (_isDark()
-                          ? colorScheme.onSurface
-                          : colorScheme.onPrimary);
-                }),
-                backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                    (Set<MaterialState> states) {
-                  return _isDark() || states.contains(MaterialState.disabled)
-                      ? null
-                      : colorScheme.primary;
-                }),
-                padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
-                    buttonPadding),
-                shape:
-                    const MaterialStatePropertyAll<OutlinedBorder>(buttonShape),
+            IdentifierSemantics(
+              identifier: partIdentifier(widget.identifier, 'continue'),
+              child: TextButton(
+                onPressed: widget.onStepContinue,
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+                      (Set<MaterialState> states) {
+                    return states.contains(MaterialState.disabled)
+                        ? null
+                        : (_isDark()
+                            ? colorScheme.onSurface
+                            : colorScheme.onPrimary);
+                  }),
+                  backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                      (Set<MaterialState> states) {
+                    return _isDark() || states.contains(MaterialState.disabled)
+                        ? null
+                        : colorScheme.primary;
+                  }),
+                  padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
+                      buttonPadding),
+                  shape: const MaterialStatePropertyAll<OutlinedBorder>(
+                      buttonShape),
+                ),
+                child: Text(themeData.useMaterial3
+                    ? localizations.continueButtonLabel
+                    : localizations.continueButtonLabel.toUpperCase()),
               ),
-              child: Text(themeData.useMaterial3
-                  ? localizations.continueButtonLabel
-                  : localizations.continueButtonLabel.toUpperCase()),
             ),
             Container(
               margin: const EdgeInsetsDirectional.only(start: 8.0),
-              child: TextButton(
-                onPressed: widget.onStepCancel,
-                style: TextButton.styleFrom(
-                  foregroundColor: cancelColor,
-                  padding: buttonPadding,
-                  shape: buttonShape,
+              child: IdentifierSemantics(
+                identifier: partIdentifier(widget.identifier, 'cancel'),
+                child: TextButton(
+                  onPressed: widget.onStepCancel,
+                  style: TextButton.styleFrom(
+                    foregroundColor: cancelColor,
+                    padding: buttonPadding,
+                    shape: buttonShape,
+                  ),
+                  child: Text(themeData.useMaterial3
+                      ? localizations.cancelButtonLabel
+                      : localizations.cancelButtonLabel.toUpperCase()),
                 ),
-                child: Text(themeData.useMaterial3
-                    ? localizations.cancelButtonLabel
-                    : localizations.cancelButtonLabel.toUpperCase()),
               ),
             ),
           ],
@@ -651,22 +671,25 @@ class _AppStepperState extends State<AppStepper> with TickerProviderStateMixin {
           Column(
             key: _keys[i],
             children: <Widget>[
-              InkWell(
-                onTap: widget.steps[i].state != StepState.disabled
-                    ? () {
-                        // In the vertical case we need to scroll to the newly tapped
-                        // step.
-                        Scrollable.ensureVisible(
-                          _keys[i].currentContext!,
-                          curve: Curves.fastOutSlowIn,
-                          duration: kThemeAnimationDuration,
-                        );
+              IdentifierSemantics(
+                identifier: _stepIdentifier(i),
+                child: InkWell(
+                  onTap: widget.steps[i].state != StepState.disabled
+                      ? () {
+                          // In the vertical case we need to scroll to the newly tapped
+                          // step.
+                          Scrollable.ensureVisible(
+                            _keys[i].currentContext!,
+                            curve: Curves.fastOutSlowIn,
+                            duration: kThemeAnimationDuration,
+                          );
 
-                        widget.onStepTapped?.call(i);
-                      }
-                    : null,
-                canRequestFocus: widget.steps[i].state != StepState.disabled,
-                child: _buildVerticalHeader(i),
+                          widget.onStepTapped?.call(i);
+                        }
+                      : null,
+                  canRequestFocus: widget.steps[i].state != StepState.disabled,
+                  child: _buildVerticalHeader(i),
+                ),
               ),
               _buildVerticalBody(i),
             ],
@@ -678,36 +701,39 @@ class _AppStepperState extends State<AppStepper> with TickerProviderStateMixin {
   Widget _buildHorizontal({double width = 400}) {
     final List<Widget> children = <Widget>[
       for (int i = 0; i < widget.steps.length; i += 1) ...<Widget>[
-        InkResponse(
-          onTap: widget.steps[i].state != StepState.disabled
-              ? () {
-                  widget.onStepTapped?.call(i);
-                }
-              : null,
-          canRequestFocus: widget.steps[i].state != StepState.disabled,
-          child: Container(
-            color: _isCurrent(i)
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.primaryContainer,
-            height: 4.0,
-            width:
-                (width - 4.0 * (widget.steps.length + 1)) / widget.steps.length,
-            child: const Center(),
-            // child: Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: <Widget>[
-            //     if (widget.steps[i].label != null)
-            //       const SizedBox(
-            //         height: 24.0,
-            //       ),
-            //     Center(child: _buildIcon(i)),
-            //     if (widget.steps[i].label != null)
-            //       SizedBox(
-            //         height: 24.0,
-            //         child: _buildLabelText(i),
-            //       ),
-            //   ],
-            // ),
+        IdentifierSemantics(
+          identifier: _stepIdentifier(i),
+          child: InkResponse(
+            onTap: widget.steps[i].state != StepState.disabled
+                ? () {
+                    widget.onStepTapped?.call(i);
+                  }
+                : null,
+            canRequestFocus: widget.steps[i].state != StepState.disabled,
+            child: Container(
+              color: _isCurrent(i)
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.primaryContainer,
+              height: 4.0,
+              width: (width - 4.0 * (widget.steps.length + 1)) /
+                  widget.steps.length,
+              child: const Center(),
+              // child: Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: <Widget>[
+              //     if (widget.steps[i].label != null)
+              //       const SizedBox(
+              //         height: 24.0,
+              //       ),
+              //     Center(child: _buildIcon(i)),
+              //     if (widget.steps[i].label != null)
+              //       SizedBox(
+              //         height: 24.0,
+              //         child: _buildLabelText(i),
+              //       ),
+              //   ],
+              // ),
+            ),
           ),
         ),
         if (!_isLast(i))
@@ -798,14 +824,23 @@ class _AppStepperState extends State<AppStepper> with TickerProviderStateMixin {
       }
       return true;
     }());
-    switch (widget.type) {
-      case StepperType.vertical:
-        return _buildVertical();
-      case StepperType.horizontal:
-        return LayoutBuilder(builder: (context, constraints) {
-          return _buildHorizontal(width: constraints.maxWidth);
-        });
-    }
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: switch (widget.type) {
+        StepperType.vertical => _buildVertical(),
+        StepperType.horizontal =>
+          LayoutBuilder(builder: (context, constraints) {
+            return _buildHorizontal(width: constraints.maxWidth);
+          }),
+      },
+    );
+  }
+
+  String? _stepIdentifier(int index) {
+    final stepKeys = widget.stepKeys;
+    return stepKeys == null
+        ? null
+        : partIdentifier(widget.identifier, 'step-${stepKeys[index]}');
   }
 }
 

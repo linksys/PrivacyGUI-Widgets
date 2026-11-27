@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:privacygui_widgets/widgets/gap/gap.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 /// Defines the visual decoration for a single PIN code input field.
 class PinCodeFieldDecoration {
@@ -43,7 +44,10 @@ class PinCodeFieldDecoration {
 class AppPinCodeInput extends StatefulWidget {
   final int length;
   final String? semanticLabel;
-  final String? semanticIdentifier;
+
+  /// The identifier of the whole input. Each field is
+  /// `{identifier}-cell-0` to `{identifier}-cell-{length - 1}`.
+  final String? identifier;
   final TextEditingController? controller;
   final ValueChanged<String>? onSubmitted;
   final ValueChanged<int>? onFocusChanged;
@@ -57,7 +61,7 @@ class AppPinCodeInput extends StatefulWidget {
     Key? key,
     required this.length,
     this.semanticLabel,
-    this.semanticIdentifier,
+    this.identifier,
     this.controller,
     this.onSubmitted,
     this.onFocusChanged,
@@ -198,156 +202,161 @@ class _AppPinCodeInputState extends State<AppPinCodeInput> {
               borderColor: colorScheme.primary,
             );
 
-    return GestureDetector(
-      // Ensure GestureDetector captures all taps within its bounds, even on its children.
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        // When the PIN area is tapped, forcefully unfocus any active field
-        // then request focus for the logically correct input field.
-        FocusManager.instance.primaryFocus?.unfocus();
-        int targetIndex = _getAutoFocusIndex();
-        FocusScope.of(context).requestFocus(_focusNodes[targetIndex]);
-        // Explicitly show keyboard after requesting focus. This ensures keyboard appears on tap.
-        // SystemChannels.textInput.invokeMethod('TextInput.show');
-      },
-      child: KeyboardListener(
-        focusNode: FocusNode(), // KeyboardListener requires its own FocusNode
-        onKeyEvent: (KeyEvent event) {
-          // Handle backspace key press for custom deletion logic.
-          if (event is KeyDownEvent &&
-              event.logicalKey == LogicalKeyboardKey.backspace) {
-            int? currentFocusedIndex;
-            for (int i = 0; i < widget.length; i++) {
-              if (_focusNodes[i].hasFocus) {
-                currentFocusedIndex = i;
-                break;
-              }
-            }
-
-            if (currentFocusedIndex != null) {
-              // If current field has text, clear it.
-              if (_controllers[currentFocusedIndex].text.isNotEmpty) {
-                _controllers[currentFocusedIndex].clear();
-              } else if (currentFocusedIndex > 0) {
-                // If current field is empty, move focus to the previous field and clear it.
-                FocusScope.of(context)
-                    .requestFocus(_focusNodes[currentFocusedIndex - 1]);
-                _controllers[currentFocusedIndex - 1].clear();
-                // No need to call TextInput.show here; keyboard should already be up.
-              }
-              widget.onChanged?.call(_combineValues());
-              // setState(() {}); // Rebuild to reflect changes
-            }
-          }
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: GestureDetector(
+        // Ensure GestureDetector captures all taps within its bounds, even on its children.
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          // When the PIN area is tapped, forcefully unfocus any active field
+          // then request focus for the logically correct input field.
+          FocusManager.instance.primaryFocus?.unfocus();
+          int targetIndex = _getAutoFocusIndex();
+          FocusScope.of(context).requestFocus(_focusNodes[targetIndex]);
+          // Explicitly show keyboard after requesting focus. This ensures keyboard appears on tap.
+          // SystemChannels.textInput.invokeMethod('TextInput.show');
         },
-        child: Semantics(
-          label: widget.semanticLabel,
-          identifier: widget.semanticIdentifier,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(widget.length, (index) {
-              // Determine field decoration based on current focus state.
-              final PinCodeFieldDecoration currentFieldDecoration =
-                  _focusNodes[index].hasFocus
-                      ? focusedDecoration
-                      : defaultDecoration;
-
-              // Determine effective border color based on focus, falling back to theme colors.
-              Color effectiveBorderColor;
-              if (_focusNodes[index].hasFocus) {
-                effectiveBorderColor =
-                    focusedDecoration.borderColor ?? colorScheme.primary;
-              } else {
-                effectiveBorderColor =
-                    defaultDecoration.borderColor ?? colorScheme.onSurface;
+        child: KeyboardListener(
+          focusNode: FocusNode(), // KeyboardListener requires its own FocusNode
+          onKeyEvent: (KeyEvent event) {
+            // Handle backspace key press for custom deletion logic.
+            if (event is KeyDownEvent &&
+                event.logicalKey == LogicalKeyboardKey.backspace) {
+              int? currentFocusedIndex;
+              for (int i = 0; i < widget.length; i++) {
+                if (_focusNodes[i].hasFocus) {
+                  currentFocusedIndex = i;
+                  break;
+                }
               }
 
-              return IgnorePointer(
-                // Other fields will have their taps captured by the parent GestureDetector.
-                child: SizedBox(
-                  width: currentFieldDecoration.width,
-                  height: currentFieldDecoration.height,
-                  child: TextFormField(
-                    controller: _controllers[index],
-                    focusNode: _focusNodes[index],
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(
-                          1), // Allow only one character
-                      FilteringTextInputFormatter
-                          .digitsOnly, // Allow only digits
-                    ],
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                            currentFieldDecoration.borderRadius),
-                        borderSide: BorderSide(
-                          color: effectiveBorderColor,
-                          width: currentFieldDecoration.borderWidth,
+              if (currentFocusedIndex != null) {
+                // If current field has text, clear it.
+                if (_controllers[currentFocusedIndex].text.isNotEmpty) {
+                  _controllers[currentFocusedIndex].clear();
+                } else if (currentFocusedIndex > 0) {
+                  // If current field is empty, move focus to the previous field and clear it.
+                  FocusScope.of(context)
+                      .requestFocus(_focusNodes[currentFocusedIndex - 1]);
+                  _controllers[currentFocusedIndex - 1].clear();
+                  // No need to call TextInput.show here; keyboard should already be up.
+                }
+                widget.onChanged?.call(_combineValues());
+                // setState(() {}); // Rebuild to reflect changes
+              }
+            }
+          },
+          child: Semantics(
+            label: widget.semanticLabel,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(widget.length, (index) {
+                // Determine field decoration based on current focus state.
+                final PinCodeFieldDecoration currentFieldDecoration =
+                    _focusNodes[index].hasFocus
+                        ? focusedDecoration
+                        : defaultDecoration;
+
+                // Determine effective border color based on focus, falling back to theme colors.
+                Color effectiveBorderColor;
+                if (_focusNodes[index].hasFocus) {
+                  effectiveBorderColor =
+                      focusedDecoration.borderColor ?? colorScheme.primary;
+                } else {
+                  effectiveBorderColor =
+                      defaultDecoration.borderColor ?? colorScheme.onSurface;
+                }
+
+                return IdentifierSemantics.textField(
+                  identifier: partIdentifier(widget.identifier, 'cell-$index'),
+                  child: IgnorePointer(
+                    // Other fields will have their taps captured by the parent GestureDetector.
+                    child: SizedBox(
+                      width: currentFieldDecoration.width,
+                      height: currentFieldDecoration.height,
+                      child: TextFormField(
+                        controller: _controllers[index],
+                        focusNode: _focusNodes[index],
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(
+                              1), // Allow only one character
+                          FilteringTextInputFormatter
+                              .digitsOnly, // Allow only digits
+                        ],
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                                currentFieldDecoration.borderRadius),
+                            borderSide: BorderSide(
+                              color: effectiveBorderColor,
+                              width: currentFieldDecoration.borderWidth,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                                focusedDecoration.borderRadius),
+                            borderSide: BorderSide(
+                              color: focusedDecoration.borderColor ??
+                                  colorScheme.primary,
+                              width: focusedDecoration.borderWidth,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                                currentFieldDecoration.borderRadius),
+                            borderSide: BorderSide(
+                              color: effectiveBorderColor,
+                              width: currentFieldDecoration.borderWidth,
+                            ),
+                          ),
+                          fillColor: currentFieldDecoration.fillColor,
+                          filled: currentFieldDecoration.fillColor != null,
                         ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                            focusedDecoration.borderRadius),
-                        borderSide: BorderSide(
-                          color: focusedDecoration.borderColor ??
-                              colorScheme.primary,
-                          width: focusedDecoration.borderWidth,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                            currentFieldDecoration.borderRadius),
-                        borderSide: BorderSide(
-                          color: effectiveBorderColor,
-                          width: currentFieldDecoration.borderWidth,
-                        ),
-                      ),
-                      fillColor: currentFieldDecoration.fillColor,
-                      filled: currentFieldDecoration.fillColor != null,
-                    ),
-                    onChanged: (value) {
-                      if (value.length == 1) {
-                        // If a character is entered
-                        if (index < widget.length - 1) {
-                          FocusScope.of(context)
-                              .requestFocus(_focusNodes[index + 1]);
-                          // After requesting focus, explicitly show keyboard
-                          // This is crucial for web/mobile browsers that might hide it on focus transfer
-                          // SystemChannels.textInput.invokeMethod('TextInput.show'); // <--- CRUCIAL CHANGE HERE
-                        } else {
-                          // All fields are filled. If not staying on last field, unfocus.
-                          if (_controllers
-                              .every((element) => element.text.isNotEmpty)) {
-                            if (!widget.stayOnLastField) {
-                              FocusManager.instance.primaryFocus?.unfocus();
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            // If a character is entered
+                            if (index < widget.length - 1) {
+                              FocusScope.of(context)
+                                  .requestFocus(_focusNodes[index + 1]);
+                              // After requesting focus, explicitly show keyboard
+                              // This is crucial for web/mobile browsers that might hide it on focus transfer
+                              // SystemChannels.textInput.invokeMethod('TextInput.show'); // <--- CRUCIAL CHANGE HERE
+                            } else {
+                              // All fields are filled. If not staying on last field, unfocus.
+                              if (_controllers.every(
+                                  (element) => element.text.isNotEmpty)) {
+                                if (!widget.stayOnLastField) {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                }
+                              }
                             }
                           }
-                        }
-                      }
-                      widget.controller?.text = _combineValues();
-                      widget.onChanged?.call(_combineValues());
-                    },
-                    onFieldSubmitted: (value) {
-                      if (!widget.stayOnLastField &&
-                          _controllers
-                              .every((element) => element.text.isNotEmpty)) {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      }
-                      widget.onSubmitted?.call(_combineValues());
-                    },
+                          widget.controller?.text = _combineValues();
+                          widget.onChanged?.call(_combineValues());
+                        },
+                        onFieldSubmitted: (value) {
+                          if (!widget.stayOnLastField &&
+                              _controllers.every(
+                                  (element) => element.text.isNotEmpty)) {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          }
+                          widget.onSubmitted?.call(_combineValues());
+                        },
+                      ),
+                    ),
                   ),
-                ),
-              );
-            }).expandIndexed<Widget>((index, element) sync* {
-              if (index != widget.length - 1) {
-                yield element;
-                yield const AppGap.small2();
-              } else {
-                yield element;
-              }
-            }).toList(),
+                );
+              }).expandIndexed<Widget>((index, element) sync* {
+                if (index != widget.length - 1) {
+                  yield element;
+                  yield const AppGap.small2();
+                } else {
+                  yield element;
+                }
+              }).toList(),
+            ),
           ),
         ),
       ),

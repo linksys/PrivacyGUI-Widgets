@@ -8,6 +8,7 @@ class AppSimplePanel extends StatelessWidget {
   final VoidCallback? onTap;
   final bool forcedHidingAccessory;
   final IconData? icon;
+  final String? identifier;
 
   const AppSimplePanel({
     Key? key,
@@ -18,6 +19,7 @@ class AppSimplePanel extends StatelessWidget {
     this.description,
     this.onTap,
     this.forcedHidingAccessory = false,
+    this.identifier,
   }) : super(key: key);
 
   Widget _getTitleWidgetByState(TapState state) {
@@ -41,6 +43,14 @@ class AppSimplePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = (description == null) ? 56.0 : 74.0;
+    // The tap merges into the identifier's node.
+    return IdentifierSemantics(
+      identifier: identifier,
+      child: _panel(context, height),
+    );
+  }
+
+  Widget _panel(BuildContext context, double height) {
     return TapBuilder(
       onTap: onTap,
       builder: (context, state, hasFocus) {

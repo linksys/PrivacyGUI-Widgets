@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AnimatedMeter extends StatefulWidget {
   final double value; // Current value for the meter (0.0 - 1.0)
@@ -10,6 +11,7 @@ class AnimatedMeter extends StatefulWidget {
   final Widget Function(BuildContext context, double value) centerBuilder;
   final Widget Function(BuildContext context, double value)? bottomBuilder;
   final List<double> markers;
+  final String? identifier;
 
   const AnimatedMeter({
     Key? key,
@@ -21,6 +23,7 @@ class AnimatedMeter extends StatefulWidget {
     this.markerRadius = 4,
     required this.centerBuilder,
     this.bottomBuilder,
+    this.identifier,
   }) : super(key: key);
 
   const AnimatedMeter.withDefaultMarks({
@@ -32,6 +35,7 @@ class AnimatedMeter extends StatefulWidget {
     this.markerRadius = 4,
     required this.centerBuilder,
     this.bottomBuilder,
+    this.identifier,
   })  : markers = const [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         super(key: key);
 
@@ -53,33 +57,36 @@ class _AnimatedMeterState extends State<AnimatedMeter>
   Widget build(BuildContext context) {
     _max = widget.markers.isEmpty ? 100 : widget.markers.last;
     _value = _getIndicatorValue(widget.value, _max, widget.markers);
-    return TweenAnimationBuilder(
-      tween: Tween<double>(begin: 0.0, end: _value > 1 ? 1 : _value),
-      duration: const Duration(milliseconds: 100),
-      builder: (context, value, child) => SizedBox(
-        width: widget.size,
-        height: widget.size,
-        child: Stack(
-          alignment: Alignment.center,
-          clipBehavior: Clip.none,
-          children: [
-            CustomPaint(
-              painter: MeterPainter(
-                context,
-                value: value,
-                displayIndicatorValues: widget.displayIndicatorValues,
-                indicatorStrokeWidth: widget.indicatorPathStrokeWidth,
-                markerRadius: widget.markerRadius,
-                markers: widget.markers.map((e) => '$e').toList(),
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: TweenAnimationBuilder(
+        tween: Tween<double>(begin: 0.0, end: _value > 1 ? 1 : _value),
+        duration: const Duration(milliseconds: 100),
+        builder: (context, value, child) => SizedBox(
+          width: widget.size,
+          height: widget.size,
+          child: Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.none,
+            children: [
+              CustomPaint(
+                painter: MeterPainter(
+                  context,
+                  value: value,
+                  displayIndicatorValues: widget.displayIndicatorValues,
+                  indicatorStrokeWidth: widget.indicatorPathStrokeWidth,
+                  markerRadius: widget.markerRadius,
+                  markers: widget.markers.map((e) => '$e').toList(),
+                ),
+                size: Size.square(widget.size), // Adjust size as needed
               ),
-              size: Size.square(widget.size), // Adjust size as needed
-            ),
-            widget.centerBuilder(context, widget.value),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: widget.bottomBuilder?.call(context, value),
-            ),
-          ],
+              widget.centerBuilder(context, widget.value),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: widget.bottomBuilder?.call(context, value),
+              ),
+            ],
+          ),
         ),
       ),
     );

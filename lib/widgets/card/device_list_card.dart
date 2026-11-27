@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/card/list_card.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppDeviceListCard extends StatelessWidget {
   final IconData leading;
@@ -16,6 +17,10 @@ class AppDeviceListCard extends StatelessWidget {
   final Color? color;
   final Color? borderColor;
 
+  /// The card's identifier. With [onSelected], its checkbox is
+  /// `{identifier}-select`.
+  final String? identifier;
+
   const AppDeviceListCard({
     Key? key,
     required this.leading,
@@ -28,6 +33,7 @@ class AppDeviceListCard extends StatelessWidget {
     this.borderColor,
     this.onTap,
     this.onSelected,
+    this.identifier,
   }) : super(key: key);
 
   @override
@@ -46,6 +52,7 @@ class AppDeviceListCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: Spacing.medium),
                     child: AppCheckbox(
+                      identifier: partIdentifier(identifier, 'select'),
                       value: isSelected,
                       onChanged: (value) => onSelected?.call(value ?? false),
                     ),
@@ -67,11 +74,11 @@ class AppDeviceListCard extends StatelessWidget {
               child: band,
             ),
           ],
-          if (trailing != null)
-            trailing!,
+          if (trailing != null) trailing!,
         ],
       ),
       onTap: onTap,
+      identifier: identifier,
     );
   }
 }

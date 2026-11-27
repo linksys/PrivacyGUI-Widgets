@@ -1,5 +1,11 @@
 import 'package:flutter/widgets.dart';
 
+/// The identifier of the part [part] of a component whose identifier is
+/// [identifier]: `{identifier}-{part}` (constitution 11.3), or null when the
+/// component has none.
+String? partIdentifier(String? identifier, String part) =>
+    identifier == null ? null : '$identifier-$part';
+
 /// Puts [identifier] on a semantics node of its own, where the Flutter 3.27.2
 /// web engine writes it to the DOM as `flt-semantics-identifier`. Without an
 /// identifier it is [child], and adds no node.

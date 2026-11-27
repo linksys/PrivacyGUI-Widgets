@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/widgets/gap/const/spacing.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppSectionItemData {
   final IconData? iconData;
@@ -32,21 +33,26 @@ class AppSectionLabel extends StatelessWidget {
     Key? key,
     required this.label,
     this.headerAction,
+    this.identifier,
   }) : super(key: key);
   final String label;
   final Widget? headerAction;
+  final String? identifier;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.bottomLeft,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: Spacing.medium),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(child: AppText.titleSmall(label)),
-            if (headerAction != null) headerAction!,
-          ],
+    return IdentifierSemantics(
+      identifier: identifier,
+      child: Container(
+        alignment: Alignment.bottomLeft,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: Spacing.medium),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: AppText.titleSmall(label)),
+              if (headerAction != null) headerAction!,
+            ],
+          ),
         ),
       ),
     );
@@ -109,6 +115,7 @@ class AppSection extends StatelessWidget {
                     title: e.title,
                     icon: e.iconData,
                     onTap: e.onTap,
+                    identifier: e.identifier,
                   ))
             ],
           ),

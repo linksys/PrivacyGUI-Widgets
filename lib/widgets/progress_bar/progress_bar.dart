@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 enum AppProgressBarStyle {
   linear,
@@ -15,6 +16,7 @@ class AppProgressBar extends StatefulWidget {
   final Color? color;
   final Color? background;
   final String? semanticLabel;
+  final String? identifier;
 
   const AppProgressBar({
     Key? key,
@@ -26,6 +28,7 @@ class AppProgressBar extends StatefulWidget {
     this.background,
     this.callback,
     this.semanticLabel,
+    this.identifier,
   }) : super(key: key);
 
   @override
@@ -62,6 +65,13 @@ class _AppProgressBarState extends State<AppProgressBar>
 
   @override
   Widget build(BuildContext context) {
+    return IdentifierSemantics(
+      identifier: widget.identifier,
+      child: _indicator(context),
+    );
+  }
+
+  Widget _indicator(BuildContext context) {
     if (widget.style == AppProgressBarStyle.circular) {
       return CircularProgressIndicator(
         value: _controller.value,

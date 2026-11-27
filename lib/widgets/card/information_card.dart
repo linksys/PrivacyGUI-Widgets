@@ -8,6 +8,7 @@ class AppInformationCard extends StatelessWidget {
   final String title;
   final String? description;
   final Widget? content;
+  final String? identifier;
 
   const AppInformationCard({
     Key? key,
@@ -15,11 +16,13 @@ class AppInformationCard extends StatelessWidget {
     required this.title,
     this.description,
     this.content,
+    this.identifier,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppCard(
+      identifier: identifier,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

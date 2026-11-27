@@ -289,9 +289,7 @@ class _AppIPFormFieldState extends State<AppIPFormField> {
                 : Theme.of(context).colorScheme.outline));
     // Each octet is a text field of its own.
     return IdentifierSemantics.textField(
-      identifier: widget.identifier != null
-          ? '${widget.identifier}-octet-$index'
-          : null,
+      identifier: partIdentifier(widget.identifier, 'octet-$index'),
       child: Semantics(
         label: widget.semanticLabel != null
             ? '${widget.semanticLabel} Octet $index'

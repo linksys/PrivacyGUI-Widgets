@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:privacygui_widgets/icons/linksys_icons.dart';
 import 'package:privacygui_widgets/widgets/_widgets.dart';
 import 'package:privacygui_widgets/widgets/input_field/validator_widget.dart';
+import 'package:privacygui_widgets/widgets/semantics/identifier_semantics.dart';
 
 class AppPasswordField extends StatefulWidget {
   final String? headerText;
@@ -156,9 +157,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
               });
             },
             // A part of the field, and the same whether it shows or hides.
-            identifier: widget.identifier == null
-                ? null
-                : '${widget.identifier}-visibility',
+            identifier: partIdentifier(widget.identifier, 'visibility'),
             semanticLabel:
                 '${widget.semanticLabel ?? ''} ${_isHidePassword ? 'show password' : 'hide password'}',
           ),
